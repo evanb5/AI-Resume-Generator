@@ -2,6 +2,7 @@ package com.github.models.inference.samples;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Scanner;
 
 import com.azure.ai.inference.ChatCompletionsClient;
 import com.azure.ai.inference.ChatCompletionsClientBuilder;
@@ -28,18 +29,39 @@ public final class BasicChatSample {
                 .endpoint(endpoint)
                 .buildClient();
 
-        List<ChatRequestMessage> chatMessages = Arrays.asList(
-                new ChatRequestSystemMessage("You are a helpful assistant."),
-                new ChatRequestUserMessage("Tell me 3 jokes about trains")
-        );
+        // Initialize scanner for user input
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Ask a question (type 'exit' to quit):");
 
-        ChatCompletionsOptions chatCompletionsOptions = new ChatCompletionsOptions(chatMessages);
-        chatCompletionsOptions.setModel(model);
+        while (true) {
+            // Get user input
+            System.out.print("You: ");
+            String userInput = scanner.nextLine();
 
-        ChatCompletions completions = client.complete(chatCompletionsOptions);
+            if ("exit".equalsIgnoreCase(userInput)) {
+                System.out.println("Exiting chat.");
+                break;
+            }
 
-        for (var choice : completions.getChoices()) {
-            System.out.printf("%s.%n", choice.getMessage().getContent());
+            // Prepare messages
+            List<ChatRequestMessage> chatMessages = Arrays.asList(
+                    new ChatRequestSystemMessage("You are a helpful assistant."),
+                    new ChatRequestUserMessage(userInput)
+            );
+
+            // Set up chat options with the user's input
+            ChatCompletionsOptions chatCompletionsOptions = new ChatCompletionsOptions(chatMessages);
+            chatCompletionsOptions.setModel(model);
+
+            // Get response
+            ChatCompletions completions = client.complete(chatCompletionsOptions);
+
+            // Print all response messages (in case there are multiple choices)
+            completions.getChoices().forEach(choice -> {
+                System.out.printf("Assistant: %s%n", choice.getMessage().getContent());
+            });
         }
+
+        scanner.close();
     }
 }
