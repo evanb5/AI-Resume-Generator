@@ -1,9 +1,14 @@
+package view;
+
+import com.github.models.inference.samples.BasicChatSample;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 
-public class uiCreatresume extends JFrame {
+/*public class uiCreatresume extends JFrame {
     private JTextField nameField, emailField, universityField, gpaField;
     private JTextArea competitionsArea, internshipsArea, extracurricularsArea, skillsArea, interestsArea, othersArea;
     private JButton submitButton;
@@ -128,5 +133,114 @@ public class uiCreatresume extends JFrame {
             uiCreatresume form = new uiCreatresume();
             form.setVisible(true);
         });
+    }*/
+public class uiCreatresume {
+    private JPanel panel;
+    private JTextField nameField;
+    private JTextField emailField;
+    private JTextArea experienceArea;
+    private JTextArea educationArea;
+    private JTextArea skillsArea;
+    private JButton submitButton;
+    private JButton finishButton;
+    private JTextArea chatArea;
+    private BasicChatSample chatSample;
+
+    public uiCreatresume(BasicChatSample chatSample) {
+        this.chatSample = chatSample;
+        panel = new JPanel();
+        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+
+        // Basic fields for resume data
+        nameField = new JTextField(20);
+        emailField = new JTextField(20);
+        experienceArea = new JTextArea(5, 20);
+        educationArea = new JTextArea(5, 20);
+        skillsArea = new JTextArea(5, 20);
+        submitButton = new JButton("Submit");
+        finishButton = new JButton("Finish");
+        chatArea = new JTextArea(10, 30);
+        chatArea.setEditable(false);
+
+        // Add components to the panel
+        panel.add(new JLabel("Name:"));
+        panel.add(nameField);
+        panel.add(new JLabel("Email:"));
+        panel.add(emailField);
+        panel.add(new JLabel("Experience:"));
+        panel.add(new JScrollPane(experienceArea));
+        panel.add(new JLabel("Education:"));
+        panel.add(new JScrollPane(educationArea));
+        panel.add(new JLabel("Skills:"));
+        panel.add(new JScrollPane(skillsArea));
+        panel.add(submitButton);
+        panel.add(finishButton);
+        panel.add(new JScrollPane(chatArea));
+
+        // Add action listener to the submit button
+        submitButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                handleSubmit();
+            }
+        });
+
+        // Add action listener to the finish button
+        finishButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                handleFinish();
+            }
+        });
+    }
+
+    private String sanitizeInput(String input) {
+        try {
+            return URLEncoder.encode(input, StandardCharsets.UTF_8.toString());
+        } catch (Exception e) {
+            return ""; // Return empty if encoding fails
+        }
+    }
+
+    private void handleSubmit() {
+        // Collect data from the fields and encode them
+        String name = sanitizeInput(nameField.getText().trim());
+        String email = sanitizeInput(emailField.getText().trim());
+        String experience = sanitizeInput(experienceArea.getText().trim());
+        String education = sanitizeInput(educationArea.getText().trim());
+        String skills = sanitizeInput(skillsArea.getText().trim());
+
+        // Check that required fields are not empty
+        if (name.isEmpty() || email.isEmpty()) {
+            JOptionPane.showMessageDialog(panel, "Please fill in Name and Email fields.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        // Construct a prompt for generating a resume
+        String resumePrompt = "Generate a professional resume based on the following details: " +
+                "Name: " + name  +
+                "Email: " + email +
+                "Experience: " + experience +
+                "Education: " + education +
+                "Skills: " + skills;
+
+        // Process the prompt with BasicChatSample
+        String response = chatSample.processUserInput(resumePrompt);
+
+        // Display the generated resume in chat area
+        chatArea.setText("Generated Resume:\n" + response + "\n");
+    }
+
+    private void handleFinish() {
+        try {
+            chatSample.close(); // Finalize and save the PDF
+            JOptionPane.showMessageDialog(panel, "PDF file 'chat_responses.pdf' has been saved successfully.", "Finish", JOptionPane.INFORMATION_MESSAGE);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(panel, "Error saving PDF: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    public JPanel getPanel() {
+        return panel;
     }
 }
