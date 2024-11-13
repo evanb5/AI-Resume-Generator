@@ -32,38 +32,12 @@ public class ChatGPTService {
     }
 
     private String generateDocument(String userInput) {
-        chatMessages.add(new ChatRequestUserMessage(userInput));
-
-        ChatCompletionsOptions options = new ChatCompletionsOptions(chatMessages);
-        options.setModel("gpt-4o-mini");
-
-        ChatCompletions completions = client.complete(options);
-
-        String assistantResponse = "";
-        for (ChatChoice choice : completions.getChoices()) {
-            assistantResponse = choice.getMessage().getContent();
-            chatMessages.add(new ChatRequestAssistantMessage(assistantResponse));
-        }
-
-        return assistantResponse;
+        //TODO
+        return null;
     }
 
     public String generateSuggestions(String userInfo, String jobDescription) {
-        String userInput = "Provide suggestions to improve the resume of the following user for the job:\n" + userInfo + "\nJob Description:\n" + jobDescription;
-
-        chatMessages.add(new ChatRequestUserMessage(userInput));
-
-        ChatCompletionsOptions options = new ChatCompletionsOptions(chatMessages);
-        options.setModel("gpt-4o-mini");
-
-        ChatCompletions completions = client.complete(options);
-
-        String assistantResponse = "";
-        for (ChatChoice choice : completions.getChoices()) {
-            assistantResponse = choice.getMessage().getContent();
-            chatMessages.add(new ChatRequestAssistantMessage(assistantResponse));
-        }
-
-        return assistantResponse;
+        //TODO
+        return null;
     }
 }
