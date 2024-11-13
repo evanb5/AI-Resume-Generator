@@ -38,7 +38,6 @@ public class AppBuilder {
         BuildCVInputBoundary buildCVInteractor = new BuildCVInteractor(userDataAccess, buildCVPresenter);
         GiveSuggestionsInputBoundary giveSuggestionsInteractor = new GiveSuggestionsInteractor(userDataAccess, giveSuggestionsPresenter);
 
-        // 初始化 Controller
         LoginController loginController = new LoginController(loginInteractor);
         SignupController signupController = new SignupController(signupInteractor);
         UserInputController userInputController = new UserInputController(userInputInteractor);
