@@ -1,23 +1,13 @@
 // interface_adapter/signup/SignupViewModel.java
 package interface_adapter.signup;
 
-public class SignupViewModel {
-    private boolean success;
-    private String message;
+import interface_adapter.ViewModel;
 
-    public boolean isSuccess() {
-        return success;
+public class SignupViewModel extends ViewModel<SignupState> {
+
+    public SignupViewModel() {
+        super("sign up");
+        setState(new SignupState());
     }
 
-    public void setSuccess(boolean success) {
-        this.success = success;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
-    }
 }

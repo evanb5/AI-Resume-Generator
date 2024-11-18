@@ -3,9 +3,20 @@ package view;
 
 import javax.swing.*;
 import java.awt.event.*;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+
 import interface_adapter.signup.*;
 
-public class SignupView extends JPanel {
+public class SignupView extends JPanel implements ActionListener, PropertyChangeListener {
+    private final String viewName = "sign up";
+
+    private final SignupViewModel signupViewModel;
+    private final JTextField usernameInputField = new JTextField(15);
+    private final JPasswordField passwordInputField = new JPasswordField(15);
+    private final JPasswordField repeatPasswordInputField = new JPasswordField(15);
+    private SignupController signupController;
+
     private ViewManager viewManager;
     private SignupController controller;
     private SignupPresenter presenter;
@@ -17,10 +28,9 @@ public class SignupView extends JPanel {
     private JButton backButton;
     private JLabel messageLabel;
 
-    public SignupView(ViewManager viewManager, SignupController controller, SignupPresenter presenter) {
-        this.viewManager = viewManager;
-        this.controller = controller;
-        this.presenter = presenter;
+    public SignupView(SignupViewModel signupViewModel) {
+        this.signupViewModel = signupViewModel;
+        signupViewModel.addPropertyChangeListener(this);
 
         usernameField = new JTextField(20);
         passwordField = new JPasswordField(20);
@@ -40,23 +50,49 @@ public class SignupView extends JPanel {
         add(backButton);
         add(messageLabel);
 
-        signupButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                controller.signup(usernameField.getText(), new String(passwordField.getPassword()), emailField.getText());
-                SignupViewModel viewModel = presenter.getViewModel();
-                messageLabel.setText(viewModel.getMessage());
-                if (viewModel.isSuccess()) {
-                    viewManager.showLoginView();
+        signupButton.addActionListener(
+                new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
+                        if (e.getSource().equals(signupButton)) {
+                            final SignupState currentState = signupViewModel.getState();
+
+                            signupController.signup(
+                                    currentState.getUsername(),
+                                    currentState.getPassword(),
+                                    currentState.getRepeatPassword()
+                            );
+                        }
+                    }
                 }
-            }
-        });
+
+        );
 
         backButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                viewManager.showLoginView();
+                signupController.switchToLoginView();
             }
         });
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+
+    }
+
+    @Override
+    public void propertyChange(PropertyChangeEvent e) {
+        final SignupState state = (SignupState) e.getNewValue();
+        if (state.getUsernameError() != null) {
+            JOptionPane.showMessageDialog(this, state.getUsernameError());
+        }
+    }
+
+    public String getViewName() {
+        return viewName;
+    }
+
+    public void setSignupController(SignupController controller) {
+        this.signupController = controller;
     }
 }
