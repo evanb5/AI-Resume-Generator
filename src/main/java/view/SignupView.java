@@ -5,14 +5,21 @@ import javax.swing.*;
 import java.awt.event.*;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.util.Arrays;
 
 import interface_adapter.signup.*;
 
 public class SignupView extends JPanel implements ActionListener, PropertyChangeListener {
+    private final String viewName = "sign up";
+
+    private final SignupViewModel signupViewModel;
+    private final JTextField usernameInputField = new JTextField(15);
+    private final JPasswordField passwordInputField = new JPasswordField(15);
+    private final JPasswordField repeatPasswordInputField = new JPasswordField(15);
+    private SignupController signupController;
+
     private ViewManager viewManager;
     private SignupController controller;
-    private SignupViewModel signupViewModel;
+    private SignupPresenter presenter;
 
     private JTextField usernameField;
     private JPasswordField passwordField;
@@ -21,10 +28,8 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
     private JButton backButton;
     private JLabel messageLabel;
 
-    public SignupView(ViewManager viewManager, SignupViewModel viewModel) {
-        this.viewManager = viewManager;
-        this.controller = controller;
-        this.signupViewModel = viewModel;
+    public SignupView(SignupViewModel signupViewModel) {
+        this.signupViewModel = signupViewModel;
         signupViewModel.addPropertyChangeListener(this);
 
         usernameField = new JTextField(20);
@@ -45,47 +50,49 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
         add(backButton);
         add(messageLabel);
 
-        signupButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (e.getSource() == signupButton) {
-                    updateCurrentState();
-                    controller.signup(usernameField.getText(), new String(passwordField.getPassword()), emailField.getText());
-                    messageLabel.setText(viewModel.getMessage());
-                    if (viewModel.isSuccess()) {
-                        viewManager.showLoginView();
+        signupButton.addActionListener(
+                new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
+                        if (e.getSource().equals(signupButton)) {
+                            final SignupState currentState = signupViewModel.getState();
+
+                            signupController.signup(
+                                    currentState.getUsername(),
+                                    currentState.getPassword(),
+                                    currentState.getRepeatPassword()
+                            );
+                        }
                     }
                 }
-            }
-        });
+
+        );
 
         backButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                viewManager.showLoginView();
+                signupController.switchToLoginView();
             }
         });
-
-    }
-    private void updateCurrentState() {
-        final SignupState currentState = signupViewModel.getState();
-        currentState.setEmail(emailField.getText());
-        currentState.setPassword(Arrays.toString(passwordField.getPassword()));
-        currentState.setUserName(usernameField.getText());
-        signupViewModel.setState(currentState);
-    }
-
-    public void setSignupController(SignupController controller) {
-        this.controller = controller;
-    }
-
-    @Override
-    public void propertyChange(PropertyChangeEvent evt) {
-        final SignupState state = (SignupState) evt.getNewValue();
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        System.out.println("Click " + e.getActionCommand());
+
+    }
+
+    @Override
+    public void propertyChange(PropertyChangeEvent e) {
+        final SignupState state = (SignupState) e.getNewValue();
+        if (state.getUsernameError() != null) {
+            JOptionPane.showMessageDialog(this, state.getUsernameError());
+        }
+    }
+
+    public String getViewName() {
+        return viewName;
+    }
+
+    public void setSignupController(SignupController controller) {
+        this.signupController = controller;
     }
 }

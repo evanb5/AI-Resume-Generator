@@ -1,28 +1,33 @@
 // interface_adapter/signup/SignupPresenter.java
 package interface_adapter.signup;
 
-import interface_adapter.login.LoginState;
-import interface_adapter.login.LoginViewModel;
+import interface_adapter.ViewManagerModel;
 import use_case.signup.*;
 
 public class SignupPresenter implements SignupOutputBoundary {
-    private final SignupViewModel viewModel;
-    private final LoginViewModel loginViewModel;
+    private SignupViewModel viewModel;
+    private ViewManagerModel viewManagerModel;
 
-    public SignupPresenter(LoginViewModel loginViewModel, SignupViewModel viewModel) {
-        this.loginViewModel = loginViewModel;
+    public SignupPresenter(ViewManagerModel viewManagerModel, SignupViewModel viewModel) {
         this.viewModel = viewModel;
+        this.viewManagerModel = viewManagerModel;
     }
 
     @Override
     public void present(SignupOutputData outputData) {
-        final LoginState loginState = loginViewModel.getState();
-        loginState.setusername(outputData.getUsername());
-        this.loginViewModel.setState(loginState);
-        loginViewModel.firePropertyChanged();
+        viewManagerModel.firePropertyChanged();
+    }
 
-        viewModel.setSuccess(outputData.isSuccess());
-        viewModel.setMessage(outputData.getMessage());
+    @Override
+    public void failView(String errorMessage) {
+        final SignupState signupState = viewModel.getState();
+        signupState.setUsernameError(errorMessage);
+        viewModel.firePropertyChanged();
+    }
+
+    @Override
+    public void switchToLoginView() {
+
     }
 
     public SignupViewModel getViewModel() {
