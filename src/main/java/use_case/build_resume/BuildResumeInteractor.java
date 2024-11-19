@@ -13,7 +13,7 @@ public class BuildResumeInteractor implements BuildResumeInputBoundary {
     public BuildResumeInteractor(UserDataAccessInterface userDataAccess, BuildResumeOutputBoundary presenter) {
         this.userDataAccess = userDataAccess;
         this.presenter = presenter;
-        this.chatGPTService = new ChatGPTService("YOUR_API_KEY", "YOUR_ENDPOINT");
+        this.chatGPTService = new ChatGPTService();
     }
 
     @Override
