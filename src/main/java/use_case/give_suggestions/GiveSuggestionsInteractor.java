@@ -13,7 +13,7 @@ public class GiveSuggestionsInteractor implements GiveSuggestionsInputBoundary {
     public GiveSuggestionsInteractor(UserDataAccessInterface userDataAccess, GiveSuggestionsOutputBoundary presenter) {
         this.userDataAccess = userDataAccess;
         this.presenter = presenter;
-        this.chatGPTService = new ChatGPTService("YOUR_API_KEY", "YOUR_ENDPOINT");
+        this.chatGPTService = new ChatGPTService();
     }
 
     @Override
