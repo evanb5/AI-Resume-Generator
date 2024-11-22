@@ -18,6 +18,7 @@ public class BuildResumeInteractor implements BuildResumeInputBoundary {
 
     @Override
     public void buildResume(BuildResumeInputData inputData) {
+
         User user = inputData.getUser();
         String jobDescription = inputData.getJobDescription();
         String templateChoice = inputData.getTemplateChoice();
@@ -29,6 +30,9 @@ public class BuildResumeInteractor implements BuildResumeInputBoundary {
         String formattedResume = applyTemplate(resumeContent, templateChoice);
 
         BuildResumeOutputData outputData = new BuildResumeOutputData(formattedResume, "Resume generated successfully");
+
+        user.addResume(formattedResume);
+
         presenter.present(outputData);
     }
 
@@ -42,5 +46,6 @@ public class BuildResumeInteractor implements BuildResumeInputBoundary {
 
     private String applyTemplate(String resumeContent, String templateChoice) {
         return "template: " + templateChoice + "\n\n" + resumeContent;
+
     }
 }

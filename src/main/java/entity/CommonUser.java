@@ -12,12 +12,18 @@ public class CommonUser implements User {
     private List<String> workExperience;
     private List<String> education;
     private List<String> skills;
+    private List<String> resume;
 
     public CommonUser() {
         this.workExperience = new ArrayList<>();
         this.education = new ArrayList<>();
         this.skills = new ArrayList<>();
+        this.resume = new ArrayList<>();
     }
+
+    public List<String> getResume(){return resume;}
+    public void addResume(String resume){this.resume.add(resume);}
+
 
     @Override
     public String getUsername() {
@@ -61,6 +67,8 @@ public class CommonUser implements User {
 
     @Override
     public List<String> getWorkExperience() {
+        System.out.println("work experience obtained");
+        System.out.println(workExperience);
         return workExperience;
     }
 

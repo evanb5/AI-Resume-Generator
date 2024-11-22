@@ -24,4 +24,7 @@ public interface User {
 
     List<String> getSkills();
     void setSkills(List<String> skills);
+
+    List<String> getResume();
+    void addResume(String resume);
 }
