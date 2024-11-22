@@ -18,49 +18,21 @@ import use_case.build_cv.*;
 import use_case.give_suggestions.*;
 import view.*;
 
-import javax.swing.*;
-import java.awt.*;
-
 public class AppBuilder {
-    private final JPanel cardPanel = new JPanel();
-    private final CardLayout cardLayout = new CardLayout();
-    private final UserFactory userFactory = new CommonUserFactory();
-    private final ViewManagerModel viewManagerModel = new ViewManagerModel();
-    private final ViewManager viewManager = new ViewManager(cardPanel, cardLayout, viewManagerModel);
-
-    private final InMemoryUserDataAccessObject userDataAccessObject = new InMemoryUserDataAccessObject();
-
-    private BuildCVView buildCVView;
-    private BuildCVViewModel buildCVViewModel;
-    private BuildResumeView buildResumeView;
-    private BuildResumeViewModel buildResumeViewModel;
-    private GiveSuggestionsView giveSuggestionsView;
-    private GiveSuggestionsViewModel giveSuggestionsViewModel;
-    private LoginView loginView;
-    private LoginViewModel loginViewModel;
-    private SignupView signupView;
-    private SignupViewModel signupViewModel;
-    private UserInputView userInputView;
-    private UserInputViewModel userInputViewModel;
-
-    public AppBuilder() {
-        cardPanel.setLayout(cardLayout);
-    }
-
-    public AppBuilder addSignupView() {
-        signupViewModel = new SignupViewModel();
-        signupView = new SignupView(signupViewModel);
-        cardPanel.add(signupView, signupView.getName());
-        return this;
-    }
-
-    public JFrame build() {
+    public void build() {
         UserDataAccessInterface userDataAccess = new InMemoryUserDataAccessObject();
 
         UserFactory userFactory = new CommonUserFactory();
 
+        SignupViewModel signupViewModel = new SignupViewModel();
+        LoginViewModel loginViewModel = new LoginViewModel();
+        UserInputViewModel userInputViewModel = new UserInputViewModel();
+        BuildResumeViewModel buildResumeViewModel = new BuildResumeViewModel();
+        BuildCVViewModel buildCVViewModel = new BuildCVViewModel();
+        GiveSuggestionsViewModel giveSuggestionsViewModel = new GiveSuggestionsViewModel();
+
         LoginPresenter loginPresenter = new LoginPresenter();
-        SignupPresenter signupPresenter = new SignupPresenter();
+        SignupPresenter signupPresenter = new SignupPresenter(loginViewModel, signupViewModel);
         UserInputPresenter userInputPresenter = new UserInputPresenter();
         BuildResumePresenter buildResumePresenter = new BuildResumePresenter();
         BuildCVPresenter buildCVPresenter = new BuildCVPresenter();
@@ -87,8 +59,8 @@ public class AppBuilder {
                 buildResumeController,
                 buildCVController,
                 giveSuggestionsController,
-                loginPresenter,
-                signupPresenter,
+                loginViewModel,
+                signupViewModel,
                 userInputPresenter,
                 buildResumePresenter,
                 buildCVPresenter,
@@ -96,6 +68,5 @@ public class AppBuilder {
         );
 
         viewManager.showLoginView();
-        return null;
     }
 }

@@ -14,6 +14,4 @@ public class SignupController {
         SignupInputData inputData = new SignupInputData(username, password, email);
         interactor.signup(inputData);
     }
-
-    public void switchToLoginView() { interactor.switchToLoginView(); }
 }
