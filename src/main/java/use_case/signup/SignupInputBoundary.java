@@ -3,6 +3,4 @@ package use_case.signup;
 
 public interface SignupInputBoundary {
     void signup(SignupInputData inputData);
-
-    void switchToLoginView();
 }

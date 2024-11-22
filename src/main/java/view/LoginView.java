@@ -13,7 +13,7 @@ import session.UserSession;
 public class LoginView extends JPanel implements ActionListener, PropertyChangeListener {
     private ViewManager viewManager;
     private LoginController controller;
-    private LoginViewModel loginViewModel;
+    private LoginViewModel viewModel;
 
     private JTextField usernameField;
     private JPasswordField passwordField;
@@ -23,8 +23,8 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
 
     public LoginView(ViewManager viewManager, LoginViewModel viewModel) {
         this.viewManager = viewManager;
-        this.loginViewModel = viewModel;
-        loginViewModel.addPropertyChangeListener(this);
+        this.viewModel = viewModel;
+        viewModel.addPropertyChangeListener(this);
 
         usernameField = new JTextField(20);
         passwordField = new JPasswordField(20);
@@ -65,10 +65,10 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
     }
 
     private void updateCurrentState() {
-        final LoginState currentState = loginViewModel.getState();
+        final LoginState currentState = viewModel.getState();
         currentState.setPassword(Arrays.toString(passwordField.getPassword()));
         currentState.setusername(usernameField.getText());
-        loginViewModel.setState(currentState);
+        viewModel.setState(currentState);
     }
 
     @Override

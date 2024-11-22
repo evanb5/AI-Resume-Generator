@@ -1,32 +1,22 @@
 package interface_adapter.login;
 
 public class LoginState {
-    private String username = "";
-    private String loginError;
+    private String userName = "";
     private String password = "";
 
-    public String getUsername() {
-        return username;
+    public String getUserName() {
+        return userName;
     }
 
-    public String getLoginError() {
-        return loginError;
+    public void setusername(String userName) {
+        this.userName = userName;
     }
 
     public String getPassword() {
         return password;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public void setLoginError(String usernameError) {
-        this.loginError = usernameError;
-    }
-
     public void setPassword(String password) {
         this.password = password;
     }
-
 }
