@@ -15,6 +15,4 @@ public class SignupController {
         interactor.signup(inputData);
 
     }
-
-    public void switchToLoginView() { interactor.switchToLoginView(); }
 }
