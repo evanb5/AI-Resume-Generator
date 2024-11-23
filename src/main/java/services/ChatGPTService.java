@@ -29,8 +29,19 @@ public class ChatGPTService {
         chatMessages.add(new ChatRequestSystemMessage("You are a helpful assistant that helps users create professional documents."));
     }
 
-    public String generateResume(String userInfo, String jobDescription) {
-        String userInput = "Generate a professional resume for the following user:\n" + userInfo + "\nJob Description:\n" + jobDescription;
+    public String generateResume(String userInfo, String jobDescription, int templateNumber) {
+        String userInput = switch (templateNumber) {
+            case 1 ->
+                    "Generate a professional resume for the following user:\n" + userInfo + "\nJob Description:\n" + jobDescription;
+            case 2 ->
+                    "Generate a modern resume emphasizing skills and achievements for the following user:\n" + userInfo + "\nJob Description:\n" + jobDescription;
+            case 3 ->
+                    "Generate a creative resume focusing on design and layout for the following user:\n" + userInfo + "\nJob Description:\n" + jobDescription;
+            default ->
+                    "Generate a professional resume for the following user:\n" + userInfo + "\nJob Description:\n" + jobDescription;
+        };
+        // Debugging: Print the userInput to verify correctness
+        System.out.println("Generated User Input for API:\n" + userInput);
         return generateDocument(userInput);
     }
 

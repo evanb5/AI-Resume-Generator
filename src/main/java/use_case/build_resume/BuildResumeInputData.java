@@ -6,12 +6,12 @@ import entity.User;
 public class BuildResumeInputData {
     private User user;
     private String jobDescription;
-    private String templateChoice;
+    private int templateNumber;
 
-    public BuildResumeInputData(User user, String jobDescription, String templateChoice) {
+    public BuildResumeInputData(User user, String jobDescription, int templateNumber) {
         this.user = user;
         this.jobDescription = jobDescription;
-        this.templateChoice = templateChoice;
+        this.templateNumber = templateNumber;
     }
 
     public User getUser() {
@@ -22,7 +22,7 @@ public class BuildResumeInputData {
         return jobDescription;
     }
 
-    public String getTemplateChoice() {
-        return templateChoice;
+    public int getTemplateNumber() {
+        return templateNumber;
     }
 }

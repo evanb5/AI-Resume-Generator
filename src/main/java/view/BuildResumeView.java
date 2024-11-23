@@ -27,7 +27,7 @@ public class BuildResumeView extends JPanel {
 
         // Initialize components
         jobDescriptionArea = new JTextArea(5, 20);
-        templateComboBox = new JComboBox<>(new String[]{"Template 1", "Template 2", "Template 3"});
+        templateComboBox = new JComboBox<>(new String[]{"Professional Resume", "Modern Resume prioritizing Skills", "Creative Resume prioritizing Design/Layout"});
         generateButton = new JButton("Generate Resume");
         backButton = new JButton("Back");
         resumeDisplayArea = new JTextArea(20, 50);
@@ -54,13 +54,25 @@ public class BuildResumeView extends JPanel {
                 String templateChoice = (String) templateComboBox.getSelectedItem();
                 User user = UserSession.getInstance().getCurrentUser();
 
-                BuildResumeInputData inputData = new BuildResumeInputData(user, jobDescription, templateChoice);
+                int templateNumber = mapTemplateChoiceToNumber(templateChoice);
+
+                BuildResumeInputData inputData = new BuildResumeInputData(user, jobDescription, templateNumber);
                 controller.buildResume(inputData);
 
                 // Update view
                 BuildResumeViewModel viewModel = presenter.getViewModel();
                 resumeDisplayArea.setText(viewModel.getFormattedResume());
                 messageLabel.setText(viewModel.getMessage());
+            }
+
+            // Helper method to map template names to numbers
+            private int mapTemplateChoiceToNumber(String templateChoice) {
+                return switch (templateChoice) {
+                    case "Professional Resume" -> 1;
+                    case "Modern Resume prioritizing Skills" -> 2;
+                    case "Creative Resume prioritizing Design/Layout" -> 3;
+                    default -> 1; // Default to Template 1 if unrecognized
+                };
             }
         });
 

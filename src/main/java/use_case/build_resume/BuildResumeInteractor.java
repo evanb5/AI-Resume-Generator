@@ -20,27 +20,21 @@ public class BuildResumeInteractor implements BuildResumeInputBoundary {
     public void buildResume(BuildResumeInputData inputData) {
         User user = inputData.getUser();
         String jobDescription = inputData.getJobDescription();
-        String templateChoice = inputData.getTemplateChoice();
+        int templateNumber = inputData.getTemplateNumber();
 
         String userInfo = extractUserInfo(user);
 
-        String resumeContent = chatGPTService.generateResume(userInfo, jobDescription);
+        String resumeContent = chatGPTService.generateResume(userInfo, jobDescription, templateNumber);
 
-        String formattedResume = applyTemplate(resumeContent, templateChoice);
-
-        BuildResumeOutputData outputData = new BuildResumeOutputData(formattedResume, "Resume generated successfully");
+        BuildResumeOutputData outputData = new BuildResumeOutputData(resumeContent, "Resume generated successfully");
         presenter.present(outputData);
     }
 
     private String extractUserInfo(User user) {
         return "Name: " + user.getFullName() + "\n" +
                 "Mail: " + user.getEmail() + "\n" +
-                "working experience: " + String.join(", ", user.getWorkExperience()) + "\n" +
+                "Working Experience: " + String.join(", ", user.getWorkExperience()) + "\n" +
                 "Educational background: " + String.join(", ", user.getEducation()) + "\n" +
                 "Skills: " + String.join(", ", user.getSkills());
-    }
-
-    private String applyTemplate(String resumeContent, String templateChoice) {
-        return "template: " + templateChoice + "\n\n" + resumeContent;
     }
 }
