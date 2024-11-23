@@ -25,7 +25,7 @@ public class SignupView extends JPanel {
         usernameField = new JTextField(20);
         passwordField = new JPasswordField(20);
         emailField = new JTextField(20);
-        signupButton = new JButton("Signup");
+        signupButton = new JButton("Sign up");
         backButton = new JButton("Back");
         messageLabel = new JLabel();
 
