@@ -18,6 +18,7 @@ public class BuildResumeInteractor implements BuildResumeInputBoundary {
 
     @Override
     public void buildResume(BuildResumeInputData inputData) {
+
         User user = inputData.getUser();
         String jobDescription = inputData.getJobDescription();
         int templateNumber = inputData.getTemplateNumber();
@@ -27,6 +28,9 @@ public class BuildResumeInteractor implements BuildResumeInputBoundary {
         String resumeContent = chatGPTService.generateResume(userInfo, jobDescription, templateNumber);
 
         BuildResumeOutputData outputData = new BuildResumeOutputData(resumeContent, "Resume generated successfully");
+
+        user.addResume(resumeContent);
+
         presenter.present(outputData);
     }
 
