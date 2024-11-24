@@ -31,7 +31,7 @@ public class AppBuilder {
         BuildCVViewModel buildCVViewModel = new BuildCVViewModel();
         GiveSuggestionsViewModel giveSuggestionsViewModel = new GiveSuggestionsViewModel();
 
-        LoginPresenter loginPresenter = new LoginPresenter();
+        LoginPresenter loginPresenter = new LoginPresenter(loginViewModel);
         SignupPresenter signupPresenter = new SignupPresenter(loginViewModel, signupViewModel);
         UserInputPresenter userInputPresenter = new UserInputPresenter();
         BuildResumePresenter buildResumePresenter = new BuildResumePresenter();
