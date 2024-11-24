@@ -17,11 +17,11 @@ public class BuildCVInteractor implements BuildCVInputBoundary {
     }
 
     /**
-     * Builds a CV using the GPT with the given jobDescription String, template choice,
-     * and user information from the inputData User. It then returns the CV and updates the user within the
-     * program's data access object.
+     * Builds a CV using the GPT api with the given job description, template choice,
+     * and user information from the input data. It then returns the CV as a text and pdf file
+     * and updates the user within the program's data access object.
      * @param inputData all the input data from the user required to create the resume. It contains the user
-     * information, job description, template choice, and title for the CV.
+     *                  information, job description, template choice, and title for the CV.
      */
     @Override
     public void buildCV(BuildCVInputData inputData) {
