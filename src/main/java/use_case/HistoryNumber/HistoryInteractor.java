@@ -12,6 +12,11 @@ public class HistoryInteractor{
         this.presenter = presenter;
     }
 
-    public void present(HistoryOutputBoundary outputData) {
+    public void checkhistory() {
+        User user = userDataAccess.getCurrentUser();
+        HistoryOutputData outputData;
+        outputData = new HistoryOutputData(user.getnumresume(),0,0, user);
+
+        presenter.present(outputData);
     }
 }

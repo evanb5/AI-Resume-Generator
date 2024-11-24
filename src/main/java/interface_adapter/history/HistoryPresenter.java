@@ -6,7 +6,7 @@ import use_case.HistoryNumber.HistoryOutputData;
 public class HistoryPresenter implements HistoryOutputBoundary {
     private HistoryViewModel viewModel;
 
-    public HistoryPresenter(HistoryViewModel viewModel) {this.viewModel = new HistoryViewModel();}
+    public HistoryPresenter() {this.viewModel = new HistoryViewModel();}
 
     @Override
     public void present(HistoryOutputData outputData){

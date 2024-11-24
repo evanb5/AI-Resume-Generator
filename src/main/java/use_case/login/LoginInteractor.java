@@ -24,6 +24,7 @@ public class LoginInteractor implements LoginInputBoundary {
         } else if (user.getPassword().equals(inputData.getPassword())) {
             // Login successful
             outputData = new LoginOutputData(true, "Login successful", user);
+            userDataAccess.setCurrentUser(user);
         } else {
             // Password incorrect
             outputData = new LoginOutputData(false, "Incorrect password", null);
