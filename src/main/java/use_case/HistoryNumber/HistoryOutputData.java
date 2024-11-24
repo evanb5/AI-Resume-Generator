@@ -15,9 +15,9 @@ public class HistoryOutputData {
         this.user = user;
     }
 
-    public int getCv() {return cv;}
-    public int getResume() {return resume;}
-    public int getSuggestion() {return suggestion;}
-    public User getUser() {return user;}
+    public int getCv() {return this.cv;}
+    public int getResume() {return this.resume;}
+    public int getSuggestion() {return this.suggestion;}
+    public User getUser() {return this.user;}
 
 }
