@@ -4,7 +4,9 @@ package view;
 import javax.swing.*;
 import java.awt.*;
 
+import interface_adapter.history.HistoryController;
 import interface_adapter.history.HistoryPresenter;
+import interface_adapter.history.HistoryViewModel;
 import interface_adapter.login.*;
 import interface_adapter.signup.*;
 import interface_adapter.user_input.*;
@@ -32,6 +34,7 @@ public class ViewManager {
             BuildResumeController buildResumeController,
             BuildCVController buildCVController,
             GiveSuggestionsController giveSuggestionsController,
+            HistoryController historyController,
             LoginViewModel loginViewModel,
             SignupViewModel signupViewModel,
             UserInputPresenter userInputPresenter,
@@ -52,7 +55,7 @@ public class ViewManager {
         buildResumeView = new BuildResumeView(this, buildResumeController, buildResumePresenter);
         buildCVView = new BuildCVView(this, buildCVController, buildCVPresenter);
         giveSuggestionsView = new GiveSuggestionsView(this, giveSuggestionsController, giveSuggestionsPresenter);
-        historyView = new HistoryView(this, historyPresenter);
+        historyView = new HistoryView(this, historyPresenter, historyController);
 
         mainPanel.add(loginView, "LoginView");
         mainPanel.add(signupView, "SignupView");

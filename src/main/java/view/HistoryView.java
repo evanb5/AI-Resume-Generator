@@ -1,13 +1,16 @@
 package view;
 import javax.swing.*;
 import java.awt.event.*;
+
+import interface_adapter.history.HistoryController;
 import interface_adapter.history.HistoryPresenter;
 import interface_adapter.history.HistoryViewModel;
 import session.UserSession;
 
 public class HistoryView extends JPanel{
     private ViewManager viewManager;
-    public HistoryPresenter presenter;
+    private HistoryController controller;
+    private HistoryPresenter presenter;
 
     private JButton CVhistorybutton;
     private JButton resumehistorybutton;
@@ -16,11 +19,9 @@ public class HistoryView extends JPanel{
     private JTextArea resumenumber;
     private JTextArea suggestionnumber;
 
-    HistoryViewModel viewModel = presenter.getViewModel();
-
-
-    public HistoryView(ViewManager viewManager, HistoryPresenter presenter) {
+    public HistoryView(ViewManager viewManager, HistoryPresenter presenter, HistoryController controller) {
         this.viewManager = viewManager;
+        this.controller = controller;
         this.presenter = presenter;
 
         // Initialize components
@@ -42,9 +43,10 @@ public class HistoryView extends JPanel{
         add(resumehistorybutton);
         add(suggestionhistorybutton);
 
-        CVnumbver.setText("the number of CV created is" + viewModel.getCv());
-        resumenumber.setText("the number of resume created is" + viewModel.getResume());
-        suggestionnumber.setText("the number of suggestion created is" + viewModel.getSuggestion());
+        controller.historyinput();
+        CVnumbver.setText("the number of CV created is" + presenter.getViewModel().getCv());
+        resumenumber.setText("the number of resume created is" + presenter.getViewModel().getResume());
+        suggestionnumber.setText("the number of suggestion created is" + presenter.getViewModel().getSuggestion());
 
         //Add action listeners
         CVhistorybutton.addActionListener(new ActionListener() {
@@ -65,4 +67,5 @@ public class HistoryView extends JPanel{
             }
         });
     }
+
 }
