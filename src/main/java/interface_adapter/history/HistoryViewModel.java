@@ -1,7 +1,5 @@
 package interface_adapter.history;
 
-import entity.User;
-
 public class HistoryViewModel {
     private int cv;
     private int resume;

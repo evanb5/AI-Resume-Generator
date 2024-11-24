@@ -26,7 +26,7 @@ public class CommonUser implements User {
     public void addResume(String resume){this.resume.add(resume);}
 
     @Override
-    public int getnumresume(){return this.resume.size();}
+    public int getnumresume(){return resume.size();}
 
     @Override
     public String getUsername() {
