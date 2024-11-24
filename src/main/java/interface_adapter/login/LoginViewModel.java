@@ -2,11 +2,19 @@
 package interface_adapter.login;
 
 import entity.User;
+import interface_adapter.ViewModel;
 
-public class LoginViewModel {
+public class LoginViewModel extends ViewModel<LoginState> {
     private boolean success;
     private String message;
     private User user;
+
+    public LoginViewModel() {
+        super("log in");
+        setState(new LoginState());
+        success = false;
+        message = "";
+    }
 
     public boolean isSuccess() {
         return success;

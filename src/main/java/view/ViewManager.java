@@ -29,8 +29,8 @@ public class ViewManager {
             BuildResumeController buildResumeController,
             BuildCVController buildCVController,
             GiveSuggestionsController giveSuggestionsController,
-            LoginPresenter loginPresenter,
-            SignupPresenter signupPresenter,
+            LoginViewModel loginViewModel,
+            SignupViewModel signupViewModel,
             UserInputPresenter userInputPresenter,
             BuildResumePresenter buildResumePresenter,
             BuildCVPresenter buildCVPresenter,
@@ -40,8 +40,10 @@ public class ViewManager {
         cardLayout = new CardLayout();
         mainPanel = new JPanel(cardLayout);
 
-        loginView = new LoginView(this, loginController, loginPresenter);
-        signupView = new SignupView(this, signupController, signupPresenter);
+        loginView = new LoginView(this, loginViewModel);
+        loginView.setLoginController(loginController);
+        signupView = new SignupView(this, signupViewModel);
+        signupView.setSignupController(signupController);
         userInputView = new UserInputView(this, userInputController, userInputPresenter);
         buildResumeView = new BuildResumeView(this, buildResumeController, buildResumePresenter);
         buildCVView = new BuildCVView(this, buildCVController, buildCVPresenter);

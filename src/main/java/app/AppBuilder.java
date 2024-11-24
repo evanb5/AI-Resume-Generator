@@ -24,8 +24,15 @@ public class AppBuilder {
 
         UserFactory userFactory = new CommonUserFactory();
 
+        SignupViewModel signupViewModel = new SignupViewModel();
+        LoginViewModel loginViewModel = new LoginViewModel();
+        UserInputViewModel userInputViewModel = new UserInputViewModel();
+        BuildResumeViewModel buildResumeViewModel = new BuildResumeViewModel();
+        BuildCVViewModel buildCVViewModel = new BuildCVViewModel();
+        GiveSuggestionsViewModel giveSuggestionsViewModel = new GiveSuggestionsViewModel();
+
         LoginPresenter loginPresenter = new LoginPresenter();
-        SignupPresenter signupPresenter = new SignupPresenter();
+        SignupPresenter signupPresenter = new SignupPresenter(loginViewModel, signupViewModel);
         UserInputPresenter userInputPresenter = new UserInputPresenter();
         BuildResumePresenter buildResumePresenter = new BuildResumePresenter();
         BuildCVPresenter buildCVPresenter = new BuildCVPresenter();
@@ -52,8 +59,8 @@ public class AppBuilder {
                 buildResumeController,
                 buildCVController,
                 giveSuggestionsController,
-                loginPresenter,
-                signupPresenter,
+                loginViewModel,
+                signupViewModel,
                 userInputPresenter,
                 buildResumePresenter,
                 buildCVPresenter,
