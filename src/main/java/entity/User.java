@@ -27,4 +27,5 @@ public interface User {
 
     List<String> getResume();
     void addResume(String resume);
+    int getnumresume();
 }

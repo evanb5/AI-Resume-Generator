@@ -24,6 +24,7 @@ public class UserInputView extends JPanel {
     private JButton buildCVButton;
     private JButton giveSuggestionsButton;
     private JButton logoutButton;
+    private JButton historyButton;
     private JLabel messageLabel;
 
     public UserInputView(ViewManager viewManager, UserInputController controller, UserInputPresenter presenter) {
@@ -42,6 +43,7 @@ public class UserInputView extends JPanel {
         buildCVButton = new JButton("Build CV");
         giveSuggestionsButton = new JButton("Give Suggestions");
         logoutButton = new JButton("Logout");
+        historyButton = new JButton("History");
         messageLabel = new JLabel();
 
         // Layout components
@@ -60,6 +62,7 @@ public class UserInputView extends JPanel {
         add(buildResumeButton);
         add(buildCVButton);
         add(giveSuggestionsButton);
+        add(historyButton);
         add(logoutButton);
         add(messageLabel);
 
@@ -119,6 +122,13 @@ public class UserInputView extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 UserSession.getInstance().setCurrentUser(null);
                 viewManager.showLoginView();
+            }
+        });
+
+        historyButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                viewManager.showHistoryView();
             }
         });
     }
