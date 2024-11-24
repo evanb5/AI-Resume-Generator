@@ -1,6 +1,5 @@
 package app;
 
-import view.uiTOPPAGE;
 import view.uiCreatresume;
 import com.github.models.inference.samples.BasicChatSample;
 import javax.swing.JFrame;
