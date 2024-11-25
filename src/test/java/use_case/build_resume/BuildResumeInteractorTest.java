@@ -6,7 +6,9 @@ import services.ChatGPTService;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -22,6 +24,8 @@ class BuildResumeInteractorTest {
         private List<String> education;
         private List<String> skills;
         private List<String> resumes;
+        private Map<String, String> cvs;  // Changed from List<String> to Map<String, String> for CVs
+        private List<String> suggestions;
 
         public MockUser(String fullName, String email, String[] workExperience, String[] education, String[] skills) {
             this.fullName = fullName;
@@ -30,6 +34,8 @@ class BuildResumeInteractorTest {
             this.education = List.of(education);
             this.skills = List.of(skills);
             this.resumes = new ArrayList<>();
+            this.cvs = new HashMap<>();  // Initialize the cvs map
+            this.suggestions = new ArrayList<>();  // Initialize the suggestions list
         }
 
         @Override
@@ -115,6 +121,41 @@ class BuildResumeInteractorTest {
         @Override
         public int getnumresume() {
             return resumes.size();
+        }
+
+        @Override
+        public Map<String, String> getCvs() {
+            return cvs;  // Implementing getCvs() method to return the CVs map
+        }
+
+        @Override
+        public void addCv(String cv, String cvName) {
+            cvs.put(cvName, cv);  // Adding CV with name to the map
+        }
+
+        @Override
+        public void removeCv(String cvName) {
+            cvs.remove(cvName);  // Removing CV by name from the map
+        }
+
+        @Override
+        public int getnumCV() {
+            return cvs.size();  // Return the number of CVs
+        }
+
+        @Override
+        public List<String> getsuggestions() {
+            return suggestions;  // Return the suggestions list
+        }
+
+        @Override
+        public void addsuggestion(String suggestion) {
+            suggestions.add(suggestion);  // Add suggestion to the list
+        }
+
+        @Override
+        public int getnumsuggestion() {
+            return suggestions.size();  // Return the number of suggestions
         }
     }
 
