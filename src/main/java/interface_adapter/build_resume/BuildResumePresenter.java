@@ -4,19 +4,25 @@ package interface_adapter.build_resume;
 import use_case.build_resume.*;
 
 public class BuildResumePresenter implements BuildResumeOutputBoundary {
-    private BuildResumeViewModel viewModel;
+    private BuildResumeViewModel buildResumeViewModel;
 
-    public BuildResumePresenter() {
-        this.viewModel = new BuildResumeViewModel();
+    public BuildResumePresenter(BuildResumeViewModel viewModel) {
+        this.buildResumeViewModel =  viewModel;
     }
 
     @Override
     public void present(BuildResumeOutputData outputData) {
-        viewModel.setFormattedResume(outputData.getFormattedResume());
-        viewModel.setMessage(outputData.getMessage());
+        final BuildResumeState buildResumeState = buildResumeViewModel.getState();
+        buildResumeState.setFormattedResume(outputData.getFormattedResume());
+        buildResumeState.setMessage(outputData.getMessage());
+        this.buildResumeViewModel.setState(buildResumeState);
+        buildResumeViewModel.firePropertyChanged();
+
+        buildResumeViewModel.setFormattedResume(outputData.getFormattedResume());
+        buildResumeViewModel.setMessage(outputData.getMessage());
     }
 
-    public BuildResumeViewModel getViewModel() {
-        return viewModel;
+    public BuildResumeViewModel getBuildResumeViewModel() {
+        return buildResumeViewModel;
     }
 }
