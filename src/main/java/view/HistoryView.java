@@ -13,8 +13,10 @@ public class HistoryView extends JPanel{
     private HistoryPresenter presenter;
 
     private JButton CVhistorybutton;
+    private JButton refresh;
     private JButton resumehistorybutton;
     private JButton suggestionhistorybutton;
+    private JButton back;
     private JTextArea CVnumbver;
     private JTextArea resumenumber;
     private JTextArea suggestionnumber;
@@ -31,22 +33,39 @@ public class HistoryView extends JPanel{
         resumenumber.setEditable(false);
         suggestionnumber = new JTextArea(10,2);
         suggestionnumber.setEditable(false);
+        setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         CVhistorybutton = new JButton("CVHistory");
         resumehistorybutton = new JButton("ResumeHistory");
         suggestionhistorybutton = new JButton("SuggestionHistory");
+        refresh = new JButton("Refresh");
+        back = new JButton("Back");
+
 
         // Layout components
         add(CVnumbver);
-        add(resumenumber);
-        add(suggestionnumber);
         add(CVhistorybutton);
+        add(resumenumber);
         add(resumehistorybutton);
+        add(suggestionnumber);
         add(suggestionhistorybutton);
+        add(refresh);
+        add(back);
 
         controller.historyinput();
         CVnumbver.setText("the number of CV created is" + presenter.getViewModel().getCv());
         resumenumber.setText("the number of resume created is" + presenter.getViewModel().getResume());
         suggestionnumber.setText("the number of suggestion created is" + presenter.getViewModel().getSuggestion());
+
+        refresh.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                controller.historyinput();
+                CVnumbver.setText("the number of CV created is" + presenter.getViewModel().getCv());
+                resumenumber.setText("the number of resume created is" + presenter.getViewModel().getResume());
+                suggestionnumber.setText("the number of suggestion created is" + presenter.getViewModel().getSuggestion());
+
+            }
+        });
 
         //Add action listeners
         CVhistorybutton.addActionListener(new ActionListener() {
@@ -64,6 +83,13 @@ public class HistoryView extends JPanel{
         suggestionhistorybutton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+            }
+        });
+
+        back.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                viewManager.showUserInputView();
             }
         });
     }

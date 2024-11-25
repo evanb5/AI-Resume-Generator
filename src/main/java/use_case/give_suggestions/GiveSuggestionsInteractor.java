@@ -25,14 +25,17 @@ public class GiveSuggestionsInteractor implements GiveSuggestionsInputBoundary {
      */
     @Override
     public void giveSuggestions(GiveSuggestionsInputData inputData) {
-        User user = inputData.getUser();
+        User user = userDataAccess.getCurrentUser();
         String jobDescription = inputData.getJobDescription();
         String insertedResume = inputData.getInsertedResume();
         String userInfo = extractUserInfo(user);
 
-        String suggestions = chatGPTService.generateSuggestions(userInfo, jobDescription, insertedResume);
+        String suggestions = chatGPTService.generateSuggestions(userInfo,insertedResume, jobDescription);
 
         GiveSuggestionsOutputData outputData = new GiveSuggestionsOutputData(suggestions, "Suggestions generated successfully");
+
+        user.addsuggestion(suggestions);
+
         presenter.present(outputData);
     }
 

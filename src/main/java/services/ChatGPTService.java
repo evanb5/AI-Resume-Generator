@@ -50,8 +50,10 @@ public class ChatGPTService {
         return generateDocument(userInput);
     }
 
-    public String generateSuggestions(String userInfo, String jobDescription) {
-        String userInput = "Based on the following user information and job description, provide suggestions for improvement:\n" + userInfo + "\nJob Description:\n" + jobDescription;
+    public String generateSuggestions(String userInfo,String insertedResume ,String jobDescription) {
+        String userInput = "Generate a comprehensive and concise list of constructive and professional suggestions in bullet point format for a client with the following resume:\n" + insertedResume + "\n The suggestions should check if the client put all their strengths, " +
+        "work experience, and education stated in the following description: \n" + userInfo +
+                "\n The suggestions should also make sure that the resume is tailored towards the following job description:\n" + jobDescription;
         return generateDocument(userInput);
     }
 

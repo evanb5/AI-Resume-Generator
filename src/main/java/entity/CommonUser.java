@@ -11,26 +11,41 @@ public class CommonUser implements User {
     private String password;
     private String email;
     private String fullName;
-    private String currentusername;
     private List<String> workExperience;
     private List<String> education;
     private List<String> skills;
-    private List<String> resume;
+    private List<String> resumeS;
     private Map<String,String> storedCv;
+    public List<String> suggestions;
   
     public CommonUser() {
         this.workExperience = new ArrayList<>();
         this.education = new ArrayList<>();
         this.skills = new ArrayList<>();
-        this.resume = new ArrayList<>();
+        this.resumeS = new ArrayList<>();
         this.storedCv = new HashMap<>();
+        this.suggestions = new ArrayList<>();
     }
-
-    public List<String> getResume(){return resume;}
-    public void addResume(String resume){this.resume.add(resume);}
+    @Override
+    public List<String> getsuggestions(){return suggestions;}
 
     @Override
-    public int getnumresume(){return resume.size();}
+    public void addsuggestion(String suggestion) {this.suggestions.add(suggestion);}
+
+    @Override
+    public int getnumsuggestion() {return suggestions.size();}
+
+    @Override
+    public int getnumCV(){ return storedCv.size(); }
+
+    @Override
+    public List<String> getResume(){return resumeS;}
+
+    @Override
+    public void addResume(String resume){this.resumeS.add(resume);}
+
+    @Override
+    public int getnumresume(){return resumeS.size();}
 
     @Override
     public String getUsername() {

@@ -17,7 +17,7 @@ public class HistoryInteractor implements HistoryInputBoundary{
         User user = userDataAccess.getCurrentUser();
         HistoryOutputData outputData;
         if (user != null) {
-            outputData = new HistoryOutputData(user.getnumresume(),0,0);
+            outputData = new HistoryOutputData(user.getnumCV(),user.getnumresume(), user.getnumsuggestion());
             this.presenter.present(outputData);
         }else {
             outputData = new HistoryOutputData(0, 0, 0);
