@@ -34,6 +34,8 @@ public interface User {
     void addCv(String cv, String cvName);
     void removeCv(String cvName);
     int getnumCV();
+    void setCVindex(int index);
+    int getCVindex();
 
     List<String> getsuggestions();
     void addsuggestion(String suggestion);

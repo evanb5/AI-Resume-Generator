@@ -4,6 +4,8 @@ package view;
 import javax.swing.*;
 import java.awt.*;
 
+import interface_adapter.CVhistory.CVhistoryController;
+import interface_adapter.CVhistory.CVhistoryPresenter;
 import interface_adapter.history.HistoryController;
 import interface_adapter.history.HistoryPresenter;
 import interface_adapter.history.HistoryViewModel;
@@ -26,6 +28,7 @@ public class ViewManager {
     private BuildCVView buildCVView;
     private GiveSuggestionsView giveSuggestionsView;
     private HistoryView historyView;
+    private CVHistoryView cvHistoryView;
 
     public ViewManager(
             LoginController loginController,
@@ -36,13 +39,16 @@ public class ViewManager {
             GiveSuggestionsController giveSuggestionsController,
 
             HistoryController historyController,
+            CVhistoryController CVhistorycontroller,
             LoginViewModel loginViewModel,
             SignupViewModel signupViewModel,
             UserInputPresenter userInputPresenter,
             BuildResumePresenter buildResumePresenter,
             BuildCVPresenter buildCVPresenter,
             GiveSuggestionsPresenter giveSuggestionsPresenter,
-            HistoryPresenter historyPresenter
+            HistoryPresenter historyPresenter,
+            CVhistoryPresenter CVHistorypresenter
+
     ) {
         frame = new JFrame("AI Resume Generator");
         cardLayout = new CardLayout();
@@ -57,6 +63,7 @@ public class ViewManager {
         buildCVView = new BuildCVView(this, buildCVController, buildCVPresenter);
         giveSuggestionsView = new GiveSuggestionsView(this, giveSuggestionsController, giveSuggestionsPresenter);
         historyView = new HistoryView(this, historyPresenter, historyController);
+        cvHistoryView = new CVHistoryView(this, CVhistorycontroller, CVHistorypresenter);
 
         mainPanel.add(loginView, "LoginView");
         mainPanel.add(signupView, "SignupView");
@@ -65,6 +72,7 @@ public class ViewManager {
         mainPanel.add(buildCVView, "BuildCVView");
         mainPanel.add(giveSuggestionsView, "GiveSuggestionsView");
         mainPanel.add(historyView, "HistoryView");
+        mainPanel.add(cvHistoryView, "HistoryCVView");
 
         frame.add(mainPanel);
         frame.setSize(800, 600);
@@ -96,5 +104,12 @@ public class ViewManager {
         cardLayout.show(mainPanel, "GiveSuggestionsView");
     }
 
-    public void showHistoryView() {cardLayout.show(mainPanel, "HistoryView");}
+    public void showHistoryView() {
+        historyView.refreshnow();
+        cardLayout.show(mainPanel, "HistoryView");}
+
+    public void showHistoryCVView() {
+        cvHistoryView.refreshcv();
+        cardLayout.show(mainPanel, "HistoryCVView");
+    }
 }
