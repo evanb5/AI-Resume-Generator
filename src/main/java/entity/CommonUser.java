@@ -16,7 +16,8 @@ public class CommonUser implements User {
     private List<String> skills;
     private List<String> resumeS;
     private Map<String,String> storedCv;
-    public List<String> suggestions;
+    private List<String> suggestions;
+    private int CVindex;
   
     public CommonUser() {
         this.workExperience = new ArrayList<>();
@@ -36,7 +37,13 @@ public class CommonUser implements User {
     public int getnumsuggestion() {return suggestions.size();}
 
     @Override
-    public int getnumCV(){ return storedCv.size(); }
+    public int getnumCV(){ return storedCv.size();}
+
+    @Override
+    public int getCVindex() {return CVindex;}
+
+    @Override
+    public void setCVindex(int index){this.CVindex = index;}
 
     @Override
     public List<String> getResume(){return resumeS;}

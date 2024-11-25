@@ -1,7 +1,5 @@
 package use_case.HistoryNumber;
 
-import entity.User;
-
 public class HistoryOutputData {
     private int cv;
     private int resume;

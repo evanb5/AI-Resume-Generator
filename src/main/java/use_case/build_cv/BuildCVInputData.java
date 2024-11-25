@@ -28,5 +28,5 @@ public class BuildCVInputData {
         return templateChoice;
     }
 
-    public String getCvTitle() { return templateChoice; }
+    public String getCvTitle() { return cvTitle; }
 }
