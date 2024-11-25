@@ -4,6 +4,7 @@ package app;
 import data_access.*;
 import entity.*;
 import interface_adapter.*;
+import interface_adapter.history.HistoryController;
 import interface_adapter.history.HistoryPresenter;
 import interface_adapter.history.HistoryViewModel;
 import interface_adapter.login.*;
@@ -35,7 +36,8 @@ public class AppBuilder {
         GiveSuggestionsViewModel giveSuggestionsViewModel = new GiveSuggestionsViewModel();
         HistoryViewModel historyViewModel = new HistoryViewModel();
 
-        LoginPresenter loginPresenter = new LoginPresenter();
+
+        LoginPresenter loginPresenter = new LoginPresenter(loginViewModel);
         SignupPresenter signupPresenter = new SignupPresenter(loginViewModel, signupViewModel);
         UserInputPresenter userInputPresenter = new UserInputPresenter();
         BuildResumePresenter buildResumePresenter = new BuildResumePresenter();
@@ -57,6 +59,7 @@ public class AppBuilder {
         BuildResumeController buildResumeController = new BuildResumeController(buildResumeInteractor);
         BuildCVController buildCVController = new BuildCVController(buildCVInteractor);
         GiveSuggestionsController giveSuggestionsController = new GiveSuggestionsController(giveSuggestionsInteractor);
+        HistoryController historyController = new HistoryController(historyInteractor);
 
         ViewManager viewManager = new ViewManager(
                 loginController,
@@ -65,6 +68,7 @@ public class AppBuilder {
                 buildResumeController,
                 buildCVController,
                 giveSuggestionsController,
+                historyController,
                 loginViewModel,
                 signupViewModel,
                 userInputPresenter,

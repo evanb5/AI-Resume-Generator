@@ -19,6 +19,7 @@ public class BuildCVView extends JPanel {
     private JButton backButton;
     private JTextArea cvDisplayArea;
     private JLabel messageLabel;
+    private JTextArea  cvTitleArea;
 
     public BuildCVView(ViewManager viewManager, BuildCVController controller, BuildCVPresenter presenter) {
         this.viewManager = viewManager;
@@ -27,6 +28,7 @@ public class BuildCVView extends JPanel {
 
         // Initialize components
         jobDescriptionArea = new JTextArea(5, 20);
+        cvTitleArea = new JTextArea(5,20);
         templateComboBox = new JComboBox<>(new String[]{"Template A", "Template B", "Template C"});
         generateButton = new JButton("Generate CV");
         backButton = new JButton("Back");
@@ -34,12 +36,15 @@ public class BuildCVView extends JPanel {
         cvDisplayArea.setEditable(false);
         messageLabel = new JLabel();
 
+
         // Layout components
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         add(new JLabel("Job Description:"));
         add(new JScrollPane(jobDescriptionArea));
         add(new JLabel("Select Template:"));
         add(templateComboBox);
+        add(new JLabel("CV Title:"));
+        add(cvTitleArea);
         add(generateButton);
         add(backButton);
         add(new JLabel("Generated CV:"));
@@ -53,8 +58,9 @@ public class BuildCVView extends JPanel {
                 String jobDescription = jobDescriptionArea.getText();
                 String templateChoice = (String) templateComboBox.getSelectedItem();
                 User user = UserSession.getInstance().getCurrentUser();
+                String cvTitle = cvTitleArea.getText();
 
-                BuildCVInputData inputData = new BuildCVInputData(user, jobDescription, templateChoice);
+                BuildCVInputData inputData = new BuildCVInputData(user, jobDescription, templateChoice, cvTitle);
                 controller.buildCV(inputData);
 
                 // Update view

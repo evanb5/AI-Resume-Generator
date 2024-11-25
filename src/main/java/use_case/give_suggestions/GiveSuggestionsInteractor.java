@@ -16,16 +16,26 @@ public class GiveSuggestionsInteractor implements GiveSuggestionsInputBoundary {
         this.chatGPTService = new ChatGPTService();
     }
 
+    /**
+     * This program takes an inputted resume and offers suggestions based off the user's professional information and
+     * the given description of the job they want to get using this resume using an GPT api. It returns the
+     * information in both text and pdf format.
+     * @param inputData all the personal and professional information of the user, the inputted resume, and the
+     *                  job description is.
+     */
     @Override
     public void giveSuggestions(GiveSuggestionsInputData inputData) {
-        User user = inputData.getUser();
+        User user = userDataAccess.getCurrentUser();
         String jobDescription = inputData.getJobDescription();
-
+        String insertedResume = inputData.getInsertedResume();
         String userInfo = extractUserInfo(user);
 
-        String suggestions = chatGPTService.generateSuggestions(userInfo, jobDescription);
+        String suggestions = chatGPTService.generateSuggestions(userInfo,insertedResume, jobDescription);
 
         GiveSuggestionsOutputData outputData = new GiveSuggestionsOutputData(suggestions, "Suggestions generated successfully");
+
+        user.addsuggestion(suggestions);
+
         presenter.present(outputData);
     }
 

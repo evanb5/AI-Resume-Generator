@@ -3,7 +3,7 @@ package use_case.HistoryNumber;
 import data_access.UserDataAccessInterface;
 import entity.User;
 
-public class HistoryInteractor{
+public class HistoryInteractor implements HistoryInputBoundary{
     private UserDataAccessInterface userDataAccess;
     private HistoryOutputBoundary presenter;
 
@@ -12,11 +12,16 @@ public class HistoryInteractor{
         this.presenter = presenter;
     }
 
-    public void checkhistory() {
+    @Override
+    public void historyinput() {
         User user = userDataAccess.getCurrentUser();
         HistoryOutputData outputData;
-        outputData = new HistoryOutputData(user.getnumresume(),0,0, user);
-
-        presenter.present(outputData);
+        if (user != null) {
+            outputData = new HistoryOutputData(user.getnumCV(),user.getnumresume(), user.getnumsuggestion());
+            this.presenter.present(outputData);
+        }else {
+            outputData = new HistoryOutputData(0, 0, 0);
+            this.presenter.present(outputData);
+        }
     }
 }
