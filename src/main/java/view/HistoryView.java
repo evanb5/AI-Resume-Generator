@@ -1,7 +1,6 @@
 package view;
 import javax.swing.*;
 import java.awt.event.*;
-
 import interface_adapter.history.HistoryController;
 import interface_adapter.history.HistoryPresenter;
 import interface_adapter.history.HistoryViewModel;
@@ -33,6 +32,7 @@ public class HistoryView extends JPanel{
         resumenumber.setEditable(false);
         suggestionnumber = new JTextArea(10,2);
         suggestionnumber.setEditable(false);
+estionnumber.setText("the number of suggestion created is" + viewModel.getSuggestion());
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         CVhistorybutton = new JButton("CVHistory");
         resumehistorybutton = new JButton("ResumeHistory");
@@ -85,13 +85,4 @@ public class HistoryView extends JPanel{
             public void actionPerformed(ActionEvent e) {
             }
         });
-
-        back.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                viewManager.showUserInputView();
-            }
-        });
-    }
-
 }

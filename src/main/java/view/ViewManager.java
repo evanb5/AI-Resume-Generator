@@ -34,6 +34,7 @@ public class ViewManager {
             BuildResumeController buildResumeController,
             BuildCVController buildCVController,
             GiveSuggestionsController giveSuggestionsController,
+
             HistoryController historyController,
             LoginViewModel loginViewModel,
             SignupViewModel signupViewModel,

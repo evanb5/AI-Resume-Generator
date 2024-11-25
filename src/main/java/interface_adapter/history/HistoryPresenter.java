@@ -10,6 +10,7 @@ public class HistoryPresenter implements HistoryOutputBoundary {
 
     @Override
     public void present(HistoryOutputData outputData){
+
         this.viewModel.setCv(outputData.getCv());
         this.viewModel.setResume(outputData.getResume());
         this.viewModel.setSuggestion(outputData.getSuggestion());
