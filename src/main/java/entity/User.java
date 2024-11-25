@@ -2,6 +2,7 @@
 package entity;
 
 import java.util.List;
+import java.util.Map;
 
 public interface User {
     String getUsername();
@@ -28,4 +29,8 @@ public interface User {
     List<String> getResume();
     void addResume(String resume);
     int getnumresume();
+  
+    Map<String, String> getCvs();
+    void addCv(String cv, String cvName);
+    void removeCv(String cvName);
 }

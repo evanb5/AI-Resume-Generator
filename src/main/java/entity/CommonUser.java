@@ -2,7 +2,9 @@
 package entity;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class CommonUser implements User {
     private String username;
@@ -14,12 +16,14 @@ public class CommonUser implements User {
     private List<String> education;
     private List<String> skills;
     private List<String> resume;
-
+    private Map<String,String> storedCv;
+  
     public CommonUser() {
         this.workExperience = new ArrayList<>();
         this.education = new ArrayList<>();
         this.skills = new ArrayList<>();
         this.resume = new ArrayList<>();
+        this.storedCv = new HashMap<>();
     }
 
     public List<String> getResume(){return resume;}
@@ -99,4 +103,20 @@ public class CommonUser implements User {
     public void setSkills(List<String> skills) {
         this.skills = skills;
     }
+
+    @Override
+    public Map<String, String> getCvs() {
+        return storedCv;
+    }
+
+    @Override
+    public void addCv(String cvName, String cv) {
+        this.storedCv.put(cvName, cv);
+    }
+
+    @Override
+    public void removeCv(String cvName) {
+        this.storedCv.remove(cvName);
+    }
+
 }

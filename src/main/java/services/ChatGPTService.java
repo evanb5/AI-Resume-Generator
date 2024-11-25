@@ -85,6 +85,6 @@ public class ChatGPTService {
         }
 
         return assistantResponse;
-    }
+     }
 
 }

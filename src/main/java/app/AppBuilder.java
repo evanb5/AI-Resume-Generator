@@ -36,7 +36,7 @@ public class AppBuilder {
         GiveSuggestionsViewModel giveSuggestionsViewModel = new GiveSuggestionsViewModel();
         HistoryViewModel historyViewModel = new HistoryViewModel();
 
-        LoginPresenter loginPresenter = new LoginPresenter();
+        LoginPresenter loginPresenter = new LoginPresenter(loginViewModel);
         SignupPresenter signupPresenter = new SignupPresenter(loginViewModel, signupViewModel);
         UserInputPresenter userInputPresenter = new UserInputPresenter();
         BuildResumePresenter buildResumePresenter = new BuildResumePresenter();

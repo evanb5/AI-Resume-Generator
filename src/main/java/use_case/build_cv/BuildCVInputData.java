@@ -7,11 +7,13 @@ public class BuildCVInputData {
     private User user;
     private String jobDescription;
     private String templateChoice;
+    private String cvTitle;
 
-    public BuildCVInputData(User user, String jobDescription, String templateChoice) {
+    public BuildCVInputData(User user, String jobDescription, String templateChoice, String cvTitle) {
         this.user = user;
         this.jobDescription = jobDescription;
         this.templateChoice = templateChoice;
+        this.cvTitle = cvTitle;
     }
 
     public User getUser() {
@@ -25,4 +27,6 @@ public class BuildCVInputData {
     public String getTemplateChoice() {
         return templateChoice;
     }
+
+    public String getCvTitle() { return templateChoice; }
 }
