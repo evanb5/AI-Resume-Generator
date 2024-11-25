@@ -47,7 +47,7 @@ public class CommonUser implements User {
 
     @Override
 
-    public int getnumresume(){return resumes.size();}
+    public int getnumresume(){return this.resumeS.size();}
 
     @Override
     public String getUsername() {

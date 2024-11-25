@@ -26,13 +26,13 @@ public class HistoryView extends JPanel{
         this.presenter = presenter;
 
         // Initialize components
-        CVnumbver = new JTextArea(10,2);
+        CVnumbver = new JTextArea(10, 2);
         CVnumbver.setEditable(false);
-        resumenumber = new JTextArea(10,2);
+        resumenumber = new JTextArea(10, 2);
         resumenumber.setEditable(false);
-        suggestionnumber = new JTextArea(10,2);
+        suggestionnumber = new JTextArea(10, 2);
         suggestionnumber.setEditable(false);
-estionnumber.setText("the number of suggestion created is" + viewModel.getSuggestion());
+        suggestionnumber.setText("the number of suggestion created is" + presenter.getViewModel().getSuggestion());
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         CVhistorybutton = new JButton("CVHistory");
         resumehistorybutton = new JButton("ResumeHistory");
@@ -85,4 +85,5 @@ estionnumber.setText("the number of suggestion created is" + viewModel.getSugges
             public void actionPerformed(ActionEvent e) {
             }
         });
+    }
 }
