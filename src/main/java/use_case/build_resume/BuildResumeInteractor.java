@@ -18,19 +18,24 @@ public class BuildResumeInteractor implements BuildResumeInputBoundary {
 
     @Override
     public void buildResume(BuildResumeInputData inputData) {
-
         User user = inputData.getUser();
         String jobDescription = inputData.getJobDescription();
         int templateNumber = inputData.getTemplateNumber();
 
-        String userInfo = extractUserInfo(user);
+        // Check if the job description is null or empty
+        if (jobDescription == null || jobDescription.trim().isEmpty()) {
+            BuildResumeOutputData outputData = new BuildResumeOutputData("", "Job description is empty");
+            presenter.present(outputData);
+            return;
+        }
 
+        // Proceed with generating the resume if the job description is valid
+        String userInfo = extractUserInfo(user);
         String resumeContent = chatGPTService.generateResume(userInfo, jobDescription, templateNumber);
 
         BuildResumeOutputData outputData = new BuildResumeOutputData(resumeContent, "Resume generated successfully");
 
         user.addResume(resumeContent);
-
         presenter.present(outputData);
     }
 

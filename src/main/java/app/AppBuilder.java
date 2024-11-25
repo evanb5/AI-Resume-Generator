@@ -41,6 +41,7 @@ public class AppBuilder {
         HistoryViewModel historyViewModel = new HistoryViewModel();
         CVhistoryViewModel cvhistoryViewModel = new CVhistoryViewModel();
 
+
         LoginPresenter loginPresenter = new LoginPresenter(loginViewModel);
         SignupPresenter signupPresenter = new SignupPresenter(loginViewModel, signupViewModel);
         UserInputPresenter userInputPresenter = new UserInputPresenter();

@@ -11,6 +11,7 @@ public class CommonUser implements User {
     private String password;
     private String email;
     private String fullName;
+    private String currentusername;
     private List<String> workExperience;
     private List<String> education;
     private List<String> skills;
@@ -52,7 +53,8 @@ public class CommonUser implements User {
     public void addResume(String resume){this.resumeS.add(resume);}
 
     @Override
-    public int getnumresume(){return resumeS.size();}
+
+    public int getnumresume(){return this.resumeS.size();}
 
     @Override
     public String getUsername() {

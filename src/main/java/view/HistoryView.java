@@ -1,7 +1,6 @@
 package view;
 import javax.swing.*;
 import java.awt.event.*;
-
 import interface_adapter.history.HistoryController;
 import interface_adapter.history.HistoryPresenter;
 
@@ -25,12 +24,13 @@ public class HistoryView extends JPanel{
         this.presenter = presenter;
 
         // Initialize components
-        CVnumbver = new JTextArea(10,2);
+        CVnumbver = new JTextArea(10, 2);
         CVnumbver.setEditable(false);
-        resumenumber = new JTextArea(10,2);
+        resumenumber = new JTextArea(10, 2);
         resumenumber.setEditable(false);
-        suggestionnumber = new JTextArea(10,2);
+        suggestionnumber = new JTextArea(10, 2);
         suggestionnumber.setEditable(false);
+        suggestionnumber.setText("the number of suggestion created is" + presenter.getViewModel().getSuggestion());
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         CVhistorybutton = new JButton("CVHistory");
         resumehistorybutton = new JButton("ResumeHistory");
@@ -85,19 +85,12 @@ public class HistoryView extends JPanel{
             public void actionPerformed(ActionEvent e) {
             }
         });
-
-        back.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                viewManager.showUserInputView();
-            }
-        });
     }
-
     public void refreshnow() {
         controller.historyinput();
         CVnumbver.setText("the number of CV created is" + presenter.getViewModel().getCv());
         resumenumber.setText("the number of resume created is" + presenter.getViewModel().getResume());
         suggestionnumber.setText("the number of suggestion created is" + presenter.getViewModel().getSuggestion());
     }
+
 }
