@@ -8,4 +8,6 @@ public interface UserDataAccessInterface {
     User getUser(String username);
     void updateUser(User user);
     void deleteUser(String username);
+    User getCurrentUser();
+    void setCurrentUser(User user);
 }

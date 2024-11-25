@@ -13,7 +13,7 @@ public class BuildCVInteractor implements BuildCVInputBoundary {
     public BuildCVInteractor(UserDataAccessInterface userDataAccess, BuildCVOutputBoundary presenter) {
         this.userDataAccess = userDataAccess;
         this.presenter = presenter;
-        this.chatGPTService = new ChatGPTService("YOUR_API_KEY", "YOUR_ENDPOINT");
+        this.chatGPTService = new ChatGPTService();
     }
 
     /**
