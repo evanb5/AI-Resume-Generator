@@ -49,12 +49,6 @@ public class HistoryView extends JPanel{
         add(refresh);
         add(back);
 
-        controller.historyinput();
-        CVnumbver.setText("the number of CV created is" + presenter.getViewModel().getCv());
-        resumenumber.setText("the number of resume created is" + presenter.getViewModel().getResume());
-        suggestionnumber.setText("the number of suggestion created is" + presenter.getViewModel().getSuggestion());
-
-
         refresh.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
