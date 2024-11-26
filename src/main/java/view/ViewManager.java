@@ -103,6 +103,7 @@ public class ViewManager {
         cardLayout.show(mainPanel, "GiveSuggestionsView");
     }
 
+
     public void showHistoryView() {
         historyView.refreshnow();
         cardLayout.show(mainPanel, "HistoryView");}
@@ -110,5 +111,9 @@ public class ViewManager {
     public void showHistoryCVView() {
         cvHistoryView.refreshcv();
         cardLayout.show(mainPanel, "HistoryCVView");
+    }
+
+    public void showPastResumesView() {
+        PastResumeView.
     }
 }
