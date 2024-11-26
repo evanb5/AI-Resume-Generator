@@ -65,7 +65,7 @@ public class UserInputView extends JPanel {
         add(buildCVButton);
         add(giveSuggestionsButton);
         add(historyButton);
-        add(pastResumesButton); // Add the new button to the layout
+        add(pastResumesButton);
         add(logoutButton);
         add(messageLabel);
 
@@ -133,14 +133,14 @@ public class UserInputView extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 viewManager.showHistoryView();
             }
-        });}}
+        });
 
         // Add action listener for the "Past Resumes" button
-//        pastResumesButton.addActionListener(new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//                viewManager.showPastResumesView(); // Placeholder for showing past resumes
-//            }
-//        });
-//    }
-//}
+        pastResumesButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                viewManager.showPastResumesView(); // Placeholder for showing past resumes
+            }
+        });
+    }
+}
