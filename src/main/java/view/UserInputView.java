@@ -25,7 +25,7 @@ public class UserInputView extends JPanel {
     private JButton giveSuggestionsButton;
     private JButton logoutButton;
     private JButton historyButton;
-    private JButton pastResumesButton; // New button for "Past Resumes"
+    private JButton pastResumesButton;
     private JLabel messageLabel;
 
     public UserInputView(ViewManager viewManager, UserInputController controller, UserInputPresenter presenter) {
