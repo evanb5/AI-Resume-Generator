@@ -36,7 +36,7 @@ public class CVhistoryInteractor implements CVhistoryInputBoundary{
                 CVhistoryOutputData outputData = new CVhistoryOutputData(user.getCvs().get(keys.get(user.getCVindex() - 1)), keys);
                 user.setCVindex(user.getCVindex() - 1);
                 this.presenter.present(outputData);
-            }else if(index == -3 && user.getCVindex()<user.getCvs().size() && user.getCVindex()>=0) {
+            }else if(index == -3 && user.getCVindex()<user.getCvs().size()-1 && user.getCVindex()>=0) {
                 List<String> keys = new ArrayList<>(user.getCvs().keySet());
                 CVhistoryOutputData outputData = new CVhistoryOutputData(user.getCvs().get(keys.get(user.getCVindex() + 1)), keys);
                 user.setCVindex(user.getCVindex() + 1);
