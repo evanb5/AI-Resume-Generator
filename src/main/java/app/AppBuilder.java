@@ -1,4 +1,3 @@
-// app/AppBuilder.java
 package app;
 
 import data_access.*;
@@ -16,6 +15,9 @@ import interface_adapter.user_input.*;
 import interface_adapter.build_resume.*;
 import interface_adapter.build_cv.*;
 import interface_adapter.give_suggestions.*;
+import interface_adapter.resume_history.ResumeHistoryController;
+import interface_adapter.resume_history.ResumeHistoryPresenter;
+import interface_adapter.resume_history.ResumeHistoryViewModel;
 import use_case.CVhistory.CVhistoryInteractor;
 import use_case.HistoryNumber.HistoryInteractor;
 import use_case.login.*;
@@ -24,6 +26,7 @@ import use_case.user_input.*;
 import use_case.build_resume.*;
 import use_case.build_cv.*;
 import use_case.give_suggestions.*;
+import use_case.resume_history.ResumeHistoryInteractor;
 import view.*;
 
 public class AppBuilder {
@@ -40,6 +43,7 @@ public class AppBuilder {
         GiveSuggestionsViewModel giveSuggestionsViewModel = new GiveSuggestionsViewModel();
         HistoryViewModel historyViewModel = new HistoryViewModel();
         CVhistoryViewModel cvhistoryViewModel = new CVhistoryViewModel();
+        ResumeHistoryViewModel resumeHistoryViewModel = new ResumeHistoryViewModel(); // Added
 
         LoginPresenter loginPresenter = new LoginPresenter(loginViewModel);
         SignupPresenter signupPresenter = new SignupPresenter(loginViewModel, signupViewModel);
@@ -49,6 +53,7 @@ public class AppBuilder {
         GiveSuggestionsPresenter giveSuggestionsPresenter = new GiveSuggestionsPresenter();
         HistoryPresenter historyPresenter = new HistoryPresenter();
         CVhistoryPresenter cvhistoryPresenter = new CVhistoryPresenter();
+        ResumeHistoryPresenter resumeHistoryPresenter = new ResumeHistoryPresenter(); // Added
 
         LoginInputBoundary loginInteractor = new LoginInteractor(userDataAccess, loginPresenter);
         SignupInputBoundary signupInteractor = new SignupInteractor(userDataAccess, userFactory, signupPresenter);
@@ -58,6 +63,7 @@ public class AppBuilder {
         GiveSuggestionsInputBoundary giveSuggestionsInteractor = new GiveSuggestionsInteractor(userDataAccess, giveSuggestionsPresenter);
         HistoryInteractor historyInteractor = new HistoryInteractor(userDataAccess, historyPresenter);
         CVhistoryInteractor cvhistoryInteractor = new CVhistoryInteractor(userDataAccess, cvhistoryPresenter);
+        ResumeHistoryInteractor resumeHistoryInteractor = new ResumeHistoryInteractor(userDataAccess, resumeHistoryPresenter); // Added
 
         LoginController loginController = new LoginController(loginInteractor);
         SignupController signupController = new SignupController(signupInteractor);
@@ -67,6 +73,7 @@ public class AppBuilder {
         GiveSuggestionsController giveSuggestionsController = new GiveSuggestionsController(giveSuggestionsInteractor);
         HistoryController historyController = new HistoryController(historyInteractor);
         CVhistoryController CVhistorycontroller = new CVhistoryController(cvhistoryInteractor);
+        ResumeHistoryController resumeHistoryController = new ResumeHistoryController(resumeHistoryInteractor); // Added
 
         ViewManager viewManager = new ViewManager(
                 loginController,
@@ -77,6 +84,7 @@ public class AppBuilder {
                 giveSuggestionsController,
                 historyController,
                 CVhistorycontroller,
+                resumeHistoryController, // Added
                 loginViewModel,
                 signupViewModel,
                 userInputPresenter,
@@ -84,9 +92,11 @@ public class AppBuilder {
                 buildCVPresenter,
                 giveSuggestionsPresenter,
                 historyPresenter,
-                cvhistoryPresenter
+                cvhistoryPresenter,
+                resumeHistoryPresenter // Added
         );
 
         viewManager.showLoginView();
     }
 }
+
