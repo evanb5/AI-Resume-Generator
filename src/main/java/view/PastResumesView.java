@@ -34,7 +34,9 @@ public class PastResumesView extends JPanel {
 
         // Fetch initial resume data
         controller.fetchResumeHistory(new ResumeHistoryInputData(-4));
-        List<String> resumeTitles = new ArrayList<>(presenter.getViewModel().getResumeTitles());
+        List<String> resumeTitles = presenter.getViewModel().getResumeTitles() != null
+                ? new ArrayList<>(presenter.getViewModel().getResumeTitles())
+                : new ArrayList<>(); // Avoid null pointer exception
 
         // Layout and display logic
         if (resumeTitles.isEmpty()) {
@@ -93,7 +95,9 @@ public class PastResumesView extends JPanel {
     public void refreshResumes() {
         removeAll();
         controller.fetchResumeHistory(new ResumeHistoryInputData(-4));
-        List<String> resumeTitles = new ArrayList<>(presenter.getViewModel().getResumeTitles());
+        List<String> resumeTitles = presenter.getViewModel().getResumeTitles() != null
+                ? new ArrayList<>(presenter.getViewModel().getResumeTitles())
+                : new ArrayList<>(); // Avoid null pointer exception
 
         if (resumeTitles.isEmpty()) {
             setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
