@@ -16,6 +16,7 @@ public class CommonUser implements User {
     private List<String> education;
     private List<String> skills;
     private List<String> resumeS;
+    private List<String> resumeTitles;
     private Map<String,String> storedCv;
     private List<String> suggestions;
     private int CVindex;
@@ -25,6 +26,7 @@ public class CommonUser implements User {
         this.education = new ArrayList<>();
         this.skills = new ArrayList<>();
         this.resumeS = new ArrayList<>();
+        this.resumeTitles = new ArrayList<>();
         this.storedCv = new HashMap<>();
         this.suggestions = new ArrayList<>();
     }
@@ -50,7 +52,50 @@ public class CommonUser implements User {
     public List<String> getResume(){return resumeS;}
 
     @Override
-    public void addResume(String resume){this.resumeS.add(resume);}
+    public List<String> getResumes() {
+        // Return the list of all resume content
+        return resumeS;
+    }
+
+
+    @Override
+    public List<String> getResumeTitles() {
+        return resumeTitles;
+    }
+
+    @Override
+    public void addResume(String resume) {
+        this.resumeS.add(resume); // Add the resume content
+        this.resumeTitles.add("Untitled"); // Add a default title
+    }
+
+
+    @Override
+    public void addResume(String resume, String title) {
+        this.resumeS.add(resume); // Add the resume content
+        this.resumeTitles.add(title); // Add the corresponding title (added)
+    }
+
+    @Override
+    public int getResumeCount() {
+        return this.resumeS.size(); // Return the number of resumes (added)
+    }
+
+    @Override
+    public String getResumeContent(int index) {
+        if (index >= 0 && index < resumeS.size()) {
+            return resumeS.get(index); // Return resume content at the given index (added)
+        }
+        return null; // Return null if the index is invalid
+    }
+
+    @Override
+    public String getResumeTitle(int index) {
+        if (index >= 0 && index < resumeTitles.size()) {
+            return resumeTitles.get(index); // Return resume title at the given index (added)
+        }
+        return null; // Return null if the index is invalid
+    }
 
     @Override
 
