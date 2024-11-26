@@ -31,35 +31,7 @@ public class CVHistoryView  extends JPanel {
         DisplayArea = new JTextArea(20,50);
         DisplayArea.setEditable(false);
 
-        controller.CVhistory(new CVhistoryInputData(-4));
-        List<String> keys = new ArrayList<>(presenter.getViewModel().getTitles());
-        if (keys.isEmpty()) {
-            setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-            DisplayArea.setText("");
-            DisplayArea.setEditable(false);
-            add(backButton);
-
-            DisplayArea.setText("You havent produce any CV yet");
-        }else {
-            add(backButton);
-            add(NextButton);
-            add(PreviousButton);
-            for (int i = 0; i < presenter.getViewModel().getTitles().size(); i++) {
-                JButton button = new JButton(keys.get(i));
-                int I = i;
-                button.addActionListener(new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        controller.CVhistory(new CVhistoryInputData(I));
-                        DisplayArea.setText(presenter.getViewModel().getHistoryCV());
-                        DisplayArea.setEditable(false);
-                    }
-                });
-                add(button);
-            }
-            add(new JScrollPane(DisplayArea));
-
-        }
+        setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
         backButton.addActionListener(new ActionListener() {
             @Override
@@ -89,16 +61,15 @@ public class CVHistoryView  extends JPanel {
         removeAll();
         controller.CVhistory(new CVhistoryInputData(-4));
         List<String> keys = new ArrayList<>(presenter.getViewModel().getTitles());
-        if (keys.size() == 0) {
+        if (keys.isEmpty()) {
             setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
             add(DisplayArea);
             add(backButton);
 
             DisplayArea.setText("You havent produce any CV yet");
         }else {
-            add(backButton);
-            add(NextButton);
-            add(PreviousButton);
+            JPanel titlrPanel = new JPanel();
+            titlrPanel.setLayout(new BoxLayout(titlrPanel, BoxLayout.X_AXIS));
             for (int i = 0; i < presenter.getViewModel().getTitles().size(); i++) {
                 JButton button = new JButton(keys.get(i));
                 int I = i;
@@ -109,9 +80,16 @@ public class CVHistoryView  extends JPanel {
                         DisplayArea.setText(presenter.getViewModel().getHistoryCV());
                     }
                 });
-                add(button);
+                titlrPanel.add(button);
             }
+            add(titlrPanel);
             add(new JScrollPane(DisplayArea));
+            JPanel buttonPanel = new JPanel();
+            buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.X_AXIS));
+            buttonPanel.add(PreviousButton);
+            buttonPanel.add(NextButton);
+            add(buttonPanel);
+            add(backButton);
             DisplayArea.setText("");
         }
 
