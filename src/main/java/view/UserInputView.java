@@ -25,6 +25,7 @@ public class UserInputView extends JPanel {
     private JButton giveSuggestionsButton;
     private JButton logoutButton;
     private JButton historyButton;
+    private JButton pastResumesButton;
     private JLabel messageLabel;
 
     public UserInputView(ViewManager viewManager, UserInputController controller, UserInputPresenter presenter) {
@@ -44,6 +45,7 @@ public class UserInputView extends JPanel {
         giveSuggestionsButton = new JButton("Give Suggestions");
         logoutButton = new JButton("Logout");
         historyButton = new JButton("History");
+        pastResumesButton = new JButton("Past Resumes"); // Initialize the new button
         messageLabel = new JLabel();
 
         // Layout components
@@ -63,6 +65,7 @@ public class UserInputView extends JPanel {
         add(buildCVButton);
         add(giveSuggestionsButton);
         add(historyButton);
+        add(pastResumesButton);
         add(logoutButton);
         add(messageLabel);
 
@@ -129,6 +132,14 @@ public class UserInputView extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 viewManager.showHistoryView();
+            }
+        });
+
+        // Add action listener for the "Past Resumes" button
+        pastResumesButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                viewManager.showPastResumesView(); // Placeholder for showing past resumes
             }
         });
     }

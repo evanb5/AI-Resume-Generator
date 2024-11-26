@@ -1,4 +1,3 @@
-// data_access/InMemoryUserDataAccessObject.java
 package data_access;
 
 import entity.User;
@@ -19,7 +18,9 @@ public class InMemoryUserDataAccessObject implements UserDataAccessInterface {
     }
 
     @Override
-    public User getCurrentUser() {return this.currentUser;}
+    public User getCurrentUser() {
+        return this.currentUser;
+    }
 
     @Override
     public void saveUser(User user) {
@@ -39,5 +40,32 @@ public class InMemoryUserDataAccessObject implements UserDataAccessInterface {
     @Override
     public void deleteUser(String username) {
         users.remove(username);
+    }
+
+    // New methods for resumes
+    @Override
+    public String getResumeContent(User user, int index) {
+        if (index >= 0 && index < user.getResume().size()) {
+            return user.getResume().get(index);
+        }
+        return null;
+    }
+
+    @Override
+    public int getResumeCount(User user) {
+        return user.getResume().size();
+    }
+
+    @Override
+    public void addResume(User user, String resumeContent, String title) {
+        user.addResume(resumeContent);
+    }
+
+    @Override
+    public String getResumeTitle(User user, int index) {
+        if (index >= 0 && index < user.getResume().size()) {
+            return "Resume " + (index + 1);
+        }
+        return null;
     }
 }

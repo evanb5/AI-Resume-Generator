@@ -1,4 +1,3 @@
-// view/ViewManager.java
 package view;
 
 import javax.swing.*;
@@ -15,6 +14,8 @@ import interface_adapter.user_input.*;
 import interface_adapter.build_resume.*;
 import interface_adapter.build_cv.*;
 import interface_adapter.give_suggestions.*;
+import interface_adapter.resume_history.ResumeHistoryController;
+import interface_adapter.resume_history.ResumeHistoryPresenter;
 
 public class ViewManager {
     private JFrame frame;
@@ -29,6 +30,7 @@ public class ViewManager {
     private GiveSuggestionsView giveSuggestionsView;
     private HistoryView historyView;
     private CVHistoryView cvHistoryView;
+    private PastResumesView pastResumesView; // New view for Resume History
 
     public ViewManager(
             LoginController loginController,
@@ -37,9 +39,9 @@ public class ViewManager {
             BuildResumeController buildResumeController,
             BuildCVController buildCVController,
             GiveSuggestionsController giveSuggestionsController,
-
             HistoryController historyController,
             CVhistoryController CVhistorycontroller,
+            ResumeHistoryController resumeHistoryController, // New controller for Resume History
             LoginViewModel loginViewModel,
             SignupViewModel signupViewModel,
             UserInputPresenter userInputPresenter,
@@ -47,8 +49,8 @@ public class ViewManager {
             BuildCVPresenter buildCVPresenter,
             GiveSuggestionsPresenter giveSuggestionsPresenter,
             HistoryPresenter historyPresenter,
-            CVhistoryPresenter CVHistorypresenter
-
+            CVhistoryPresenter CVHistorypresenter,
+            ResumeHistoryPresenter resumeHistoryPresenter // New presenter for Resume History
     ) {
         frame = new JFrame("AI Resume Generator");
         cardLayout = new CardLayout();
@@ -64,6 +66,7 @@ public class ViewManager {
         giveSuggestionsView = new GiveSuggestionsView(this, giveSuggestionsController, giveSuggestionsPresenter);
         historyView = new HistoryView(this, historyPresenter, historyController);
         cvHistoryView = new CVHistoryView(this, CVhistorycontroller, CVHistorypresenter);
+        pastResumesView = new PastResumesView(this, resumeHistoryController, resumeHistoryPresenter); // Initialize PastResumesView
 
         mainPanel.add(loginView, "LoginView");
         mainPanel.add(signupView, "SignupView");
@@ -73,6 +76,7 @@ public class ViewManager {
         mainPanel.add(giveSuggestionsView, "GiveSuggestionsView");
         mainPanel.add(historyView, "HistoryView");
         mainPanel.add(cvHistoryView, "HistoryCVView");
+        mainPanel.add(pastResumesView, "PastResumesView"); // Add PastResumesView to mainPanel
 
         frame.add(mainPanel);
         frame.setSize(800, 600);
@@ -106,10 +110,16 @@ public class ViewManager {
 
     public void showHistoryView() {
         historyView.refreshnow();
-        cardLayout.show(mainPanel, "HistoryView");}
+        cardLayout.show(mainPanel, "HistoryView");
+    }
 
     public void showHistoryCVView() {
         cvHistoryView.refreshcv();
         cardLayout.show(mainPanel, "HistoryCVView");
+    }
+
+    public void showPastResumesView() { // New method to show PastResumesView
+        pastResumesView.refreshResumes();
+        cardLayout.show(mainPanel, "PastResumesView");
     }
 }
