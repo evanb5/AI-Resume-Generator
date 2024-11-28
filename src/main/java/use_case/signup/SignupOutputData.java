@@ -5,12 +5,11 @@ public class SignupOutputData {
     private boolean success;
     private String message;
     private String username;
-    private String password;
-    private String email;
 
-    public SignupOutputData(boolean success, String message) {
+    public SignupOutputData(boolean success, String message, String username) {
         this.success = success;
         this.message = message;
+        this.username = username;
     }
 
     public boolean isSuccess() {
@@ -21,16 +20,6 @@ public class SignupOutputData {
         return message;
     }
 
-    public String getUsername() {
-        return username;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public String getEmail() {
-        return email;
-    }
+    public String getUsername() { return username; }
 
 }

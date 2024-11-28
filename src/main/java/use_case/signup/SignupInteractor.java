@@ -21,14 +21,14 @@ public class SignupInteractor implements SignupInputBoundary {
         SignupOutputData outputData;
 
         if (existingUser != null) {
-            outputData = new SignupOutputData(false, "Username already exists");
+            outputData = new SignupOutputData(false, "Username already exists", null);
         } else {
             User newUser = userFactory.createUser();
             newUser.setUsername(inputData.getUsername());
             newUser.setPassword(inputData.getPassword());
             newUser.setEmail(inputData.getEmail());
             userDataAccess.saveUser(newUser);
-            outputData = new SignupOutputData(true, "Register Successfully");
+            outputData = new SignupOutputData(true, "Register Successfully", inputData.getUsername());
         }
 
         presenter.present(outputData);

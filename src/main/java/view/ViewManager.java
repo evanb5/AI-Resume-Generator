@@ -45,7 +45,7 @@ public class ViewManager {
             LoginViewModel loginViewModel,
             SignupViewModel signupViewModel,
             UserInputPresenter userInputPresenter,
-            BuildResumePresenter buildResumePresenter,
+            BuildResumeViewModel buildResumeViewModel,
             BuildCVPresenter buildCVPresenter,
             GiveSuggestionsPresenter giveSuggestionsPresenter,
             HistoryPresenter historyPresenter,
@@ -61,7 +61,7 @@ public class ViewManager {
         signupView = new SignupView(this, signupViewModel);
         signupView.setSignupController(signupController);
         userInputView = new UserInputView(this, userInputController, userInputPresenter);
-        buildResumeView = new BuildResumeView(this, buildResumeController, buildResumePresenter);
+        buildResumeView = new BuildResumeView(this, buildResumeController, buildResumeViewModel);
         buildCVView = new BuildCVView(this, buildCVController, buildCVPresenter);
         giveSuggestionsView = new GiveSuggestionsView(this, giveSuggestionsController, giveSuggestionsPresenter);
         historyView = new HistoryView(this, historyPresenter, historyController);

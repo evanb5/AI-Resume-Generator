@@ -1,9 +1,17 @@
 // interface_adapter/build_resume/BuildResumeViewModel.java
 package interface_adapter.build_resume;
 
-public class BuildResumeViewModel {
+import interface_adapter.ViewModel;
+
+public class BuildResumeViewModel extends ViewModel<BuildResumeState> {
     private String formattedResume;
     private String message;
+
+    public BuildResumeViewModel() {
+        setState(new BuildResumeState());
+        this.formattedResume = "";
+        this.message = "";
+    }
 
     public String getFormattedResume() {
         return formattedResume;
