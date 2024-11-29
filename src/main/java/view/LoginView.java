@@ -44,14 +44,13 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
         loginButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (e.getSource() == loginButton) {
-                    updateCurrentState();
-                    controller.login(usernameField.getText(), new String(passwordField.getPassword()));
-                    messageLabel.setText(viewModel.getMessage());
-                    if (viewModel.isSuccess()) {
-                        UserSession.getInstance().setCurrentUser(viewModel.getUser());
-                        viewManager.showUserInputView();
-                    }
+                updateCurrentState();
+                controller.login(usernameField.getText(), new String(passwordField.getPassword()));
+                messageLabel.setText(viewModel.getMessage());
+                passwordField.setText("");
+                if (viewModel.isSuccess()) {
+                    UserSession.getInstance().setCurrentUser(viewModel.getUser());
+                    viewManager.showUserInputView();
                 }
             }
         });
@@ -84,10 +83,14 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
 
     private void setFields(LoginState state) {
         usernameField.setText(state.getUserName());
-        passwordField.setText(state.getPassword());
     }
 
     public void setLoginController(LoginController controller) {
         this.controller = controller;
+    }
+
+    public void clearprevioususerinformation(){
+        usernameField.setText("");
+        passwordField.setText("");
     }
 }

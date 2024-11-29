@@ -13,7 +13,15 @@ public class UserInputPresenter implements UserInputOutputBoundary {
     @Override
     public void present(UserInputOutputData outputData) {
         viewModel.setSuccess(outputData.isSuccess());
-        viewModel.setMessage(outputData.getMessage());
+    }
+
+    @Override
+    public void refresh(UserInputOutputDataforrefresh outputData) {
+        viewModel.setFullname(outputData.getFullname());
+        viewModel.setEmail(outputData.getEmail());
+        viewModel.setWorkexperience(outputData.getWorkexperience());
+        viewModel.setEducation(outputData.getEducation());
+        viewModel.setSkills(outputData.getSkills());
     }
 
     public UserInputViewModel getViewModel() {

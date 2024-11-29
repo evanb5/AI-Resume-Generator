@@ -89,4 +89,10 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
     public void actionPerformed(ActionEvent e) {
         System.out.println("Click " + e.getActionCommand());
     }
+
+    public void clearall(){
+        usernameField.setText("");
+        passwordField.setText("");
+        emailField.setText("");
+    }
 }
