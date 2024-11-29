@@ -3,4 +3,5 @@ package use_case.user_input;
 
 public interface UserInputOutputBoundary {
     void present(UserInputOutputData outputData);
+    void refresh(UserInputOutputDataforrefresh outputData);
 }

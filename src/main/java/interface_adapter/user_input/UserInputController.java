@@ -13,4 +13,6 @@ public class UserInputController {
     public void updateUserData(UserInputData inputData) {
         interactor.updateUserData(inputData);
     }
+
+    public void refreshUserData() {interactor.getUserData();}
 }

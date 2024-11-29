@@ -5,7 +5,6 @@ import javax.swing.*;
 import java.awt.event.*;
 import java.util.Arrays;
 import interface_adapter.user_input.*;
-import entity.User;
 import session.UserSession;
 import use_case.user_input.UserInputData;
 
@@ -66,33 +65,21 @@ public class UserInputView extends JPanel {
         add(logoutButton);
         add(messageLabel);
 
-        // Populate current user information
-        User currentUser = UserSession.getInstance().getCurrentUser();
-        if (currentUser != null) {
-            fullNameField.setText(currentUser.getFullName());
-            emailField.setText(currentUser.getEmail());
-            workExperienceArea.setText(String.join("\n", currentUser.getWorkExperience()));
-            educationArea.setText(String.join("\n", currentUser.getEducation()));
-            skillsArea.setText(String.join("\n", currentUser.getSkills()));
-        }
-
         // Add action listeners
         saveButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                User user = UserSession.getInstance().getCurrentUser();
-                user.setFullName(fullNameField.getText());
-                user.setEmail(emailField.getText());
-                user.setWorkExperience(Arrays.asList(workExperienceArea.getText().split("\n")));
-                user.setEducation(Arrays.asList(educationArea.getText().split("\n")));
-                user.setSkills(Arrays.asList(skillsArea.getText().split("\n")));
-
-                UserInputData inputData = new UserInputData(user);
+                UserInputData inputData = new UserInputData(fullNameField.getText(),emailField.getText(),
+                        workExperienceArea.getText().split("\n"), educationArea.getText().split("\n"),
+                        skillsArea.getText().split("\n"));
                 controller.updateUserData(inputData);
-
                 // Update view
                 UserInputViewModel viewModel = presenter.getViewModel();
-                messageLabel.setText(viewModel.getMessage());
+                if (viewModel.isSuccess()){
+                    messageLabel.setText("User information updated successfully");
+                }else{
+                    messageLabel.setText("User information update failed");
+                }
             }
         });
 
@@ -131,5 +118,27 @@ public class UserInputView extends JPanel {
                 viewManager.showHistoryView();
             }
         });
+    }
+
+    public void refreshUserData() {
+        controller.refreshUserData();
+        UserInputViewModel viewModel = presenter.getViewModel();
+        fullNameField.setText(viewModel.getFullname());
+        emailField.setText(viewModel.getEmail());
+        if (viewModel.getWorkexperience()!=null) {
+            workExperienceArea.setText(String.join("\n", viewModel.getWorkexperience()));
+        }else {
+            workExperienceArea.setText("");
+        }
+        if (viewModel.getEducation()!=null) {
+            educationArea.setText(String.join("\n", viewModel.getEducation()));
+        }else {
+            educationArea.setText("");
+        }
+        if (viewModel.getSkills()!=null) {
+            skillsArea.setText(String.join("\n", viewModel.getSkills()));
+        }else {
+            skillsArea.setText("");
+        }
     }
 }

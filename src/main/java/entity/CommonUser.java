@@ -142,11 +142,7 @@ public class CommonUser implements User {
     }
 
     @Override
-    public List<String> getWorkExperience() {
-        System.out.println("work experience obtained");
-        System.out.println(workExperience);
-        return workExperience;
-    }
+    public List<String> getWorkExperience() {return workExperience;}
 
     @Override
     public void setWorkExperience(List<String> workExperience) {
@@ -154,9 +150,7 @@ public class CommonUser implements User {
     }
 
     @Override
-    public List<String> getEducation() {
-        return education;
-    }
+    public List<String> getEducation() {return education;}
 
     @Override
     public void setEducation(List<String> education) {
