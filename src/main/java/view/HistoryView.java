@@ -70,8 +70,7 @@ public class HistoryView extends JPanel{
 
         resumehistorybutton.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e) {
-            }
+            public void actionPerformed(ActionEvent e) {viewManager.showPastResumesView();}
         });
 
         suggestionhistorybutton.addActionListener(new ActionListener() {
