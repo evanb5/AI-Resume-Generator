@@ -13,7 +13,6 @@ public class HistoryView extends JPanel{
     private JButton CVhistorybutton;
     private JButton refresh;
     private JButton resumehistorybutton;
-    private JButton suggestionhistorybutton;
     private JButton back;
     private JTextArea CVnumbver;
     private JTextArea resumenumber;
@@ -34,7 +33,6 @@ public class HistoryView extends JPanel{
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         CVhistorybutton = new JButton("CVHistory");
         resumehistorybutton = new JButton("ResumeHistory");
-        suggestionhistorybutton = new JButton("Suggestion History");
         refresh = new JButton("Refresh");
         back = new JButton("Back");
 
@@ -45,7 +43,6 @@ public class HistoryView extends JPanel{
         add(resumenumber);
         add(resumehistorybutton);
         add(suggestionnumber);
-        add(suggestionhistorybutton);
         add(refresh);
         add(back);
 
@@ -71,12 +68,6 @@ public class HistoryView extends JPanel{
         resumehistorybutton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {viewManager.showPastResumesView();}
-        });
-
-        suggestionhistorybutton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-            }
         });
 
         back.addActionListener(new ActionListener() {
