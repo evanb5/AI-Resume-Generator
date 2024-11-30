@@ -18,7 +18,7 @@ public class BuildResumeInteractor implements BuildResumeInputBoundary {
 
     @Override
     public void buildResume(BuildResumeInputData inputData) {
-        User user = inputData.getUser();
+        User user = userDataAccess.getCurrentUser();
         String jobDescription = inputData.getJobDescription();
         int templateNumber = inputData.getTemplateNumber();
 
