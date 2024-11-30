@@ -34,6 +34,7 @@ public class HistoryView extends JPanel{
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         CVhistorybutton = new JButton("CVHistory");
         resumehistorybutton = new JButton("ResumeHistory");
+        suggestionhistorybutton = new JButton("Suggestion History");
         refresh = new JButton("Refresh");
         back = new JButton("Back");
 
@@ -44,6 +45,7 @@ public class HistoryView extends JPanel{
         add(resumenumber);
         add(resumehistorybutton);
         add(suggestionnumber);
+        add(suggestionhistorybutton);
         add(refresh);
         add(back);
 
