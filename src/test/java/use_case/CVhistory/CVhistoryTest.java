@@ -6,7 +6,6 @@ import entity.CommonUserFactory;
 import entity.User;
 import entity.UserFactory;
 import org.junit.jupiter.api.Test;
-import services.ChatGPTService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -121,14 +120,14 @@ class CVhistoryTest {
         user.setCVindex(3);
         userDataAccess.setCurrentUser(user);
         List<String> keys = new ArrayList<>(user.getCvs().keySet());
-        CVhistoryOutputBoundary successprenter = new CVhistoryOutputBoundary() {
+        CVhistoryOutputBoundary failprenter = new CVhistoryOutputBoundary() {
             @Override
             public void present(CVhistoryOutputData outputData) {
                 assertEquals("ddddd", outputData.getCVhistory());
                 assertEquals(keys, outputData.getTitles());
             }
         };
-        CVhistoryInteractor interactor = new CVhistoryInteractor(userDataAccess, successprenter);
+        CVhistoryInteractor interactor = new CVhistoryInteractor(userDataAccess, failprenter);
         interactor.CVhistory(inputData);
     }
 
@@ -145,14 +144,14 @@ class CVhistoryTest {
         user.setCVindex(0);
         userDataAccess.setCurrentUser(user);
         List<String> keys = new ArrayList<>(user.getCvs().keySet());
-        CVhistoryOutputBoundary successprenter = new CVhistoryOutputBoundary() {
+        CVhistoryOutputBoundary failprenter = new CVhistoryOutputBoundary() {
             @Override
             public void present(CVhistoryOutputData outputData) {
                 assertEquals("aaaaa", outputData.getCVhistory());
                 assertEquals(keys, outputData.getTitles());
             }
         };
-        CVhistoryInteractor interactor = new CVhistoryInteractor(userDataAccess, successprenter);
+        CVhistoryInteractor interactor = new CVhistoryInteractor(userDataAccess, failprenter);
         interactor.CVhistory(inputData);
     }
 
@@ -169,14 +168,14 @@ class CVhistoryTest {
         user.setCVindex(-4);
         userDataAccess.setCurrentUser(user);
         List<String> keys = new ArrayList<>(user.getCvs().keySet());
-        CVhistoryOutputBoundary successprenter = new CVhistoryOutputBoundary() {
+        CVhistoryOutputBoundary failprenter = new CVhistoryOutputBoundary() {
             @Override
             public void present(CVhistoryOutputData outputData) {
                 assertEquals("", outputData.getCVhistory());
                 assertEquals(keys, outputData.getTitles());
             }
         };
-        CVhistoryInteractor interactor = new CVhistoryInteractor(userDataAccess, successprenter);
+        CVhistoryInteractor interactor = new CVhistoryInteractor(userDataAccess, failprenter);
         interactor.CVhistory(inputData);
     }
 
@@ -193,14 +192,14 @@ class CVhistoryTest {
         user.setCVindex(3);
         userDataAccess.setCurrentUser(null);
         List<String> keys = new ArrayList<>(user.getCvs().keySet());
-        CVhistoryOutputBoundary successprenter = new CVhistoryOutputBoundary() {
+        CVhistoryOutputBoundary failprenter = new CVhistoryOutputBoundary() {
             @Override
             public void present(CVhistoryOutputData outputData) {
                 assertEquals("", outputData.getCVhistory());
                 assertEquals(new ArrayList<>(), outputData.getTitles());
             }
         };
-        CVhistoryInteractor interactor = new CVhistoryInteractor(userDataAccess, successprenter);
+        CVhistoryInteractor interactor = new CVhistoryInteractor(userDataAccess, failprenter);
         interactor.CVhistory(inputData);
     }
 }
