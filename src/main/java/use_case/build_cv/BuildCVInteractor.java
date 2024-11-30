@@ -25,7 +25,7 @@ public class BuildCVInteractor implements BuildCVInputBoundary {
      */
     @Override
     public void buildCV(BuildCVInputData inputData) {
-        User user = inputData.getUser();
+        User user = userDataAccess.getCurrentUser();
         String jobDescription = inputData.getJobDescription();
         String templateChoice = inputData.getTemplateChoice();
         String cvTitle = inputData.getCvTitle();

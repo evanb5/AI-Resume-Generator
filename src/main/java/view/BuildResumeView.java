@@ -8,7 +8,6 @@ import java.beans.PropertyChangeListener;
 import java.util.Arrays;
 
 import interface_adapter.build_resume.*;
-import entity.User;
 import interface_adapter.login.LoginState;
 import interface_adapter.signup.SignupState;
 import session.UserSession;
@@ -60,11 +59,10 @@ public class BuildResumeView extends JPanel implements PropertyChangeListener {
             public void actionPerformed(ActionEvent e) {
                 String jobDescription = jobDescriptionArea.getText();
                 String templateChoice = (String) templateComboBox.getSelectedItem();
-                User user = UserSession.getInstance().getCurrentUser();
 
                 int templateNumber = mapTemplateChoiceToNumber(templateChoice);
 
-                BuildResumeInputData inputData = new BuildResumeInputData(user, jobDescription, templateNumber);
+                BuildResumeInputData inputData = new BuildResumeInputData(jobDescription, templateNumber);
                 controller.buildResume(inputData);
             }
 
