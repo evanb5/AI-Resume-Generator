@@ -24,7 +24,7 @@ class BuildResumeInteractorTest {
         private List<String> education;
         private List<String> skills;
         private List<String> resumes;
-        private Map<String, String> cvs;  // Changed from List<String> to Map<String, String> for CVs
+        private Map<String, String> cvs;
         private List<String> suggestions;
 
         public MockUser(String fullName, String email, String[] workExperience, String[] education, String[] skills) {
