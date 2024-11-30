@@ -31,7 +31,7 @@ public interface User {
     int getnumresume();
   
     Map<String, String> getCvs();
-    void addCv(String cv, String cvName);
+    void addCv(String cvName, String cv);
     int getnumCV();
     void setCVindex(int index);
     int getCVindex();

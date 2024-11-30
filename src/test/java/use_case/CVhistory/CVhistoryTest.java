@@ -19,10 +19,10 @@ class CVhistoryTest {
         UserDataAccessInterface userDataAccess = new InMemoryUserDataAccessObject();
         UserFactory factory = new CommonUserFactory();
         User user = factory.createUser();
-        user.addCv("aaaaa", "CV1");
-        user.addCv("bbbbb", "CV2");
-        user.addCv("ccccc", "CV3");
-        user.addCv("ddddd", "CV4");
+        user.addCv("CV1","aaaaa");
+        user.addCv("CV2","bbbbb");
+        user.addCv("CV3","ccccc");
+        user.addCv("CV4","ddddd");
         userDataAccess.setCurrentUser(user);
         List<String> keys = new ArrayList<>(user.getCvs().keySet());
         CVhistoryOutputBoundary successprenter = new CVhistoryOutputBoundary() {
@@ -42,16 +42,16 @@ class CVhistoryTest {
         UserDataAccessInterface userDataAccess = new InMemoryUserDataAccessObject();
         UserFactory factory = new CommonUserFactory();
         User user = factory.createUser();
-        user.addCv("aaaaa", "CV1");
-        user.addCv("bbbbb", "CV2");
-        user.addCv("ccccc", "CV3");
-        user.addCv("ddddd", "CV4");
+        user.addCv("CV1","aaaaa");
+        user.addCv("CV2","bbbbb");
+        user.addCv("CV3","ccccc");
+        user.addCv("CV4","ddddd");
         userDataAccess.setCurrentUser(user);
         List<String> keys = new ArrayList<>(user.getCvs().keySet());
         CVhistoryOutputBoundary successprenter = new CVhistoryOutputBoundary() {
             @Override
             public void present(CVhistoryOutputData outputData) {
-                assertEquals("ccccc", outputData.getCVhistory());
+                assertEquals(user.getCvs().get(keys.get(2)), outputData.getCVhistory());
                 assertEquals(keys, outputData.getTitles());
             }
         };
@@ -65,17 +65,17 @@ class CVhistoryTest {
         UserDataAccessInterface userDataAccess = new InMemoryUserDataAccessObject();
         UserFactory factory = new CommonUserFactory();
         User user = factory.createUser();
-        user.addCv("aaaaa", "CV1");
-        user.addCv("bbbbb", "CV2");
-        user.addCv("ccccc", "CV3");
-        user.addCv("ddddd", "CV4");
+        user.addCv("CV1","aaaaa");
+        user.addCv("CV2","bbbbb");
+        user.addCv("CV3","ccccc");
+        user.addCv("CV4","ddddd");
         user.setCVindex(1);
         userDataAccess.setCurrentUser(user);
         List<String> keys = new ArrayList<>(user.getCvs().keySet());
         CVhistoryOutputBoundary successprenter = new CVhistoryOutputBoundary() {
             @Override
             public void present(CVhistoryOutputData outputData) {
-                assertEquals("ccccc", outputData.getCVhistory());
+                assertEquals(user.getCvs().get(keys.get(2)), outputData.getCVhistory());
                 assertEquals(keys, outputData.getTitles());
             }
         };
@@ -89,17 +89,17 @@ class CVhistoryTest {
         UserDataAccessInterface userDataAccess = new InMemoryUserDataAccessObject();
         UserFactory factory = new CommonUserFactory();
         User user = factory.createUser();
-        user.addCv("aaaaa", "CV1");
-        user.addCv("bbbbb", "CV2");
-        user.addCv("ccccc", "CV3");
-        user.addCv("ddddd", "CV4");
+        user.addCv("CV1","aaaaa");
+        user.addCv("CV2","bbbbb");
+        user.addCv("CV3","ccccc");
+        user.addCv("CV4","ddddd");
         user.setCVindex(3);
         userDataAccess.setCurrentUser(user);
         List<String> keys = new ArrayList<>(user.getCvs().keySet());
         CVhistoryOutputBoundary successprenter = new CVhistoryOutputBoundary() {
             @Override
             public void present(CVhistoryOutputData outputData) {
-                assertEquals("ccccc", outputData.getCVhistory());
+                assertEquals(user.getCvs().get(keys.get(2)), outputData.getCVhistory());
                 assertEquals(keys, outputData.getTitles());
             }
         };
@@ -113,17 +113,17 @@ class CVhistoryTest {
         UserDataAccessInterface userDataAccess = new InMemoryUserDataAccessObject();
         UserFactory factory = new CommonUserFactory();
         User user = factory.createUser();
-        user.addCv("aaaaa", "CV1");
-        user.addCv("bbbbb", "CV2");
-        user.addCv("ccccc", "CV3");
-        user.addCv("ddddd", "CV4");
+        user.addCv("CV1","aaaaa");
+        user.addCv("CV2","bbbbb");
+        user.addCv("CV3","ccccc");
+        user.addCv("CV4","ddddd");
         user.setCVindex(3);
         userDataAccess.setCurrentUser(user);
         List<String> keys = new ArrayList<>(user.getCvs().keySet());
         CVhistoryOutputBoundary failprenter = new CVhistoryOutputBoundary() {
             @Override
             public void present(CVhistoryOutputData outputData) {
-                assertEquals("ddddd", outputData.getCVhistory());
+                assertEquals(user.getCvs().get(keys.get(3)), outputData.getCVhistory());
                 assertEquals(keys, outputData.getTitles());
             }
         };
@@ -137,17 +137,17 @@ class CVhistoryTest {
         UserDataAccessInterface userDataAccess = new InMemoryUserDataAccessObject();
         UserFactory factory = new CommonUserFactory();
         User user = factory.createUser();
-        user.addCv("aaaaa", "CV1");
-        user.addCv("bbbbb", "CV2");
-        user.addCv("ccccc", "CV3");
-        user.addCv("ddddd", "CV4");
+        user.addCv("CV1","aaaaa");
+        user.addCv("CV2","bbbbb");
+        user.addCv("CV3","ccccc");
+        user.addCv("CV4","ddddd");
         user.setCVindex(0);
         userDataAccess.setCurrentUser(user);
         List<String> keys = new ArrayList<>(user.getCvs().keySet());
         CVhistoryOutputBoundary failprenter = new CVhistoryOutputBoundary() {
             @Override
             public void present(CVhistoryOutputData outputData) {
-                assertEquals("aaaaa", outputData.getCVhistory());
+                assertEquals(user.getCvs().get(keys.get(0)), outputData.getCVhistory());
                 assertEquals(keys, outputData.getTitles());
             }
         };
@@ -161,10 +161,10 @@ class CVhistoryTest {
         UserDataAccessInterface userDataAccess = new InMemoryUserDataAccessObject();
         UserFactory factory = new CommonUserFactory();
         User user = factory.createUser();
-        user.addCv("aaaaa", "CV1");
-        user.addCv("bbbbb", "CV2");
-        user.addCv("ccccc", "CV3");
-        user.addCv("ddddd", "CV4");
+        user.addCv("CV1","aaaaa");
+        user.addCv("CV2","bbbbb");
+        user.addCv("CV3","ccccc");
+        user.addCv("CV4","ddddd");
         user.setCVindex(-4);
         userDataAccess.setCurrentUser(user);
         List<String> keys = new ArrayList<>(user.getCvs().keySet());
@@ -185,10 +185,10 @@ class CVhistoryTest {
         UserDataAccessInterface userDataAccess = new InMemoryUserDataAccessObject();
         UserFactory factory = new CommonUserFactory();
         User user = factory.createUser();
-        user.addCv("aaaaa", "CV1");
-        user.addCv("bbbbb", "CV2");
-        user.addCv("ccccc", "CV3");
-        user.addCv("ddddd", "CV4");
+        user.addCv("CV1","aaaaa");
+        user.addCv("CV2","bbbbb");
+        user.addCv("CV3","ccccc");
+        user.addCv("CV4","ddddd");
         user.setCVindex(3);
         userDataAccess.setCurrentUser(null);
         List<String> keys = new ArrayList<>(user.getCvs().keySet());
