@@ -4,7 +4,6 @@ package view;
 import javax.swing.*;
 import java.awt.event.*;
 import interface_adapter.build_cv.*;
-import session.UserSession;
 import use_case.build_cv.BuildCVInputData;
 
 public class BuildCVView extends JPanel {

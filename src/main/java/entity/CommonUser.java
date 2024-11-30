@@ -15,7 +15,6 @@ public class CommonUser implements User {
     private List<String> education;
     private List<String> skills;
     private List<String> resumeS;
-    private List<String> resumeTitles;
     private Map<String,String> storedCv;
     private List<String> suggestions;
     private int CVindex;
@@ -48,10 +47,7 @@ public class CommonUser implements User {
     public List<String> getResume(){return resumeS;}
 
     @Override
-    public List<String> getResumes() {
-        // Return the list of all resume content
-        return resumeS;
-    }
+    public List<String> getResumes() {return resumeS;}
 
     @Override
     public void addResume(String resume) {
