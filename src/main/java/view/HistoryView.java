@@ -78,6 +78,13 @@ public class HistoryView extends JPanel{
             public void actionPerformed(ActionEvent e) {
             }
         });
+
+        back.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                viewManager.showUserInputView();
+            }
+        });
     }
     public void refreshnow() {
         controller.historyinput();
