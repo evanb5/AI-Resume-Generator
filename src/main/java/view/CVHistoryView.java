@@ -36,7 +36,7 @@ public class CVHistoryView  extends JPanel {
         backButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                viewManager.showUserInputView();
+                viewManager.showHistoryView();
             }
         });
 
