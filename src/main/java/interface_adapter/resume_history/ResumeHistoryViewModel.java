@@ -3,16 +3,16 @@ package interface_adapter.resume_history;
 import java.util.List;
 
 public class ResumeHistoryViewModel {
-    private List<String> resumeTitles;
+    private int resumes;
     private String resumeContent;
     private String message;
 
-    public List<String> getResumeTitles() {
-        return resumeTitles;
+    public int getResumes() {
+        return resumes;
     }
 
-    public void setResumeTitles(List<String> resumeTitles) {
-        this.resumeTitles = resumeTitles;
+    public void setResumes(int resumes) {
+        this.resumes = resumes;
     }
 
     public String getResumeContent() {

@@ -19,7 +19,7 @@ public class ResumeHistoryInteractor implements ResumeHistoryInputBoundary {
         if (user == null) {
             // Handle case where no user is logged in
             ResumeHistoryOutputData outputData = new ResumeHistoryOutputData(
-                    null,
+                    0,
                     "",
                     "No user is currently logged in."
             );
@@ -31,7 +31,7 @@ public class ResumeHistoryInteractor implements ResumeHistoryInputBoundary {
         if (index == -4) {
             // Fetch all resume titles
             ResumeHistoryOutputData outputData = new ResumeHistoryOutputData(
-                    user.getResumeTitles(),
+                    user.getResumes().size(),
                     "",
                     "Resume titles fetched successfully."
             );
@@ -40,7 +40,7 @@ public class ResumeHistoryInteractor implements ResumeHistoryInputBoundary {
             // Fetch specific resume content
             String resumeContent = user.getResumes().get(index);
             ResumeHistoryOutputData outputData = new ResumeHistoryOutputData(
-                    user.getResumeTitles(),
+                    user.getResumes().size(),
                     resumeContent,
                     "Resume content fetched successfully."
             );
@@ -48,7 +48,7 @@ public class ResumeHistoryInteractor implements ResumeHistoryInputBoundary {
         } else {
             // Handle invalid index
             ResumeHistoryOutputData outputData = new ResumeHistoryOutputData(
-                    user.getResumeTitles(),
+                    user.getResumes().size(),
                     "",
                     "Invalid resume index."
             );

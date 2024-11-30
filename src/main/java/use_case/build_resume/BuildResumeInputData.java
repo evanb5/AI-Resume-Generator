@@ -8,14 +8,9 @@ public class BuildResumeInputData {
     private String jobDescription;
     private int templateNumber;
 
-    public BuildResumeInputData(User user, String jobDescription, int templateNumber) {
-        this.user = user;
+    public BuildResumeInputData(String jobDescription, int templateNumber) {
         this.jobDescription = jobDescription;
         this.templateNumber = templateNumber;
-    }
-
-    public User getUser() {
-        return user;
     }
 
     public String getJobDescription() {

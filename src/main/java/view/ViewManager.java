@@ -84,15 +84,18 @@ public class ViewManager {
     }
 
     public void showLoginView() {
+        loginView.clearprevioususerinformation();
         cardLayout.show(mainPanel, "LoginView");
         frame.setVisible(true);
     }
 
     public void showSignupView() {
+        signupView.clearall();
         cardLayout.show(mainPanel, "SignupView");
     }
 
     public void showUserInputView() {
+        userInputView.refreshUserData();
         cardLayout.show(mainPanel, "UserInputView");
     }
 

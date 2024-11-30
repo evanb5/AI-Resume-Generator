@@ -11,7 +11,7 @@ public class ResumeHistoryPresenter implements ResumeHistoryOutputBoundary {
 
     @Override
     public void present(ResumeHistoryOutputData outputData) {
-        viewModel.setResumeTitles(outputData.getResumeTitles());
+        viewModel.setResumes(outputData.getResumes());
         viewModel.setResumeContent(outputData.getResumeContent());
         viewModel.setMessage(outputData.getMessage());
     }

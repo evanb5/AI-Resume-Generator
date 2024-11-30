@@ -11,7 +11,6 @@ public class CommonUser implements User {
     private String password;
     private String email;
     private String fullName;
-    private String currentusername;
     private List<String> workExperience;
     private List<String> education;
     private List<String> skills;
@@ -26,12 +25,9 @@ public class CommonUser implements User {
         this.education = new ArrayList<>();
         this.skills = new ArrayList<>();
         this.resumeS = new ArrayList<>();
-        this.resumeTitles = new ArrayList<>();
         this.storedCv = new HashMap<>();
         this.suggestions = new ArrayList<>();
     }
-    @Override
-    public List<String> getsuggestions(){return suggestions;}
 
     @Override
     public void addsuggestion(String suggestion) {this.suggestions.add(suggestion);}
@@ -57,44 +53,9 @@ public class CommonUser implements User {
         return resumeS;
     }
 
-
-    @Override
-    public List<String> getResumeTitles() {
-        return resumeTitles;
-    }
-
     @Override
     public void addResume(String resume) {
         this.resumeS.add(resume); // Add the resume content
-        this.resumeTitles.add("Untitled"); // Add a default title
-    }
-
-
-    @Override
-    public void addResume(String resume, String title) {
-        this.resumeS.add(resume); // Add the resume content
-        this.resumeTitles.add(title); // Add the corresponding title (added)
-    }
-
-    @Override
-    public int getResumeCount() {
-        return this.resumeS.size(); // Return the number of resumes (added)
-    }
-
-    @Override
-    public String getResumeContent(int index) {
-        if (index >= 0 && index < resumeS.size()) {
-            return resumeS.get(index); // Return resume content at the given index (added)
-        }
-        return null; // Return null if the index is invalid
-    }
-
-    @Override
-    public String getResumeTitle(int index) {
-        if (index >= 0 && index < resumeTitles.size()) {
-            return resumeTitles.get(index); // Return resume title at the given index (added)
-        }
-        return null; // Return null if the index is invalid
     }
 
     @Override
@@ -142,11 +103,7 @@ public class CommonUser implements User {
     }
 
     @Override
-    public List<String> getWorkExperience() {
-        System.out.println("work experience obtained");
-        System.out.println(workExperience);
-        return workExperience;
-    }
+    public List<String> getWorkExperience() {return workExperience;}
 
     @Override
     public void setWorkExperience(List<String> workExperience) {
@@ -154,9 +111,7 @@ public class CommonUser implements User {
     }
 
     @Override
-    public List<String> getEducation() {
-        return education;
-    }
+    public List<String> getEducation() {return education;}
 
     @Override
     public void setEducation(List<String> education) {
@@ -182,10 +137,4 @@ public class CommonUser implements User {
     public void addCv(String cvName, String cv) {
         this.storedCv.put(cvName, cv);
     }
-
-    @Override
-    public void removeCv(String cvName) {
-        this.storedCv.remove(cvName);
-    }
-
 }
