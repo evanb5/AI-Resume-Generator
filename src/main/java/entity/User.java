@@ -32,10 +32,15 @@ public interface User {
   
     Map<String, String> getCvs();
     void addCv(String cv, String cvName);
-    void removeCv(String cvName);
     int getnumCV();
+    void setCVindex(int index);
+    int getCVindex();
 
-    List<String> getsuggestions();
     void addsuggestion(String suggestion);
     int getnumsuggestion();
+
+
+    List<String> getResumes();
+
+
 }

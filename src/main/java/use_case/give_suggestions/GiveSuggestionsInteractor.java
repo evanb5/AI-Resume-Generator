@@ -16,6 +16,10 @@ public class GiveSuggestionsInteractor implements GiveSuggestionsInputBoundary {
         this.chatGPTService = new ChatGPTService();
     }
 
+    public void setChatGPTService(ChatGPTService chatGPTService) {
+        this.chatGPTService = chatGPTService;
+    }
+
     /**
      * This program takes an inputted resume and offers suggestions based off the user's professional information and
      * the given description of the job they want to get using this resume using an GPT api. It returns the

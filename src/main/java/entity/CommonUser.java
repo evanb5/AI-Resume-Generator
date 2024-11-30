@@ -11,13 +11,13 @@ public class CommonUser implements User {
     private String password;
     private String email;
     private String fullName;
-    private String currentusername;
     private List<String> workExperience;
     private List<String> education;
     private List<String> skills;
     private List<String> resumeS;
     private Map<String,String> storedCv;
-    public List<String> suggestions;
+    private List<String> suggestions;
+    private int CVindex;
   
     public CommonUser() {
         this.workExperience = new ArrayList<>();
@@ -27,8 +27,6 @@ public class CommonUser implements User {
         this.storedCv = new HashMap<>();
         this.suggestions = new ArrayList<>();
     }
-    @Override
-    public List<String> getsuggestions(){return suggestions;}
 
     @Override
     public void addsuggestion(String suggestion) {this.suggestions.add(suggestion);}
@@ -37,13 +35,24 @@ public class CommonUser implements User {
     public int getnumsuggestion() {return suggestions.size();}
 
     @Override
-    public int getnumCV(){ return storedCv.size(); }
+    public int getnumCV(){ return storedCv.size();}
+
+    @Override
+    public int getCVindex() {return CVindex;}
+
+    @Override
+    public void setCVindex(int index){this.CVindex = index;}
 
     @Override
     public List<String> getResume(){return resumeS;}
 
     @Override
-    public void addResume(String resume){this.resumeS.add(resume);}
+    public List<String> getResumes() {return resumeS;}
+
+    @Override
+    public void addResume(String resume) {
+        this.resumeS.add(resume); // Add the resume content
+    }
 
     @Override
 
@@ -90,11 +99,7 @@ public class CommonUser implements User {
     }
 
     @Override
-    public List<String> getWorkExperience() {
-        System.out.println("work experience obtained");
-        System.out.println(workExperience);
-        return workExperience;
-    }
+    public List<String> getWorkExperience() {return workExperience;}
 
     @Override
     public void setWorkExperience(List<String> workExperience) {
@@ -102,9 +107,7 @@ public class CommonUser implements User {
     }
 
     @Override
-    public List<String> getEducation() {
-        return education;
-    }
+    public List<String> getEducation() {return education;}
 
     @Override
     public void setEducation(List<String> education) {
@@ -130,10 +133,4 @@ public class CommonUser implements User {
     public void addCv(String cvName, String cv) {
         this.storedCv.put(cvName, cv);
     }
-
-    @Override
-    public void removeCv(String cvName) {
-        this.storedCv.remove(cvName);
-    }
-
 }

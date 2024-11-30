@@ -3,15 +3,20 @@ package view;
 
 import javax.swing.*;
 import java.awt.event.*;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+import java.util.Arrays;
+
 import interface_adapter.build_resume.*;
-import entity.User;
+import interface_adapter.login.LoginState;
+import interface_adapter.signup.SignupState;
 import session.UserSession;
 import use_case.build_resume.BuildResumeInputData;
 
-public class BuildResumeView extends JPanel {
+public class BuildResumeView extends JPanel implements PropertyChangeListener {
     private ViewManager viewManager;
     private BuildResumeController controller;
-    private BuildResumePresenter presenter;
+    private BuildResumeViewModel buildResumeViewModel;
 
     private JTextArea jobDescriptionArea;
     private JComboBox<String> templateComboBox;
@@ -20,10 +25,12 @@ public class BuildResumeView extends JPanel {
     private JTextArea resumeDisplayArea;
     private JLabel messageLabel;
 
-    public BuildResumeView(ViewManager viewManager, BuildResumeController controller, BuildResumePresenter presenter) {
+    public BuildResumeView(ViewManager viewManager, BuildResumeController controller,
+                           BuildResumeViewModel buildResumeViewModel) {
         this.viewManager = viewManager;
         this.controller = controller;
-        this.presenter = presenter;
+        this.buildResumeViewModel = buildResumeViewModel;
+        this.buildResumeViewModel.addPropertyChangeListener(this);
 
         // Initialize components
         jobDescriptionArea = new JTextArea(5, 20);
@@ -52,17 +59,11 @@ public class BuildResumeView extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 String jobDescription = jobDescriptionArea.getText();
                 String templateChoice = (String) templateComboBox.getSelectedItem();
-                User user = UserSession.getInstance().getCurrentUser();
 
                 int templateNumber = mapTemplateChoiceToNumber(templateChoice);
 
-                BuildResumeInputData inputData = new BuildResumeInputData(user, jobDescription, templateNumber);
+                BuildResumeInputData inputData = new BuildResumeInputData(jobDescription, templateNumber);
                 controller.buildResume(inputData);
-
-                // Update view
-                BuildResumeViewModel viewModel = presenter.getViewModel();
-                resumeDisplayArea.setText(viewModel.getFormattedResume());
-                messageLabel.setText(viewModel.getMessage());
             }
 
             // Helper method to map template names to numbers
@@ -83,4 +84,17 @@ public class BuildResumeView extends JPanel {
             }
         });
     }
+
+    @Override
+    public void propertyChange(PropertyChangeEvent evt) {
+        final BuildResumeState state = (BuildResumeState) evt.getNewValue();
+        setFields(state);
+    }
+
+    //update fields
+    private void setFields(BuildResumeState state) {
+        resumeDisplayArea.setText(state.getFormattedResume());
+        messageLabel.setText(state.getMessage());
+    }
+
 }

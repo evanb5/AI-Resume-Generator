@@ -4,7 +4,6 @@ package view;
 import javax.swing.*;
 import java.awt.event.*;
 import interface_adapter.give_suggestions.*;
-import entity.User;
 import session.UserSession;
 import use_case.give_suggestions.GiveSuggestionsInputData;
 
@@ -51,10 +50,9 @@ public class GiveSuggestionsView extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String insertedResume = insertedResumeArea.getText();
-                User user = UserSession.getInstance().getCurrentUser();
                 String jobDescription = jobDescriptionArea.getText();
 
-                GiveSuggestionsInputData inputData = new GiveSuggestionsInputData(user, insertedResume, jobDescription);
+                GiveSuggestionsInputData inputData = new GiveSuggestionsInputData(insertedResume, jobDescription);
                 controller.giveSuggestions(inputData);
 
                 // Update view

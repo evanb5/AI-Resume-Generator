@@ -16,6 +16,10 @@ public class BuildCVInteractor implements BuildCVInputBoundary {
         this.chatGPTService = new ChatGPTService();
     }
 
+    public void setChatGPTService(ChatGPTService chatGPTService) {
+        this.chatGPTService = chatGPTService;
+    }
+
     /**
      * Builds a CV using the GPT api with the given job description, template choice,
      * and user information from the input data. It then returns the CV as a text and pdf file
@@ -25,7 +29,7 @@ public class BuildCVInteractor implements BuildCVInputBoundary {
      */
     @Override
     public void buildCV(BuildCVInputData inputData) {
-        User user = inputData.getUser();
+        User user = userDataAccess.getCurrentUser();
         String jobDescription = inputData.getJobDescription();
         String templateChoice = inputData.getTemplateChoice();
         String cvTitle = inputData.getCvTitle();

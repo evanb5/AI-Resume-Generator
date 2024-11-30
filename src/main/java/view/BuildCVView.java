@@ -4,8 +4,6 @@ package view;
 import javax.swing.*;
 import java.awt.event.*;
 import interface_adapter.build_cv.*;
-import entity.User;
-import session.UserSession;
 import use_case.build_cv.BuildCVInputData;
 
 public class BuildCVView extends JPanel {
@@ -57,10 +55,9 @@ public class BuildCVView extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 String jobDescription = jobDescriptionArea.getText();
                 String templateChoice = (String) templateComboBox.getSelectedItem();
-                User user = UserSession.getInstance().getCurrentUser();
                 String cvTitle = cvTitleArea.getText();
 
-                BuildCVInputData inputData = new BuildCVInputData(user, jobDescription, templateChoice, cvTitle);
+                BuildCVInputData inputData = new BuildCVInputData(jobDescription, templateChoice, cvTitle);
                 controller.buildCV(inputData);
 
                 // Update view
