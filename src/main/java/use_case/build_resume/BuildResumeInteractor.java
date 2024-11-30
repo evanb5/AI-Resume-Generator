@@ -16,6 +16,10 @@ public class BuildResumeInteractor implements BuildResumeInputBoundary {
         this.chatGPTService = new ChatGPTService();
     }
 
+    public void setChatGPTService(ChatGPTService chatGPTService) {
+        this.chatGPTService = chatGPTService;
+    }
+
     @Override
     public void buildResume(BuildResumeInputData inputData) {
         User user = userDataAccess.getCurrentUser();
