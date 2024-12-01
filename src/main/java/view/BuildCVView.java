@@ -9,7 +9,7 @@ import use_case.build_cv.BuildCVInputData;
 public class BuildCVView extends JPanel {
     private ViewManager viewManager;
     private BuildCVController controller;
-    private BuildCVViewModel buildCVViewModel;
+    private BuildCVPresenter presenter;
 
     private JTextArea jobDescriptionArea;
     private JComboBox<String> templateComboBox;
@@ -19,10 +19,10 @@ public class BuildCVView extends JPanel {
     private JLabel messageLabel;
     private JTextArea  cvTitleArea;
 
-    public BuildCVView(ViewManager viewManager, BuildCVController controller, BuildCVViewModel buildCVViewModel) {
+    public BuildCVView(ViewManager viewManager, BuildCVController controller, BuildCVPresenter presenter) {
         this.viewManager = viewManager;
         this.controller = controller;
-        this.buildCVViewModel = buildCVViewModel;
+        this.presenter = presenter;
 
         // Initialize components
         jobDescriptionArea = new JTextArea(5, 20);
@@ -61,8 +61,9 @@ public class BuildCVView extends JPanel {
                 controller.buildCV(inputData);
 
                 // Update view
-                cvDisplayArea.setText(buildCVViewModel.getFormattedCV());
-                messageLabel.setText(buildCVViewModel.getMessage());
+                BuildCVViewModel viewModel = presenter.getViewModel();
+                cvDisplayArea.setText(viewModel.getFormattedCV());
+                messageLabel.setText(viewModel.getMessage());
             }
         });
 

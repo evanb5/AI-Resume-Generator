@@ -2,13 +2,12 @@ package view;
 import javax.swing.*;
 import java.awt.event.*;
 import interface_adapter.history.HistoryController;
-import interface_adapter.history.HistoryViewModel;
-
+import interface_adapter.history.HistoryPresenter;
 
 public class HistoryView extends JPanel{
     private ViewManager viewManager;
     private HistoryController controller;
-    private HistoryViewModel historyViewModel;
+    private HistoryPresenter presenter;
 
     private JButton CVhistorybutton;
     private JButton refresh;
@@ -18,10 +17,10 @@ public class HistoryView extends JPanel{
     private JTextArea resumenumber;
     private JTextArea suggestionnumber;
 
-    public HistoryView(ViewManager viewManager, HistoryViewModel historyViewModel, HistoryController controller) {
+    public HistoryView(ViewManager viewManager, HistoryPresenter presenter, HistoryController controller) {
         this.viewManager = viewManager;
         this.controller = controller;
-        this.historyViewModel = historyViewModel;
+        this.presenter = presenter;
 
         // Initialize components
         CVnumbver = new JTextArea(10, 2);
@@ -30,8 +29,7 @@ public class HistoryView extends JPanel{
         resumenumber.setEditable(false);
         suggestionnumber = new JTextArea(10, 2);
         suggestionnumber.setEditable(false);
-        suggestionnumber.setText("the number of suggestion created is" + historyViewModel.getSuggestion());
-
+        suggestionnumber.setText("the number of suggestion created is" + presenter.getViewModel().getSuggestion());
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         CVhistorybutton = new JButton("CVHistory");
         resumehistorybutton = new JButton("ResumeHistory");
@@ -52,9 +50,9 @@ public class HistoryView extends JPanel{
             @Override
             public void actionPerformed(ActionEvent e) {
                 controller.historyinput();
-                CVnumbver.setText("the number of CV created is" + historyViewModel.getCv());
-                resumenumber.setText("the number of resume created is" + historyViewModel.getResume());
-                suggestionnumber.setText("the number of suggestion created is" + historyViewModel.getSuggestion());
+                CVnumbver.setText("the number of CV created is" + presenter.getViewModel().getCv());
+                resumenumber.setText("the number of resume created is" + presenter.getViewModel().getResume());
+                suggestionnumber.setText("the number of suggestion created is" + presenter.getViewModel().getSuggestion());
 
             }
         });
@@ -81,10 +79,9 @@ public class HistoryView extends JPanel{
     }
     public void refreshnow() {
         controller.historyinput();
-        CVnumbver.setText("the number of CV created is" + historyViewModel.getCv());
-        resumenumber.setText("the number of resume created is" + historyViewModel.getResume());
-        suggestionnumber.setText("the number of suggestion created is" + historyViewModel.getSuggestion());
-
+        CVnumbver.setText("the number of CV created is" + presenter.getViewModel().getCv());
+        resumenumber.setText("the number of resume created is" + presenter.getViewModel().getResume());
+        suggestionnumber.setText("the number of suggestion created is" + presenter.getViewModel().getSuggestion());
     }
 
 }
