@@ -1,6 +1,7 @@
 // test/use_case/build_resume/BuildResumeInteractorTest.java
 package use_case.build_resume;
 
+import entity.ResumeFactory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.mockito.Mockito.*;
@@ -18,6 +19,7 @@ public class BuildResumeInteractorTest {
     private BuildResumeOutputBoundary presenter;
     private ChatGPTService chatGPTService;
     private User user;
+    private ResumeFactory resumeFactory;
 
     @BeforeEach
     public void setUp() {
@@ -25,6 +27,7 @@ public class BuildResumeInteractorTest {
         presenter = mock(BuildResumeOutputBoundary.class);
         chatGPTService = mock(ChatGPTService.class);
         user = mock(User.class);
+        resumeFactory = mock(ResumeFactory.class);
 
         when(user.getUsername()).thenReturn("testUser");
         when(user.getFullName()).thenReturn("Test User");
@@ -35,7 +38,7 @@ public class BuildResumeInteractorTest {
 
         when(userDataAccess.getCurrentUser()).thenReturn(user);
 
-        interactor = new BuildResumeInteractor(userDataAccess, presenter);
+        interactor = new BuildResumeInteractor(userDataAccess, presenter, resumeFactory);
         interactor.setChatGPTService(chatGPTService);
     }
 

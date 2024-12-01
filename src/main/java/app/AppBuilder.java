@@ -33,6 +33,7 @@ public class AppBuilder {
     public void build() {
         UserDataAccessInterface userDataAccess = new InMemoryUserDataAccessObject();
         UserFactory userFactory = new CommonUserFactory();
+        ResumeFactory resumeFactory = new CommonResumeFactory();
 
         // View Models
         SignupViewModel signupViewModel = new SignupViewModel();
@@ -60,7 +61,8 @@ public class AppBuilder {
         LoginInputBoundary loginInteractor = new LoginInteractor(userDataAccess, loginPresenter);
         SignupInputBoundary signupInteractor = new SignupInteractor(userDataAccess, userFactory, signupPresenter);
         UserInputInputBoundary userInputInteractor = new UserInputInteractor(userDataAccess, userInputPresenter);
-        BuildResumeInputBoundary buildResumeInteractor = new BuildResumeInteractor(userDataAccess, buildResumePresenter);
+        BuildResumeInputBoundary buildResumeInteractor = new BuildResumeInteractor(userDataAccess, buildResumePresenter,
+                resumeFactory);
         BuildCVInputBoundary buildCVInteractor = new BuildCVInteractor(userDataAccess, buildCVPresenter);
         GiveSuggestionsInputBoundary giveSuggestionsInteractor = new GiveSuggestionsInteractor(userDataAccess, giveSuggestionsPresenter);
         HistoryInteractor historyInteractor = new HistoryInteractor(userDataAccess, historyPresenter);

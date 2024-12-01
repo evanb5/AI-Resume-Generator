@@ -57,7 +57,7 @@ public class InMemoryUserDataAccessObject implements UserDataAccessInterface {
 
     ////TODO: RESUMES - use these to implement
     @Override
-    public void addResume(String username, Resume resume) {
+    public void addResume(Resume resume, String username) {
         resumes.computeIfAbsent(username, k -> new ArrayList<>()).add(resume);
     }
 
