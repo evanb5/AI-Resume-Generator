@@ -1,11 +1,15 @@
 package view;
 import javax.swing.*;
 import java.awt.event.*;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+
 import interface_adapter.history.HistoryController;
 import interface_adapter.history.HistoryPresenter;
+import interface_adapter.history.HistoryState;
 import interface_adapter.history.HistoryViewModel;
 
-public class HistoryView extends JPanel{
+public class HistoryView extends JPanel implements PropertyChangeListener {
     private ViewManager viewManager;
     private HistoryController controller;
     private HistoryViewModel historyViewModel;
@@ -21,6 +25,8 @@ public class HistoryView extends JPanel{
         this.viewManager = viewManager;
         this.controller = controller;
         this.historyViewModel = historyViewModel;
+        this.historyViewModel.addPropertyChangeListener(this);
+
 
         // Initialize components
         CVnumbver = new JTextArea(10, 2);
@@ -68,4 +74,9 @@ public class HistoryView extends JPanel{
         resumenumber.setText("the number of resume created is" + historyViewModel.getResume());
     }
 
+    @Override
+    public void propertyChange(PropertyChangeEvent evt) {
+        HistoryState state = (HistoryState) evt.getNewValue();
+        historyViewModel.setCv(state.getCv());
+    }
 }

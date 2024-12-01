@@ -53,7 +53,7 @@ public class AppBuilder {
         BuildResumePresenter buildResumePresenter = new BuildResumePresenter(buildResumeViewModel);
         BuildCVPresenter buildCVPresenter = new BuildCVPresenter(buildCVViewModel);
         GiveSuggestionsPresenter giveSuggestionsPresenter = new GiveSuggestionsPresenter();
-        HistoryPresenter historyPresenter = new HistoryPresenter();
+        HistoryPresenter historyPresenter = new HistoryPresenter(historyViewModel);
         CVhistoryPresenter cvhistoryPresenter = new CVhistoryPresenter();
         ResumeHistoryPresenter resumeHistoryPresenter = new ResumeHistoryPresenter(resumeHistoryViewModel);
 

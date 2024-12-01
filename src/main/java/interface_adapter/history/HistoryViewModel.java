@@ -1,10 +1,17 @@
 package interface_adapter.history;
 
 import entity.User;
+import interface_adapter.ViewModel;
 
-public class HistoryViewModel {
+public class HistoryViewModel extends ViewModel<HistoryState> {
     private int cv;
     private int resume;
+
+    public HistoryViewModel() {
+        setState(new HistoryState());
+        cv = 0;
+        resume = 0;
+    }
 
     public void setCv(int cv) {this.cv = cv;}
 
