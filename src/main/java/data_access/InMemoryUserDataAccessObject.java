@@ -94,7 +94,7 @@ public class InMemoryUserDataAccessObject implements UserDataAccessInterface {
 
     @Override
     public int getCvCount(String username) {
-        return cvs.get(username).size();
+        return cvs.getOrDefault(username, new HashMap<>()).size();
     }
 
     //Two different ways to use getCvContent - use whichever is easier
