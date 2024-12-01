@@ -17,7 +17,7 @@ public class ResumeHistoryInteractor implements ResumeHistoryInputBoundary {
         User user = userDataAccess.getCurrentUser();
 
         if (user == null) {
-            // Handle case where no user is logged in
+            System.out.println("No user is logged in.");
             ResumeHistoryOutputData outputData = new ResumeHistoryOutputData(
                     0,
                     "",
@@ -29,26 +29,27 @@ public class ResumeHistoryInteractor implements ResumeHistoryInputBoundary {
 
         int index = inputData.getIndex();
         if (index == -4) {
-            // Fetch all resume titles
+            System.out.println("Fetching all resumes...");
+            int resumeCount = userDataAccess.getResumeCount(user.getUsername());
             ResumeHistoryOutputData outputData = new ResumeHistoryOutputData(
-                    user.getResumes().size(),
+                    resumeCount,
                     "",
                     "Resume titles fetched successfully."
             );
             presenter.present(outputData);
-        } else if (index >= 0 && index < user.getResumes().size()) {
-            // Fetch specific resume content
-            String resumeContent = user.getResumes().get(index);
+        } else if (index >= 0 && index < userDataAccess.getResumeCount(user.getUsername())) {
+            System.out.println("Fetching specific resume at index: " + index);
+            String resumeContent = userDataAccess.getResumeContent(user.getUsername(), index).toString();
             ResumeHistoryOutputData outputData = new ResumeHistoryOutputData(
-                    user.getResumes().size(),
+                    userDataAccess.getResumeCount(user.getUsername()),
                     resumeContent,
                     "Resume content fetched successfully."
             );
             presenter.present(outputData);
         } else {
-            // Handle invalid index
+            System.out.println("Invalid index: " + index);
             ResumeHistoryOutputData outputData = new ResumeHistoryOutputData(
-                    user.getResumes().size(),
+                    userDataAccess.getResumeCount(user.getUsername()),
                     "",
                     "Invalid resume index."
             );

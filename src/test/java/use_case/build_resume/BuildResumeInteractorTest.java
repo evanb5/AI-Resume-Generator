@@ -9,6 +9,8 @@ import data_access.UserDataAccessInterface;
 import entity.User;
 import services.ChatGPTService;
 
+import java.util.List;
+
 public class BuildResumeInteractorTest {
 
     private BuildResumeInteractor interactor;
@@ -24,45 +26,69 @@ public class BuildResumeInteractorTest {
         chatGPTService = mock(ChatGPTService.class);
         user = mock(User.class);
 
+        when(user.getUsername()).thenReturn("testUser");
+        when(user.getFullName()).thenReturn("Test User");
+        when(user.getEmail()).thenReturn("test@example.com");
+        when(user.getWorkExperience()).thenReturn(List.of("Software Developer at XYZ Corp"));
+        when(user.getEducation()).thenReturn(List.of("B.Sc. in Computer Science"));
+        when(user.getSkills()).thenReturn(List.of("Java", "Python"));
+
         when(userDataAccess.getCurrentUser()).thenReturn(user);
+
         interactor = new BuildResumeInteractor(userDataAccess, presenter);
         interactor.setChatGPTService(chatGPTService);
     }
 
     @Test
     public void testBuildResumeWithValidJobDescription() {
-        BuildResumeInputData inputData = new BuildResumeInputData("Job Description", 1);
+        BuildResumeInputData inputData = new BuildResumeInputData(user.getUsername(), generateUserInfo(user), "Job Description", 1);
         when(chatGPTService.generateResume(anyString(), eq("Job Description"), eq(1)))
                 .thenReturn("Generated Resume Content");
 
         interactor.buildResume(inputData);
 
         verify(chatGPTService).generateResume(anyString(), eq("Job Description"), eq(1));
-        verify(user).addResume("Generated Resume Content");
-        verify(presenter).present(any(BuildResumeOutputData.class));
+        verify(userDataAccess).addResume(argThat(resume ->
+                        resume.getResumeContent().equals("Generated Resume Content") &&
+                                resume.getResumeName().equals("Generated using Template 1")),
+                eq("testUser")
+        );
+        verify(presenter).present(argThat(output ->
+                output.getFormattedResume().equals("Generated Resume Content") &&
+                        output.getMessage().equals("Resume generated successfully")));
     }
 
     @Test
     public void testBuildResumeWithEmptyJobDescription() {
-        BuildResumeInputData inputData = new BuildResumeInputData("", 1);
+        BuildResumeInputData inputData = new BuildResumeInputData(user.getUsername(), generateUserInfo(user), "", 1);
 
         interactor.buildResume(inputData);
 
         verify(presenter).present(argThat(output ->
-                output.getFormattedResume().isEmpty() && output.getMessage().equals("Job description is empty")));
+                output.getFormattedResume().isEmpty() &&
+                        output.getMessage().equals("Job description is empty")));
         verifyNoInteractions(chatGPTService);
         verify(user, never()).addResume(anyString());
     }
 
     @Test
     public void testBuildResumeWithNullJobDescription() {
-        BuildResumeInputData inputData = new BuildResumeInputData(null, 1);
+        BuildResumeInputData inputData = new BuildResumeInputData(user.getUsername(), generateUserInfo(user), null, 1);
 
         interactor.buildResume(inputData);
 
         verify(presenter).present(argThat(output ->
-                output.getFormattedResume().isEmpty() && output.getMessage().equals("Job description is empty")));
+                output.getFormattedResume().isEmpty() &&
+                        output.getMessage().equals("Job description is empty")));
         verifyNoInteractions(chatGPTService);
         verify(user, never()).addResume(anyString());
+    }
+
+    private String generateUserInfo(User user) {
+        return "Name: " + user.getFullName() + "\n" +
+                "Email: " + user.getEmail() + "\n" +
+                "Work Experience: " + String.join(", ", user.getWorkExperience()) + "\n" +
+                "Education: " + String.join(", ", user.getEducation()) + "\n" +
+                "Skills: " + String.join(", ", user.getSkills());
     }
 }

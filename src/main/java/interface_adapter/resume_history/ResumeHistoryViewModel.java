@@ -5,6 +5,7 @@ import interface_adapter.ViewModel;
 import java.util.List;
 
 public class ResumeHistoryViewModel extends ViewModel<ResumeHistoryState> {
+
     private int resumes;
     private String resumeContent;
     private String message;
@@ -17,10 +18,12 @@ public class ResumeHistoryViewModel extends ViewModel<ResumeHistoryState> {
     }
 
     public int getResumes() {
+        System.out.println("getResumes called. Current value: " + resumes);
         return resumes;
     }
 
     public void setResumes(int resumes) {
+        System.out.println("setResumes called with value: " + resumes);
         this.resumes = resumes;
     }
 
