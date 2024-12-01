@@ -9,6 +9,7 @@ import java.util.Map;
 public class InMemoryUserDataAccessObject implements UserDataAccessInterface {
     private Map<String, User> users;
     private Map<String, ArrayList<Resume>> resumes;
+    private Map<String, ArrayList<CV>> cvs;
     private User currentUser;
 
     public InMemoryUserDataAccessObject() {
@@ -71,6 +72,43 @@ public class InMemoryUserDataAccessObject implements UserDataAccessInterface {
     @Override
     public int getResumeCount(String username) {
         return resumes.getOrDefault(username, new ArrayList<>()).size();
+    }
+
+
+    ////TODO: CVs - use these methods to implement CVs
+    @Override
+    public void addCv(String username, CV cv) {
+        cvs.get(username).add(cv);
+    }
+
+    @Override
+    public ArrayList<CV> getCvs(String username) {
+        return cvs.get(username);
+    }
+
+    @Override
+    public int getCvCount(String username) {
+        return cvs.get(username).size();
+    }
+
+    //Two different ways to use getCvContent - use whichever is easier
+    @Override
+    public CV getCvContent(String username, String cvName) {
+        for (CV cv : cvs.get(username)) {
+            if (cv.getName().equals(cvName)) {
+                return cv;
+            }
+        }
+        return null;
+    }
+
+    //Two different ways to use getCvContent - use whichever is easier
+    @Override
+    public CV getCvContent(String username, int index) {
+        if (index >= 0 && index < cvs.get(username).size()) {
+            return cvs.get(username).get(index);
+        }
+        return null;
     }
 
 }
