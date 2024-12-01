@@ -9,12 +9,13 @@ import java.util.Map;
 public class InMemoryUserDataAccessObject implements UserDataAccessInterface {
     private Map<String, User> users;
     private Map<String, ArrayList<Resume>> resumes;
-    private Map<String, ArrayList<CV>> cvs;
+    private Map<String, HashMap<String,String>> cvs;
     private User currentUser;
 
     public InMemoryUserDataAccessObject() {
         this.users = new HashMap<>();
         this.resumes = new HashMap<>();
+        this.cvs = new HashMap<>();
     }
 
     @Override
@@ -56,7 +57,7 @@ public class InMemoryUserDataAccessObject implements UserDataAccessInterface {
 
     ////TODO: RESUMES - use these to implement
     @Override
-    public void addResume(Resume resume, String username) {
+    public void addResume(String username, Resume resume) {
         resumes.computeIfAbsent(username, k -> new ArrayList<>()).add(resume);
     }
 
@@ -83,11 +84,11 @@ public class InMemoryUserDataAccessObject implements UserDataAccessInterface {
     ////TODO: CVs - use these methods to implement CVs
     @Override
     public void addCv(String username, CV cv) {
-        cvs.get(username).add(cv);
+        cvs.get(username).put(cv.getName(), cv.getCv());
     }
 
     @Override
-    public ArrayList<CV> getCvs(String username) {
+    public HashMap<String, String> getCvs(String username) {
         return cvs.get(username);
     }
 
@@ -98,22 +99,7 @@ public class InMemoryUserDataAccessObject implements UserDataAccessInterface {
 
     //Two different ways to use getCvContent - use whichever is easier
     @Override
-    public CV getCvContent(String username, String cvName) {
-        for (CV cv : cvs.get(username)) {
-            if (cv.getName().equals(cvName)) {
-                return cv;
-            }
-        }
-        return null;
+    public String getCvContent(String username, String cvName) {
+        return cvs.get(username).get(cvName);
     }
-
-    //Two different ways to use getCvContent - use whichever is easier
-    @Override
-    public CV getCvContent(String username, int index) {
-        if (index >= 0 && index < cvs.get(username).size()) {
-            return cvs.get(username).get(index);
-        }
-        return null;
-    }
-
 }

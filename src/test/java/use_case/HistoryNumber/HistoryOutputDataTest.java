@@ -13,11 +13,10 @@ public class HistoryOutputDataTest {
         int suggestion = 3;
 
         // Act: Initialize the object
-        HistoryOutputData historyOutputData = new HistoryOutputData(cv, resume, suggestion);
+        HistoryOutputData historyOutputData = new HistoryOutputData(cv, resume);
 
         // Assert: Verify that the getters return the expected values
         assertEquals(cv, historyOutputData.getCv());
         assertEquals(resume, historyOutputData.getResume());
-        assertEquals(suggestion, historyOutputData.getSuggestion());
     }
 }
