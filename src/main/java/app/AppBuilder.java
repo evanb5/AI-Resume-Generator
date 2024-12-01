@@ -49,12 +49,12 @@ public class AppBuilder {
         // Presenters
         LoginPresenter loginPresenter = new LoginPresenter(loginViewModel);
         SignupPresenter signupPresenter = new SignupPresenter(loginViewModel, signupViewModel);
-        UserInputPresenter userInputPresenter = new UserInputPresenter();
+        UserInputPresenter userInputPresenter = new UserInputPresenter(userInputViewModel);
         BuildResumePresenter buildResumePresenter = new BuildResumePresenter(buildResumeViewModel);
         BuildCVPresenter buildCVPresenter = new BuildCVPresenter(buildCVViewModel);
-        GiveSuggestionsPresenter giveSuggestionsPresenter = new GiveSuggestionsPresenter();
-        HistoryPresenter historyPresenter = new HistoryPresenter();
-        CVhistoryPresenter cvhistoryPresenter = new CVhistoryPresenter();
+        GiveSuggestionsPresenter giveSuggestionsPresenter = new GiveSuggestionsPresenter(giveSuggestionsViewModel);
+        HistoryPresenter historyPresenter = new HistoryPresenter(historyViewModel);
+        CVhistoryPresenter cvhistoryPresenter = new CVhistoryPresenter(cvhistoryViewModel);
         ResumeHistoryPresenter resumeHistoryPresenter = new ResumeHistoryPresenter(resumeHistoryViewModel);
 
         // Interactors

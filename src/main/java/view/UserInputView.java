@@ -3,12 +3,14 @@ package view;
 
 import javax.swing.*;
 import java.awt.event.*;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.util.Arrays;
 import interface_adapter.user_input.*;
 import session.UserSession;
 import use_case.user_input.UserInputData;
 
-public class UserInputView extends JPanel {
+public class UserInputView extends JPanel implements PropertyChangeListener {
     private ViewManager viewManager;
     private UserInputController controller;
     private UserInputViewModel userInputViewModel;
@@ -31,6 +33,7 @@ public class UserInputView extends JPanel {
         this.viewManager = viewManager;
         this.controller = controller;
         userInputViewModel = viewModel;
+        userInputViewModel.addPropertyChangeListener(this);
 
         // Initialize components
         fullNameField = new JTextField(20);
@@ -139,5 +142,11 @@ public class UserInputView extends JPanel {
         }else {
             skillsArea.setText("");
         }
+    }
+
+    @Override
+    public void propertyChange(PropertyChangeEvent evt) {
+        final InputUserState state = (InputUserState) evt.getNewValue();
+        userInputViewModel.setState(state);
     }
 }

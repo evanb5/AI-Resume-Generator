@@ -1,15 +1,28 @@
 // interface_adapter/user_input/UserInputViewModel.java
 package interface_adapter.user_input;
 
+import interface_adapter.ViewModel;
+
+import java.util.ArrayList;
 import java.util.List;
 
-public class UserInputViewModel {
+public class UserInputViewModel extends ViewModel<InputUserState> {
     private boolean success;
     private String fullname;
     private String email;
     private List<String> workexperience;
     private List<String> education;
     private List<String> skills;
+
+    public UserInputViewModel() {
+        setState(new InputUserState());
+        success = false;
+        fullname = "";
+        email = "";
+        workexperience = new ArrayList<>();
+        education = new ArrayList<>();
+        skills = new ArrayList<>();
+    }
 
     public boolean isSuccess() {
         return success;
