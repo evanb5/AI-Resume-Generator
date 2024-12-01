@@ -55,7 +55,6 @@ public class InMemoryUserDataAccessObject implements UserDataAccessInterface {
     }
 
 
-    ////TODO: RESUMES - use these to implement
     @Override
     public void addResume(Resume resume, String username) {
         resumes.computeIfAbsent(username, k -> new ArrayList<>()).add(resume);
@@ -84,6 +83,7 @@ public class InMemoryUserDataAccessObject implements UserDataAccessInterface {
     ////TODO: CVs - use these methods to implement CVs
     @Override
     public void addCv(String username, CV cv) {
+        cvs.computeIfAbsent(username, k -> new HashMap<>());
         cvs.get(username).put(cv.getName(), cv.getCv());
     }
 
