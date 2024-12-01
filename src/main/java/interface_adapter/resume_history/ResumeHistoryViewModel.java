@@ -9,6 +9,13 @@ public class ResumeHistoryViewModel extends ViewModel<ResumeHistoryState> {
     private String resumeContent;
     private String message;
 
+    public ResumeHistoryViewModel() {
+        setState(new ResumeHistoryState());
+        resumes = 0;
+        resumeContent = "";
+        message = "";
+    }
+
     public int getResumes() {
         return resumes;
     }
