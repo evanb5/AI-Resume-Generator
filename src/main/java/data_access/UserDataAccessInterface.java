@@ -1,5 +1,6 @@
 package data_access;
 
+import entity.CV;
 import entity.Resume;
 import entity.User;
 
@@ -14,11 +15,17 @@ public interface UserDataAccessInterface {
     User getCurrentUser();
     void setCurrentUser(User user);
 
-    void addResume(Resume resume, String username);
+    void addResume(String username, Resume resume);
     ArrayList<Resume> getResumes(String username);
     // New methods for resumes
     Resume getResumeContent(String username, int index);
     int getResumeCount(String username);
 
 
+    //methods for cvs
+    void addCv(String username, CV cv);
+    ArrayList<CV> getCvs(String username);
+    int getCvCount(String username);
+    CV getCvContent(String username, String cvName);
+    CV getCvContent(String username, int index);
 }
