@@ -27,10 +27,10 @@ public class UserInputView extends JPanel {
     private JLabel messageLabel;
 
     public UserInputView(ViewManager viewManager, UserInputController controller,
-                         UserInputViewModel userInputViewModel) {
+                         UserInputViewModel viewModel) {
         this.viewManager = viewManager;
         this.controller = controller;
-        this.userInputViewModel = userInputViewModel;
+        userInputViewModel = viewModel;
 
         // Initialize components
         fullNameField = new JTextField(20);

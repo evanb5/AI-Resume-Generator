@@ -17,12 +17,11 @@ public class LoginOutputDataTest {
         User mockUser = mock(User.class); // Mocking the User object
 
         // Act
-        LoginOutputData outputData = new LoginOutputData(success, message, mockUser);
+        LoginOutputData outputData = new LoginOutputData(success, message);
 
         // Assert
         assertTrue(outputData.isSuccess());
         assertEquals(message, outputData.getMessage());
-        assertEquals(mockUser, outputData.getUser());
     }
 
     @Test
@@ -33,11 +32,10 @@ public class LoginOutputDataTest {
         User mockUser = null;
 
         // Act
-        LoginOutputData outputData = new LoginOutputData(success, message, mockUser);
+        LoginOutputData outputData = new LoginOutputData(success, message);
 
         // Assert
         assertFalse(outputData.isSuccess());
         assertEquals(message, outputData.getMessage());
-        assertNull(outputData.getUser());
     }
 }

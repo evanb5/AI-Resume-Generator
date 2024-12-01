@@ -1,17 +1,25 @@
 package view;
 
 import interface_adapter.resume_history.ResumeHistoryController;
+import interface_adapter.resume_history.ResumeHistoryPresenter;
+import interface_adapter.resume_history.ResumeHistoryState;
+
 import interface_adapter.resume_history.ResumeHistoryViewModel;
 import use_case.resume_history.ResumeHistoryInputData;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+import java.util.ArrayList;
+import java.util.List;
 
-public class PastResumesView extends JPanel {
-    private final ViewManager viewManager;
-    private final ResumeHistoryController controller;
-    private final ResumeHistoryViewModel resumeHistoryViewModel;
+public class PastResumesView extends JPanel implements PropertyChangeListener {
+    private ViewManager viewManager;
+    private ResumeHistoryController controller;
+    private ResumeHistoryViewModel resumeHistoryViewModel;
+
     private int resumes;
 
     private final JButton backButton;
@@ -92,5 +100,11 @@ public class PastResumesView extends JPanel {
             add(new JScrollPane(displayArea));
             add(backButton);
         }
+    }
+
+    @Override
+    public void propertyChange(PropertyChangeEvent evt) {
+        final ResumeHistoryState state = (ResumeHistoryState) evt.getNewValue();
+        resumeHistoryViewModel.setState(state);
     }
 }

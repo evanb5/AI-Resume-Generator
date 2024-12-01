@@ -20,14 +20,14 @@ public class LoginInteractor implements LoginInputBoundary {
 
         if (user == null) {
             // Handle case where the user is not found
-            outputData = new LoginOutputData(false, "User not found", null);
+            outputData = new LoginOutputData(false, "User not found");
         } else if (user.getPassword().equals(inputData.getPassword())) {
             // Login successful
-            outputData = new LoginOutputData(true, "Login successful", user);
+            outputData = new LoginOutputData(true, "Login successful");
             userDataAccess.setCurrentUser(user);
         } else {
             // Password incorrect
-            outputData = new LoginOutputData(false, "Incorrect password", null);
+            outputData = new LoginOutputData(false, "Incorrect password");
         }
 
         presenter.present(outputData);

@@ -12,7 +12,13 @@ public class ResumeHistoryPresenter implements ResumeHistoryOutputBoundary {
 
     @Override
     public void present(ResumeHistoryOutputData outputData) {
-        System.out.println("Presenter received output data: " + outputData.getResumes());
+        final ResumeHistoryState state = viewModel.getState();
+        state.setMessage(outputData.getMessage());
+        state.setResumes(outputData.getResumes());
+        state.setResumeContent(outputData.getResumeContent());
+        viewModel.setState(state);
+        viewModel.firePropertyChanged();
+
         viewModel.setResumes(outputData.getResumes());
         viewModel.setResumeContent(outputData.getResumeContent());
         viewModel.setMessage(outputData.getMessage());

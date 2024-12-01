@@ -7,7 +7,7 @@ public class BuildResumePresenter implements BuildResumeOutputBoundary {
     private BuildResumeViewModel buildResumeViewModel;
 
     public BuildResumePresenter(BuildResumeViewModel viewModel) {
-        this.buildResumeViewModel =  viewModel;
+        buildResumeViewModel =  viewModel;
     }
 
     @Override
@@ -15,7 +15,7 @@ public class BuildResumePresenter implements BuildResumeOutputBoundary {
         final BuildResumeState buildResumeState = buildResumeViewModel.getState();
         buildResumeState.setFormattedResume(outputData.getFormattedResume());
         buildResumeState.setMessage(outputData.getMessage());
-        this.buildResumeViewModel.setState(buildResumeState);
+        buildResumeViewModel.setState(buildResumeState);
         buildResumeViewModel.firePropertyChanged();
 
         buildResumeViewModel.setFormattedResume(outputData.getFormattedResume());

@@ -13,14 +13,12 @@ public class LoginPresenter implements LoginOutputBoundary {
     @Override
     public void present(LoginOutputData outputData) {
         final LoginState loginState = viewModel.getState();
-        loginState.setUser( outputData.getUser());
         this.viewModel.setState(loginState);
         viewModel.firePropertyChanged();
 
 
         viewModel.setSuccess(outputData.isSuccess());
         viewModel.setMessage(outputData.getMessage());
-        viewModel.setUser(outputData.getUser());
     }
 
     public LoginViewModel getViewModel() {

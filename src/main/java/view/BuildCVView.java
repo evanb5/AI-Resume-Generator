@@ -3,10 +3,14 @@ package view;
 
 import javax.swing.*;
 import java.awt.event.*;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+
 import interface_adapter.build_cv.*;
+import interface_adapter.build_resume.BuildResumeState;
 import use_case.build_cv.BuildCVInputData;
 
-public class BuildCVView extends JPanel {
+public class BuildCVView extends JPanel implements PropertyChangeListener {
     private ViewManager viewManager;
     private BuildCVController controller;
     private BuildCVViewModel buildCVViewModel;
@@ -19,10 +23,11 @@ public class BuildCVView extends JPanel {
     private JTextArea  cvTitleArea;
 
     public BuildCVView(ViewManager viewManager, BuildCVController controller,
-                       BuildCVViewModel buildCVViewModel) {
+                       BuildCVViewModel viewModel) {
         this.viewManager = viewManager;
         this.controller = controller;
-        this.buildCVViewModel = buildCVViewModel;
+        buildCVViewModel = viewModel;
+        buildCVViewModel.addPropertyChangeListener(this);
 
         // Initialize components
         jobDescriptionArea = new JTextArea(5, 20);
@@ -68,5 +73,12 @@ public class BuildCVView extends JPanel {
                 viewManager.showUserInputView();
             }
         });
+    }
+
+    @Override
+    public void propertyChange(PropertyChangeEvent evt) {
+        final BuildCVState state = (BuildCVState) evt.getNewValue();
+        cvDisplayArea.setText(state.getFormattedCV());
+        messageLabel.setText(state.getMessage());
     }
 }
