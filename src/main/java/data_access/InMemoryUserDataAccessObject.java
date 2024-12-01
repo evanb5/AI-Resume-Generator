@@ -13,6 +13,7 @@ public class InMemoryUserDataAccessObject implements UserDataAccessInterface {
 
     public InMemoryUserDataAccessObject() {
         this.users = new HashMap<>();
+        this.resumes = new HashMap<>();
     }
 
     @Override
@@ -43,18 +44,19 @@ public class InMemoryUserDataAccessObject implements UserDataAccessInterface {
     @Override
     public void deleteUser(String username) {
         users.remove(username);
+        resumes.remove(username);
     }
 
 
     ////TODO: RESUMES - use these to implement
     @Override
     public void addResume(Resume resume, String username) {
-        resumes.get(username).add(resume);
+        resumes.computeIfAbsent(username, k -> new ArrayList<>()).add(resume);
     }
 
     @Override
     public ArrayList<Resume> getResumes(String username) {
-        return resumes.get(username);
+        return resumes.getOrDefault(username, new ArrayList<>());
     }
 
     // New methods for resumes
@@ -68,7 +70,7 @@ public class InMemoryUserDataAccessObject implements UserDataAccessInterface {
 
     @Override
     public int getResumeCount(String username) {
-        return resumes.get(username).size();
+        return resumes.getOrDefault(username, new ArrayList<>()).size();
     }
 
 }
