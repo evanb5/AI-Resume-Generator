@@ -1,8 +1,10 @@
 package interface_adapter.resume_history;
 
+import interface_adapter.ViewModel;
+
 import java.util.List;
 
-public class ResumeHistoryViewModel {
+public class ResumeHistoryViewModel extends ViewModel<ResumeHistoryState> {
     private int resumes;
     private String resumeContent;
     private String message;

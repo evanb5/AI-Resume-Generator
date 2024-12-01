@@ -53,7 +53,7 @@ public class AppBuilder {
         GiveSuggestionsPresenter giveSuggestionsPresenter = new GiveSuggestionsPresenter();
         HistoryPresenter historyPresenter = new HistoryPresenter();
         CVhistoryPresenter cvhistoryPresenter = new CVhistoryPresenter();
-        ResumeHistoryPresenter resumeHistoryPresenter = new ResumeHistoryPresenter(); // Added
+        ResumeHistoryPresenter resumeHistoryPresenter = new ResumeHistoryPresenter(resumeHistoryViewModel); // Added
 
         LoginInputBoundary loginInteractor = new LoginInteractor(userDataAccess, loginPresenter);
         SignupInputBoundary signupInteractor = new SignupInteractor(userDataAccess, userFactory, signupPresenter);
