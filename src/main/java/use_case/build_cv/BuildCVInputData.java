@@ -5,12 +5,10 @@ import entity.User;
 
 public class BuildCVInputData {
     private String jobDescription;
-    private String templateChoice;
     private String cvTitle;
 
-    public BuildCVInputData(String jobDescription, String templateChoice, String cvTitle) {
+    public BuildCVInputData(String jobDescription, String cvTitle) {
         this.jobDescription = jobDescription;
-        this.templateChoice = templateChoice;
         this.cvTitle = cvTitle;
     }
 
@@ -18,9 +16,6 @@ public class BuildCVInputData {
         return jobDescription;
     }
 
-    public String getTemplateChoice() {
-        return templateChoice;
-    }
 
     public String getCvTitle() { return cvTitle; }
 }

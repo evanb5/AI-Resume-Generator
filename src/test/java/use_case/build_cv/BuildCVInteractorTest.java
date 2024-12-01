@@ -32,7 +32,7 @@ public class BuildCVInteractorTest {
 
     @Test
     public void testBuildCV() {
-        BuildCVInputData inputData = new BuildCVInputData("Job Description", "Template 1", "My CV");
+        BuildCVInputData inputData = new BuildCVInputData("Job Description", "My CV");
         when(chatGPTService.generateCV(anyString(), anyString())).thenReturn("Generated CV Content");
 
         interactor.buildCV(inputData);

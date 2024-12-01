@@ -4,6 +4,7 @@ package use_case.build_cv;
 import data_access.UserDataAccessInterface;
 import entity.User;
 import services.ChatGPTService;
+import use_case.build_resume.BuildResumeOutputData;
 
 public class BuildCVInteractor implements BuildCVInputBoundary {
     private UserDataAccessInterface userDataAccess;
@@ -31,18 +32,23 @@ public class BuildCVInteractor implements BuildCVInputBoundary {
     public void buildCV(BuildCVInputData inputData) {
         User user = userDataAccess.getCurrentUser();
         String jobDescription = inputData.getJobDescription();
-        String templateChoice = inputData.getTemplateChoice();
         String cvTitle = inputData.getCvTitle();
+
+        // Check if the job description is null or empty
+        if (jobDescription == null || jobDescription.trim().isEmpty()) {
+            BuildCVOutputData outputData = new BuildCVOutputData("", "Job description is empty");
+            presenter.present(outputData);
+            return;
+        }
 
         String userInfo = extractUserInfo(user);
 
         String cvContent = chatGPTService.generateCV(userInfo, jobDescription);
-        String formattedCV = applyTemplate(cvContent, templateChoice);
 
-        user.addCv(cvTitle, formattedCV);
+        user.addCv(cvTitle, cvContent);
         userDataAccess.updateUser(user);
 
-        BuildCVOutputData outputData = new BuildCVOutputData(formattedCV, "CV generated successfully");
+        BuildCVOutputData outputData = new BuildCVOutputData(cvContent, "CV generated successfully");
         presenter.present(outputData);
     }
 

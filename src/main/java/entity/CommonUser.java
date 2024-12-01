@@ -14,7 +14,7 @@ public class CommonUser implements User {
     private List<String> workExperience;
     private List<String> education;
     private List<String> skills;
-    private List<String> resumeS;
+    private List<String> resumes;
     private Map<String,String> storedCv;
     private List<String> suggestions;
     private int CVindex;
@@ -23,7 +23,7 @@ public class CommonUser implements User {
         this.workExperience = new ArrayList<>();
         this.education = new ArrayList<>();
         this.skills = new ArrayList<>();
-        this.resumeS = new ArrayList<>();
+        this.resumes = new ArrayList<>();
         this.storedCv = new HashMap<>();
         this.suggestions = new ArrayList<>();
     }
@@ -35,6 +35,11 @@ public class CommonUser implements User {
     public int getnumsuggestion() {return suggestions.size();}
 
     @Override
+    public List<String> getResumes() {
+        return resumes;
+    }
+
+    @Override
     public int getnumCV(){ return storedCv.size();}
 
     @Override
@@ -44,19 +49,15 @@ public class CommonUser implements User {
     public void setCVindex(int index){this.CVindex = index;}
 
     @Override
-    public List<String> getResume(){return resumeS;}
-
-    @Override
-    public List<String> getResumes() {return resumeS;}
+    public List<String> getResume(){return resumes;}
 
     @Override
     public void addResume(String resume) {
-        this.resumeS.add(resume); // Add the resume content
+        this.resumes.add(resume); // Add the resume content
     }
 
     @Override
-
-    public int getnumresume(){return this.resumeS.size();}
+    public int getnumresume(){return this.resumes.size();}
 
     @Override
     public String getUsername() {
