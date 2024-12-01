@@ -32,8 +32,6 @@ public class InMemoryUserDataAccessObject implements UserDataAccessInterface {
         return this.currentUser.getUsername();
     }
 
-
-
     @Override
     public void saveUser(User user) {
         users.put(user.getUsername(), user);
