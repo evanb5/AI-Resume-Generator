@@ -142,6 +142,7 @@ public class UserInputView extends JPanel implements PropertyChangeListener {
         }else {
             skillsArea.setText("");
         }
+        messageLabel.setText("");
     }
 
     @Override

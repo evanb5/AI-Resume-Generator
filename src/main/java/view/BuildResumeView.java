@@ -98,4 +98,11 @@ public class BuildResumeView extends JPanel implements PropertyChangeListener {
         messageLabel.setText(state.getMessage());
     }
 
+    public void clearView() {
+        jobDescriptionArea.setText("");
+        resumeDisplayArea.setText("");
+        messageLabel.setText("");
+        templateComboBox.setSelectedIndex(0);
+    }
+
 }
