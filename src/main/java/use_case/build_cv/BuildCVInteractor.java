@@ -4,6 +4,7 @@ package use_case.build_cv;
 import data_access.UserDataAccessInterface;
 import entity.CV;
 import entity.CommonCV;
+import entity.User;
 import services.ChatGPTService;
 import use_case.build_resume.BuildResumeOutputData;
 
@@ -33,6 +34,8 @@ public class BuildCVInteractor implements BuildCVInputBoundary {
     @Override
     public void buildCV(BuildCVInputData inputData) {
         String username = userDataAccess.getCurrentUserName();
+        User user = userDataAccess.getUser(username);
+        String userInformation = generateUserInfo(user);
         String jobDescription = inputData.getJobDescription();
         String cvTitle = inputData.getCvTitle();
 
@@ -43,7 +46,7 @@ public class BuildCVInteractor implements BuildCVInputBoundary {
             return;
         }
 
-        String cvContent = chatGPTService.generateCV(cvTitle, jobDescription);
+        String cvContent = chatGPTService.generateCV(userInformation, jobDescription);
 
         CV newCV = new CommonCV();
         newCV.setName(cvTitle);
@@ -53,5 +56,14 @@ public class BuildCVInteractor implements BuildCVInputBoundary {
 
         BuildCVOutputData outputData = new BuildCVOutputData(cvContent, "CV generated successfully");
         presenter.present(outputData);
+    }
+
+    // Helper method to generate user info
+    private String generateUserInfo(User user) {
+        return "Name: " + user.getFullName() + "\n" +
+                "Email: " + user.getEmail() + "\n" +
+                "Work Experience: " + String.join(", ", user.getWorkExperience()) + "\n" +
+                "Education: " + String.join(", ", user.getEducation()) + "\n" +
+                "Skills: " + String.join(", ", user.getSkills());
     }
 }
