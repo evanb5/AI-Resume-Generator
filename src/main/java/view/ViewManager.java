@@ -99,14 +99,17 @@ public class ViewManager {
     }
 
     public void showBuildResumeView() {
+        buildResumeView.clearView();
         cardLayout.show(mainPanel, "BuildResumeView");
     }
 
     public void showBuildCVView() {
+        buildCVView.clearView();
         cardLayout.show(mainPanel, "BuildCVView");
     }
 
     public void showGiveSuggestionsView() {
+        giveSuggestionsView.clearView();
         cardLayout.show(mainPanel, "GiveSuggestionsView");
     }
 

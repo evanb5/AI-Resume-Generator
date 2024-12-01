@@ -2,11 +2,9 @@
 package use_case.build_resume;
 
 import data_access.UserDataAccessInterface;
-import entity.CommonResume;
-import entity.Resume;
-import entity.ResumeFactory;
-import entity.UserFactory;
+import entity.*;
 import services.ChatGPTService;
+import session.UserSession;
 
 public class BuildResumeInteractor implements BuildResumeInputBoundary {
     private UserDataAccessInterface userDataAccess;
@@ -29,6 +27,9 @@ public class BuildResumeInteractor implements BuildResumeInputBoundary {
 
     @Override
     public void buildResume(BuildResumeInputData inputData) {
+        User user = userDataAccess.getCurrentUser();
+        String userInformation = generateUserInfo(user);
+        String username = userDataAccess.getCurrentUserName();
         String jobDescription = inputData.getJobDescription();
         int templateNumber = inputData.getTemplateNumber();
 
@@ -40,7 +41,7 @@ public class BuildResumeInteractor implements BuildResumeInputBoundary {
         }
 
         String resumeContent = chatGPTService.generateResume(
-                inputData.getUserInfo(),
+                userInformation,
                 jobDescription,
                 templateNumber
         );
@@ -49,9 +50,18 @@ public class BuildResumeInteractor implements BuildResumeInputBoundary {
         resume.setResumeName("Generated using Template " + templateNumber);
         resume.setResumeContent(resumeContent);
 
-        userDataAccess.addResume(resume, inputData.getUsername());
+        userDataAccess.addResume(resume, username);
 
         BuildResumeOutputData outputData = new BuildResumeOutputData(resumeContent, "Resume generated successfully");
         presenter.present(outputData);
+    }
+
+    // Helper method to generate user info
+    private String generateUserInfo(User user) {
+        return "Name: " + user.getFullName() + "\n" +
+                "Email: " + user.getEmail() + "\n" +
+                "Work Experience: " + String.join(", ", user.getWorkExperience()) + "\n" +
+                "Education: " + String.join(", ", user.getEducation()) + "\n" +
+                "Skills: " + String.join(", ", user.getSkills());
     }
 }

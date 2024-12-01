@@ -7,7 +7,6 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
 import interface_adapter.build_cv.*;
-import interface_adapter.build_resume.BuildResumeState;
 import use_case.build_cv.BuildCVInputData;
 
 public class BuildCVView extends JPanel implements PropertyChangeListener {
@@ -80,5 +79,12 @@ public class BuildCVView extends JPanel implements PropertyChangeListener {
         final BuildCVState state = (BuildCVState) evt.getNewValue();
         cvDisplayArea.setText(state.getFormattedCV());
         messageLabel.setText(state.getMessage());
+    }
+
+    public void clearView() {
+        jobDescriptionArea.setText("");
+        cvTitleArea.setText("");
+        messageLabel.setText("");
+        cvDisplayArea.setText("");
     }
 }

@@ -79,4 +79,11 @@ public class GiveSuggestionsView extends JPanel implements PropertyChangeListene
         GiveSuggestionsState state = (GiveSuggestionsState) evt.getNewValue();
         giveSuggestionsViewModel.setState(state);
     }
+
+    public void clearView() {
+        insertedResumeArea.setText("");
+        jobDescriptionArea.setText("");
+        suggestionsDisplayArea.setText("");
+        messageLabel.setText("");
+    }
 }
