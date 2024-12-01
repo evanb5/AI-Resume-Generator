@@ -24,7 +24,6 @@ public class SignupView extends JPanel implements ActionListener {
     public SignupView(ViewManager viewManager, SignupViewModel viewModel) {
         this.viewManager = viewManager;
         this.signupViewModel = viewModel;
-        signupViewModel.addPropertyChangeListener(this);
 
         usernameField = new JTextField(20);
         passwordField = new JPasswordField(20);
