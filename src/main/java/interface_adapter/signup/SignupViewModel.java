@@ -8,6 +8,7 @@ public class SignupViewModel extends ViewModel<SignupState> {
     private String message;
 
 public SignupViewModel() {
+    super("sign up");
     setState( new SignupState());
     success = false;
     message = "";

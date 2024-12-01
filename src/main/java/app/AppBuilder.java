@@ -48,7 +48,7 @@ public class AppBuilder {
         LoginPresenter loginPresenter = new LoginPresenter(loginViewModel);
         SignupPresenter signupPresenter = new SignupPresenter(loginViewModel, signupViewModel);
         UserInputPresenter userInputPresenter = new UserInputPresenter();
-        BuildResumePresenter buildResumePresenter = new BuildResumePresenter(buildResumeViewModel);
+        BuildResumePresenter buildResumePresenter = new BuildResumePresenter();
         BuildCVPresenter buildCVPresenter = new BuildCVPresenter();
         GiveSuggestionsPresenter giveSuggestionsPresenter = new GiveSuggestionsPresenter();
         HistoryPresenter historyPresenter = new HistoryPresenter();
@@ -88,7 +88,7 @@ public class AppBuilder {
                 loginViewModel,
                 signupViewModel,
                 userInputPresenter,
-                buildResumeViewModel,
+                buildResumePresenter,
                 buildCVPresenter,
                 giveSuggestionsPresenter,
                 historyPresenter,

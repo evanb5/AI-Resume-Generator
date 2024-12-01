@@ -11,7 +11,7 @@ import use_case.user_input.UserInputData;
 public class UserInputView extends JPanel {
     private ViewManager viewManager;
     private UserInputController controller;
-    private UserInputPresenter presenter;
+    private UserInputViewModel userInputViewModel;
 
     private JTextField fullNameField;
     private JTextField emailField;
@@ -26,10 +26,11 @@ public class UserInputView extends JPanel {
     private JButton historyButton;
     private JLabel messageLabel;
 
-    public UserInputView(ViewManager viewManager, UserInputController controller, UserInputPresenter presenter) {
+    public UserInputView(ViewManager viewManager, UserInputController controller, 
+                         UserInputViewModel userInputViewModel) {
         this.viewManager = viewManager;
         this.controller = controller;
-        this.presenter = presenter;
+        this.userInputViewModel = userInputViewModel;
 
         // Initialize components
         fullNameField = new JTextField(20);
@@ -74,8 +75,8 @@ public class UserInputView extends JPanel {
                         skillsArea.getText().split("\n"));
                 controller.updateUserData(inputData);
                 // Update view
-                UserInputViewModel viewModel = presenter.getViewModel();
-                if (viewModel.isSuccess()){
+                if (userInputViewModel.isSuccess()){
+
                     messageLabel.setText("User information updated successfully");
                 }else{
                     messageLabel.setText("User information update failed");
@@ -122,21 +123,21 @@ public class UserInputView extends JPanel {
 
     public void refreshUserData() {
         controller.refreshUserData();
-        UserInputViewModel viewModel = presenter.getViewModel();
-        fullNameField.setText(viewModel.getFullname());
-        emailField.setText(viewModel.getEmail());
-        if (viewModel.getWorkexperience()!=null) {
-            workExperienceArea.setText(String.join("\n", viewModel.getWorkexperience()));
+        fullNameField.setText(userInputViewModel.getFullname());
+        emailField.setText(userInputViewModel.getEmail());
+        if (userInputViewModel.getWorkexperience()!=null) {
+            workExperienceArea.setText(String.join("\n", userInputViewModel.getWorkexperience()));
         }else {
             workExperienceArea.setText("");
         }
-        if (viewModel.getEducation()!=null) {
-            educationArea.setText(String.join("\n", viewModel.getEducation()));
+        if (userInputViewModel.getEducation()!=null) {
+            educationArea.setText(String.join("\n", userInputViewModel.getEducation()));
         }else {
             educationArea.setText("");
         }
-        if (viewModel.getSkills()!=null) {
-            skillsArea.setText(String.join("\n", viewModel.getSkills()));
+        if (userInputViewModel.getSkills()!=null) {
+            skillsArea.setText(String.join("\n", userInputViewModel.getSkills()));
+
         }else {
             skillsArea.setText("");
         }

@@ -1,9 +1,6 @@
 package interface_adapter.login;
 
-import entity.User;
-
 public class LoginState {
-    private User user;
     private String userName = "";
     private String password = "";
 
@@ -21,13 +18,5 @@ public class LoginState {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
     }
 }

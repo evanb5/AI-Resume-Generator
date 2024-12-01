@@ -10,6 +10,7 @@ public class LoginViewModel extends ViewModel<LoginState> {
     private User user;
 
     public LoginViewModel() {
+        super("log in");
         setState(new LoginState());
         success = false;
         message = "";

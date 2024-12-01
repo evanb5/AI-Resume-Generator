@@ -9,7 +9,7 @@ import java.util.Arrays;
 
 import interface_adapter.signup.*;
 
-public class SignupView extends JPanel implements ActionListener, PropertyChangeListener {
+public class SignupView extends JPanel implements ActionListener {
     private ViewManager viewManager;
     private SignupController controller;
     private SignupViewModel signupViewModel;
@@ -23,9 +23,7 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
 
     public SignupView(ViewManager viewManager, SignupViewModel viewModel) {
         this.viewManager = viewManager;
-        this.controller = controller;
         this.signupViewModel = viewModel;
-        signupViewModel.addPropertyChangeListener(this);
 
         usernameField = new JTextField(20);
         passwordField = new JPasswordField(20);
@@ -77,11 +75,6 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
 
     public void setSignupController(SignupController controller) {
         this.controller = controller;
-    }
-
-    @Override
-    public void propertyChange(PropertyChangeEvent evt) {
-        final SignupState state = (SignupState) evt.getNewValue();
     }
 
     @Override
