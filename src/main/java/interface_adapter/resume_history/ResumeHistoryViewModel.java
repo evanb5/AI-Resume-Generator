@@ -8,6 +8,8 @@ public class ResumeHistoryViewModel {
     private String message;
 
     public int getResumes() {
+        System.out.println("siu");
+        System.out.println(resumes);
         return resumes;
     }
 
