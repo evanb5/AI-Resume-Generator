@@ -1,12 +1,12 @@
 // test/use_case/HistoryNumber/HistoryInteractorTest.java
 package use_case.HistoryNumber;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import static org.mockito.Mockito.*;
-
 import data_access.UserDataAccessInterface;
 import entity.User;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import static org.mockito.Mockito.*;
 
 public class HistoryInteractorTest {
 
@@ -21,19 +21,22 @@ public class HistoryInteractorTest {
         presenter = mock(HistoryOutputBoundary.class);
         user = mock(User.class);
 
-        when(userDataAccess.getCurrentUser()).thenReturn(user);
         interactor = new HistoryInteractor(userDataAccess, presenter);
     }
 
     @Test
     public void testHistoryInputWithUser() {
-        when(user.getnumCV()).thenReturn(2);
-        when(user.getnumresume()).thenReturn(3);
-        when(user.getnumsuggestion()).thenReturn(1);
+        when(userDataAccess.getCurrentUser()).thenReturn(user);
+        when(user.getUsername()).thenReturn("john_doe");
+        when(userDataAccess.getCvCount("john_doe")).thenReturn(2);
+        when(userDataAccess.getResumeCount("john_doe")).thenReturn(3);
 
         interactor.historyinput();
 
-        verify(presenter).present(any(HistoryOutputData.class));
+        verify(presenter).present(argThat(outputData ->
+                outputData.getCv() == 2 &&
+                        outputData.getResume() == 3
+        ));
     }
 
     @Test
@@ -42,6 +45,9 @@ public class HistoryInteractorTest {
 
         interactor.historyinput();
 
-        verify(presenter).present(any(HistoryOutputData.class));
+        verify(presenter).present(argThat(outputData ->
+                outputData.getCv() == 0 &&
+                        outputData.getResume() == 0
+        ));
     }
 }
