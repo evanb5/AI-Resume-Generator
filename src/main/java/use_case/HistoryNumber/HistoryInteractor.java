@@ -15,12 +15,13 @@ public class HistoryInteractor implements HistoryInputBoundary{
     @Override
     public void historyinput() {
         User user = userDataAccess.getCurrentUser();
+        String username = user.getUsername();
         HistoryOutputData outputData;
         if (user != null) {
-            outputData = new HistoryOutputData(user.getnumCV(),user.getnumresume(), user.getnumsuggestion());
+            outputData = new HistoryOutputData(userDataAccess.getCvCount(username), userDataAccess.getResumeCount(username));
             this.presenter.present(outputData);
         }else {
-            outputData = new HistoryOutputData(0, 0, 0);
+            outputData = new HistoryOutputData(0, 0);
             this.presenter.present(outputData);
         }
     }
