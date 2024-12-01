@@ -4,7 +4,8 @@ package entity;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.List;
 
 public class CommonUserTest {
 
@@ -39,7 +40,7 @@ public class CommonUserTest {
     @Test
     public void testGetAndSetWorkExperience() {
         CommonUser user = new CommonUser();
-        List<String> workExp = Arrays.asList("Software Engineer at Company A", "Developer at Company B");
+        List<String> workExp = Arrays.asList("Company A", "Company B");
         user.setWorkExperience(workExp);
         assertEquals(workExp, user.getWorkExperience());
     }
@@ -47,7 +48,7 @@ public class CommonUserTest {
     @Test
     public void testGetAndSetEducation() {
         CommonUser user = new CommonUser();
-        List<String> education = Arrays.asList("BSc in Computer Science", "MSc in Software Engineering");
+        List<String> education = Arrays.asList("University X", "University Y");
         user.setEducation(education);
         assertEquals(education, user.getEducation());
     }
@@ -55,9 +56,8 @@ public class CommonUserTest {
     @Test
     public void testGetAndSetSkills() {
         CommonUser user = new CommonUser();
-        List<String> skills = Arrays.asList("Java", "Python", "SQL");
+        List<String> skills = Arrays.asList("Java", "Python");
         user.setSkills(skills);
         assertEquals(skills, user.getSkills());
     }
-
 }

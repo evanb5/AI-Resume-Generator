@@ -1,4 +1,3 @@
-// test/use_case/user_input/UserInputInteractorTest.java
 package use_case.user_input;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -9,7 +8,6 @@ import data_access.UserDataAccessInterface;
 import entity.User;
 
 import java.util.Arrays;
-import java.util.List;
 
 public class UserInputInteractorTest {
 
@@ -24,7 +22,6 @@ public class UserInputInteractorTest {
         presenter = mock(UserInputOutputBoundary.class);
         user = mock(User.class);
 
-        when(userDataAccess.getCurrentUser()).thenReturn(user);
         interactor = new UserInputInteractor(userDataAccess, presenter);
     }
 
@@ -35,6 +32,8 @@ public class UserInputInteractorTest {
         String[] skills = {"Java", "Python"};
 
         UserInputData inputData = new UserInputData("John Doe", "john@example.com", workExp, education, skills);
+
+        when(userDataAccess.getCurrentUser()).thenReturn(user);
 
         interactor.updateUserData(inputData);
 
@@ -48,7 +47,8 @@ public class UserInputInteractorTest {
     }
 
     @Test
-    public void testGetUserData() {
+    public void testGetUserDataWhenUserExists() {
+        when(userDataAccess.getCurrentUser()).thenReturn(user);
         when(user.getFullName()).thenReturn("John Doe");
         when(user.getEmail()).thenReturn("john@example.com");
         when(user.getWorkExperience()).thenReturn(Arrays.asList("Company A"));
@@ -57,6 +57,30 @@ public class UserInputInteractorTest {
 
         interactor.getUserData();
 
-        verify(presenter).refresh(any(UserInputOutputDataforrefresh.class));
+        verify(presenter).refresh(argThat(outputData ->
+                outputData.getFullname().equals("John Doe") &&
+                        outputData.getEmail().equals("john@example.com") &&
+                        outputData.getWorkexperience().equals(Arrays.asList("Company A")) &&
+                        outputData.getEducation().equals(Arrays.asList("University X")) &&
+                        outputData.getSkills().equals(Arrays.asList("Java"))
+        ));
     }
+
+    @Test
+    public void testGetUserDataWhenUserDoesNotExist() {
+        // Simulate no user being logged in
+        when(userDataAccess.getCurrentUser()).thenReturn(null);
+
+        interactor.getUserData();
+
+        // Verify that refresh() was called with empty values
+        verify(presenter).refresh(argThat(outputData ->
+                outputData.getFullname().isEmpty() &&
+                        outputData.getEmail().isEmpty() &&
+                        outputData.getWorkexperience().isEmpty() &&
+                        outputData.getEducation().isEmpty() &&
+                        outputData.getSkills().isEmpty()
+        ));
+    }
+
 }

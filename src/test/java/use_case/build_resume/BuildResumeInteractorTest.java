@@ -1,16 +1,15 @@
 // test/use_case/build_resume/BuildResumeInteractorTest.java
 package use_case.build_resume;
 
+import data_access.UserDataAccessInterface;
+import entity.Resume;
 import entity.ResumeFactory;
+import entity.User;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import static org.mockito.Mockito.*;
-
-import data_access.UserDataAccessInterface;
-import entity.User;
 import services.ChatGPTService;
 
-import java.util.List;
+import static org.mockito.Mockito.*;
 
 public class BuildResumeInteractorTest {
 
@@ -18,23 +17,16 @@ public class BuildResumeInteractorTest {
     private UserDataAccessInterface userDataAccess;
     private BuildResumeOutputBoundary presenter;
     private ChatGPTService chatGPTService;
-    private User user;
     private ResumeFactory resumeFactory;
+    private User user;
 
     @BeforeEach
     public void setUp() {
         userDataAccess = mock(UserDataAccessInterface.class);
         presenter = mock(BuildResumeOutputBoundary.class);
         chatGPTService = mock(ChatGPTService.class);
-        user = mock(User.class);
         resumeFactory = mock(ResumeFactory.class);
-
-        when(user.getUsername()).thenReturn("testUser");
-        when(user.getFullName()).thenReturn("Test User");
-        when(user.getEmail()).thenReturn("test@example.com");
-        when(user.getWorkExperience()).thenReturn(List.of("Software Developer at XYZ Corp"));
-        when(user.getEducation()).thenReturn(List.of("B.Sc. in Computer Science"));
-        when(user.getSkills()).thenReturn(List.of("Java", "Python"));
+        user = mock(User.class);
 
         when(userDataAccess.getCurrentUser()).thenReturn(user);
 
@@ -43,55 +35,66 @@ public class BuildResumeInteractorTest {
     }
 
     @Test
-    public void testBuildResumeWithValidJobDescription() {
-        BuildResumeInputData inputData = new BuildResumeInputData(user.getUsername(), generateUserInfo(user), "Job Description", 1);
-        when(chatGPTService.generateResume(anyString(), eq("Job Description"), eq(1)))
+    public void testBuildResumeSuccess() {
+        BuildResumeInputData inputData = new BuildResumeInputData("john_doe", "User Info", "Job Description", 1);
+
+        when(chatGPTService.generateResume("User Info", "Job Description", 1))
                 .thenReturn("Generated Resume Content");
+        Resume resume = mock(Resume.class);
+        when(resumeFactory.createResume()).thenReturn(resume);
+        when(user.getUsername()).thenReturn("john_doe");
 
         interactor.buildResume(inputData);
 
-        verify(chatGPTService).generateResume(anyString(), eq("Job Description"), eq(1));
-        verify(userDataAccess).addResume(argThat(resume ->
-                        resume.getResumeContent().equals("Generated Resume Content") &&
-                                resume.getResumeName().equals("Generated using Template 1")),
-                eq("testUser")
-        );
-        verify(presenter).present(argThat(output ->
-                output.getFormattedResume().equals("Generated Resume Content") &&
-                        output.getMessage().equals("Resume generated successfully")));
+        verify(chatGPTService).generateResume("User Info", "Job Description", 1);
+        verify(resume).setResumeName("Generated using Template 1");
+        verify(resume).setResumeContent("Generated Resume Content");
+        verify(userDataAccess).addResume(resume, "john_doe");
+        verify(presenter).present(argThat(outputData ->
+                outputData.getFormattedResume().equals("Generated Resume Content") &&
+                        outputData.getMessage().equals("Resume generated successfully")
+        ));
     }
 
     @Test
     public void testBuildResumeWithEmptyJobDescription() {
-        BuildResumeInputData inputData = new BuildResumeInputData(user.getUsername(), generateUserInfo(user), "", 1);
+        BuildResumeInputData inputData = new BuildResumeInputData("john_doe", "User Info", "", 1);
 
         interactor.buildResume(inputData);
 
-        verify(presenter).present(argThat(output ->
-                output.getFormattedResume().isEmpty() &&
-                        output.getMessage().equals("Job description is empty")));
+        verify(presenter).present(argThat(outputData ->
+                outputData.getFormattedResume().isEmpty() &&
+                        outputData.getMessage().equals("Job description is empty")
+        ));
+
         verifyNoInteractions(chatGPTService);
-        verify(user, never()).addResume(anyString());
     }
 
     @Test
     public void testBuildResumeWithNullJobDescription() {
-        BuildResumeInputData inputData = new BuildResumeInputData(user.getUsername(), generateUserInfo(user), null, 1);
+        BuildResumeInputData inputData = new BuildResumeInputData("john_doe", "User Info", null, 1);
 
         interactor.buildResume(inputData);
 
-        verify(presenter).present(argThat(output ->
-                output.getFormattedResume().isEmpty() &&
-                        output.getMessage().equals("Job description is empty")));
+        verify(presenter).present(argThat(outputData ->
+                outputData.getFormattedResume().isEmpty() &&
+                        outputData.getMessage().equals("Job description is empty")
+        ));
+
         verifyNoInteractions(chatGPTService);
-        verify(user, never()).addResume(anyString());
     }
 
-    private String generateUserInfo(User user) {
-        return "Name: " + user.getFullName() + "\n" +
-                "Email: " + user.getEmail() + "\n" +
-                "Work Experience: " + String.join(", ", user.getWorkExperience()) + "\n" +
-                "Education: " + String.join(", ", user.getEducation()) + "\n" +
-                "Skills: " + String.join(", ", user.getSkills());
+    @Test
+    public void testBuildResumeWithWhitespaceJobDescription() {
+        BuildResumeInputData inputData = new BuildResumeInputData("john_doe", "User Info", "   ", 1);
+
+        interactor.buildResume(inputData);
+
+        verify(presenter).present(argThat(outputData ->
+                outputData.getFormattedResume().isEmpty() &&
+                        outputData.getMessage().equals("Job description is empty")
+        ));
+
+        verifyNoInteractions(chatGPTService);
     }
 }

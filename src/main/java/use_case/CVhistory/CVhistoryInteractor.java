@@ -20,24 +20,31 @@ public class CVhistoryInteractor implements CVhistoryInputBoundary {
     @Override
     public void CVhistory(CVhistoryInputData inputData) {
         User user = userDataAccess.getCurrentUser();
+        if (user == null) {
+            // No user is logged in, return empty data
+            CVhistoryOutputData outputData = new CVhistoryOutputData("", new ArrayList<>());
+            this.presenter.present(outputData);
+            return;
+        }
+
         String username = user.getUsername();
-        Map CVhistory = userDataAccess.getCvs(username);
+        Map<String, String> CVhistory = userDataAccess.getCvs(username);
         int index = inputData.getIndex();
-        if (user != null) {
-            List<String> keys = new ArrayList<>(CVhistory.keySet());
-            if (index >= 0 && index < keys.size()) {
-                String key = keys.get(index);
-                CVhistoryOutputData outputData = new CVhistoryOutputData(userDataAccess.getCvContent(username,key), keys);
-                this.presenter.present(outputData);
-            } else if (index == -1) {
-                CVhistoryOutputData outputData = new CVhistoryOutputData("", keys);
-                this.presenter.present(outputData);
-            }
+
+        List<String> keys = new ArrayList<>(CVhistory.keySet());
+        if (index >= 0 && index < keys.size()) {
+            String key = keys.get(index);
+            CVhistoryOutputData outputData = new CVhistoryOutputData(userDataAccess.getCvContent(username, key), keys);
+            this.presenter.present(outputData);
+        } else if (index == -1) {
+            CVhistoryOutputData outputData = new CVhistoryOutputData("", keys);
+            this.presenter.present(outputData);
         } else {
             CVhistoryOutputData outputData = new CVhistoryOutputData("", new ArrayList<>());
             this.presenter.present(outputData);
         }
     }
+
 }
 
 

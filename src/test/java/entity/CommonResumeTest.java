@@ -19,4 +19,13 @@ public class CommonResumeTest {
         resume.setResumeContent("Content of the resume");
         assertEquals("Content of the resume", resume.getResumeContent());
     }
+
+    @Test
+    public void testToString() {
+        CommonResume resume = new CommonResume();
+        resume.setResumeName("My Resume");
+        resume.setResumeContent("Content of the resume");
+        String expected = "Resume Name: My Resume\nContent:\nContent of the resume";
+        assertEquals(expected, resume.toString());
+    }
 }

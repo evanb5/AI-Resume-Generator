@@ -31,12 +31,27 @@ public class UserInputInteractor implements UserInputInputBoundary {
     }
 
     @Override
-    public void getUserData(){
+    public void getUserData() {
         User user = userDataAccess.getCurrentUser();
-        if(user != null){
-            UserInputOutputDataforrefresh outputDataforrefresh = new UserInputOutputDataforrefresh(user.getFullName(),
-                    user.getEmail(),user.getWorkExperience(),user.getEducation(),user.getSkills());
+        if (user != null) {
+            UserInputOutputDataforrefresh outputDataforrefresh = new UserInputOutputDataforrefresh(
+                    user.getFullName(),
+                    user.getEmail(),
+                    user.getWorkExperience(),
+                    user.getEducation(),
+                    user.getSkills()
+            );
+            presenter.refresh(outputDataforrefresh);
+        } else {
+            UserInputOutputDataforrefresh outputDataforrefresh = new UserInputOutputDataforrefresh(
+                    "",
+                    "",
+                    Collections.emptyList(),
+                    Collections.emptyList(),
+                    Collections.emptyList()
+            );
             presenter.refresh(outputDataforrefresh);
         }
     }
+
 }
