@@ -14,20 +14,17 @@ import java.util.List;
 public class PastResumesView extends JPanel {
     private ViewManager viewManager;
     private ResumeHistoryController controller;
-    private ResumeHistoryViewModel resumeHistoryViewModel;
-
-
+    private ResumeHistoryPresenter presenter;
+    private ResumeHistoryViewModel viewModel;
     private int resumes;
 
     private JButton backButton;
     private JTextArea displayArea;
 
-    public PastResumesView(ViewManager viewManager, ResumeHistoryController controller,
-                           ResumeHistoryViewModel resumeHistoryViewModel) {
+    public PastResumesView(ViewManager viewManager, ResumeHistoryController controller, ResumeHistoryPresenter presenter) {
         this.viewManager = viewManager;
         this.controller = controller;
-        this.resumeHistoryViewModel = resumeHistoryViewModel;
-
+        this.presenter = presenter;
 
         // Initialize UI Components
         backButton = new JButton("Back");
@@ -36,8 +33,8 @@ public class PastResumesView extends JPanel {
 
         // Fetch initial resume data
         controller.fetchResumeHistory(new ResumeHistoryInputData(-4));
-        resumes = resumeHistoryViewModel.getResumes();
-
+        ResumeHistoryViewModel viewModel = presenter.getViewModel();
+        resumes = viewModel.getResumes();
         // Layout and display logic
         if (resumes == 0) {
             setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
@@ -56,8 +53,7 @@ public class PastResumesView extends JPanel {
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         controller.fetchResumeHistory(new ResumeHistoryInputData(index));
-                        displayArea.setText(resumeHistoryViewModel.getResumeContent());
-
+                        displayArea.setText(presenter.getViewModel().getResumeContent());
                     }
                 });
                 buttonPanel.add(resumeButton);
@@ -80,8 +76,8 @@ public class PastResumesView extends JPanel {
     public void refreshResumes() {
         removeAll();
         controller.fetchResumeHistory(new ResumeHistoryInputData(-4));
-        resumes = resumeHistoryViewModel.getResumes();
-
+        ResumeHistoryViewModel viewModel = presenter.getViewModel();
+        resumes = viewModel.getResumes();
 
         if (resumes==0) {
             setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
@@ -100,8 +96,7 @@ public class PastResumesView extends JPanel {
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         controller.fetchResumeHistory(new ResumeHistoryInputData(index));
-                        displayArea.setText(resumeHistoryViewModel.getResumeContent());
-
+                        displayArea.setText(presenter.getViewModel().getResumeContent());
                     }
                 });
                 buttonPanel.add(resumeButton);

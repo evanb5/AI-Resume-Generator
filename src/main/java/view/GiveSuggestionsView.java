@@ -10,7 +10,7 @@ import use_case.give_suggestions.GiveSuggestionsInputData;
 public class GiveSuggestionsView extends JPanel {
     private ViewManager viewManager;
     private GiveSuggestionsController controller;
-    private GiveSuggestionsViewModel giveSuggestionsViewModel;
+    private GiveSuggestionsPresenter presenter;
 
     private JTextArea insertedResumeArea;
     private JButton getSuggestionsButton;
@@ -19,10 +19,10 @@ public class GiveSuggestionsView extends JPanel {
     private JLabel messageLabel;
     private JTextArea jobDescriptionArea;
 
-    public GiveSuggestionsView(ViewManager viewManager, GiveSuggestionsController controller, GiveSuggestionsViewModel giveSuggestionsViewModel) {
+    public GiveSuggestionsView(ViewManager viewManager, GiveSuggestionsController controller, GiveSuggestionsPresenter presenter) {
         this.viewManager = viewManager;
         this.controller = controller;
-        this.giveSuggestionsViewModel = giveSuggestionsViewModel;
+        this.presenter = presenter;
 
         // Initialize components
         insertedResumeArea = new JTextArea(20, 50);
@@ -56,8 +56,9 @@ public class GiveSuggestionsView extends JPanel {
                 controller.giveSuggestions(inputData);
 
                 // Update view
-                suggestionsDisplayArea.setText(giveSuggestionsViewModel.getSuggestions());
-                messageLabel.setText(giveSuggestionsViewModel.getMessage());
+                GiveSuggestionsViewModel viewModel = presenter.getViewModel();
+                suggestionsDisplayArea.setText(viewModel.getSuggestions());
+                messageLabel.setText(viewModel.getMessage());
             }
         });
 

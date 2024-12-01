@@ -21,9 +21,9 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
     private JButton signupButton;
     private JLabel messageLabel;
 
-    public LoginView(ViewManager viewManager, LoginViewModel loginViewModel) {
+    public LoginView(ViewManager viewManager, LoginViewModel viewModel) {
         this.viewManager = viewManager;
-        this.loginViewModel = loginViewModel;
+        this.loginViewModel = viewModel;
         loginViewModel.addPropertyChangeListener(this);
 
         usernameField = new JTextField(20);
@@ -46,11 +46,10 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
             public void actionPerformed(ActionEvent e) {
                 updateCurrentState();
                 controller.login(usernameField.getText(), new String(passwordField.getPassword()));
-                messageLabel.setText(loginViewModel.getMessage());
+                messageLabel.setText(viewModel.getMessage());
                 passwordField.setText("");
-                if (loginViewModel.isSuccess()) {
-                    UserSession.getInstance().setCurrentUser(loginViewModel.getUser());
-
+                if (viewModel.isSuccess()) {
+                    UserSession.getInstance().setCurrentUser(viewModel.getUser());
                     viewManager.showUserInputView();
                 }
             }

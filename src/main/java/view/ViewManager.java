@@ -4,18 +4,18 @@ import javax.swing.*;
 import java.awt.*;
 
 import interface_adapter.CVhistory.CVhistoryController;
-import interface_adapter.CVhistory.CVhistoryViewModel;
-
+import interface_adapter.CVhistory.CVhistoryPresenter;
 import interface_adapter.history.HistoryController;
+import interface_adapter.history.HistoryPresenter;
 import interface_adapter.history.HistoryViewModel;
 import interface_adapter.login.*;
-import interface_adapter.resume_history.ResumeHistoryViewModel;
 import interface_adapter.signup.*;
 import interface_adapter.user_input.*;
 import interface_adapter.build_resume.*;
 import interface_adapter.build_cv.*;
 import interface_adapter.give_suggestions.*;
 import interface_adapter.resume_history.ResumeHistoryController;
+import interface_adapter.resume_history.ResumeHistoryPresenter;
 
 public class ViewManager {
     private JFrame frame;
@@ -40,19 +40,17 @@ public class ViewManager {
             BuildCVController buildCVController,
             GiveSuggestionsController giveSuggestionsController,
             HistoryController historyController,
-            CVhistoryController cvhistorycontroller,
-
+            CVhistoryController CVhistorycontroller,
             ResumeHistoryController resumeHistoryController, // New controller for Resume History
             LoginViewModel loginViewModel,
             SignupViewModel signupViewModel,
-            UserInputViewModel userInputViewModel,
+            UserInputPresenter userInputPresenter,
             BuildResumeViewModel buildResumeViewModel,
-            BuildCVViewModel buildCVViewModel,
-            GiveSuggestionsViewModel giveSuggestionsViewModel,
-            HistoryViewModel historyViewModel,
-            CVhistoryViewModel cvhistoryViewModel,
-            ResumeHistoryViewModel resumeHistoryViewModel// New view model for Resume History
-
+            BuildCVPresenter buildCVPresenter,
+            GiveSuggestionsPresenter giveSuggestionsPresenter,
+            HistoryPresenter historyPresenter,
+            CVhistoryPresenter CVHistorypresenter,
+            ResumeHistoryPresenter resumeHistoryPresenter // New presenter for Resume History
     ) {
         frame = new JFrame("AI Resume Generator");
         cardLayout = new CardLayout();
@@ -62,14 +60,13 @@ public class ViewManager {
         loginView.setLoginController(loginController);
         signupView = new SignupView(this, signupViewModel);
         signupView.setSignupController(signupController);
-        userInputView = new UserInputView(this, userInputController, userInputViewModel);
+        userInputView = new UserInputView(this, userInputController, userInputPresenter);
         buildResumeView = new BuildResumeView(this, buildResumeController, buildResumeViewModel);
-        buildCVView = new BuildCVView(this, buildCVController, buildCVViewModel);
-        giveSuggestionsView = new GiveSuggestionsView(this, giveSuggestionsController, giveSuggestionsViewModel);
-        historyView = new HistoryView(this, historyViewModel, historyController);
-        cvHistoryView = new CVHistoryView(this, cvhistorycontroller, cvhistoryViewModel);
-        pastResumesView = new PastResumesView(this, resumeHistoryController, resumeHistoryViewModel); // Initialize PastResumesView
-
+        buildCVView = new BuildCVView(this, buildCVController, buildCVPresenter);
+        giveSuggestionsView = new GiveSuggestionsView(this, giveSuggestionsController, giveSuggestionsPresenter);
+        historyView = new HistoryView(this, historyPresenter, historyController);
+        cvHistoryView = new CVHistoryView(this, CVhistorycontroller, CVHistorypresenter);
+        pastResumesView = new PastResumesView(this, resumeHistoryController, resumeHistoryPresenter); // Initialize PastResumesView
 
         mainPanel.add(loginView, "LoginView");
         mainPanel.add(signupView, "SignupView");
