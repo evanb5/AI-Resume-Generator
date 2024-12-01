@@ -3,17 +3,24 @@ package use_case.build_resume;
 
 import data_access.UserDataAccessInterface;
 import entity.CommonResume;
+import entity.Resume;
+import entity.ResumeFactory;
+import entity.UserFactory;
 import services.ChatGPTService;
 
 public class BuildResumeInteractor implements BuildResumeInputBoundary {
     private UserDataAccessInterface userDataAccess;
     private BuildResumeOutputBoundary presenter;
     private ChatGPTService chatGPTService;
+    private final ResumeFactory resumeFactory;
 
-    public BuildResumeInteractor(UserDataAccessInterface userDataAccess, BuildResumeOutputBoundary presenter) {
+    public BuildResumeInteractor(UserDataAccessInterface userDataAccess, BuildResumeOutputBoundary presenter,
+                                 ResumeFactory resumeFactory) {
         this.userDataAccess = userDataAccess;
         this.presenter = presenter;
         this.chatGPTService = new ChatGPTService();
+        this.resumeFactory = resumeFactory;
+
     }
 
     public void setChatGPTService(ChatGPTService chatGPTService) {
@@ -38,7 +45,7 @@ public class BuildResumeInteractor implements BuildResumeInputBoundary {
                 templateNumber
         );
 
-        CommonResume resume = new CommonResume();
+        Resume resume = resumeFactory.createResume();
         resume.setResumeName("Generated using Template " + templateNumber);
         resume.setResumeContent(resumeContent);
 

@@ -38,8 +38,6 @@ public class GiveSuggestionsInteractor implements GiveSuggestionsInputBoundary {
 
         GiveSuggestionsOutputData outputData = new GiveSuggestionsOutputData(suggestions, "Suggestions generated successfully");
 
-        user.addsuggestion(suggestions);
-
         presenter.present(outputData);
     }
 

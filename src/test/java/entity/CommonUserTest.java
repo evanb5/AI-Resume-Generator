@@ -60,49 +60,4 @@ public class CommonUserTest {
         assertEquals(skills, user.getSkills());
     }
 
-    @Test
-    public void testAddAndGetResume() {
-        CommonUser user = new CommonUser();
-        user.addResume("Resume Content 1");
-        user.addResume("Resume Content 2");
-        List<String> expectedResumes = Arrays.asList("Resume Content 1", "Resume Content 2");
-        assertEquals(expectedResumes, user.getResumes());
-        assertEquals(2, user.getnumresume());
-    }
-
-    @Test
-    public void testAddAndGetCvs() {
-        CommonUser user = new CommonUser();
-        user.addCv("CV1", "Content of CV1");
-        user.addCv("CV2", "Content of CV2");
-        Map<String, String> cvs = user.getCvs();
-        assertEquals(2, cvs.size());
-        assertEquals("Content of CV1", cvs.get("CV1"));
-        assertEquals("Content of CV2", cvs.get("CV2"));
-        assertEquals(2, user.getnumCV());
-    }
-
-    @Test
-    public void testSetAndGetCVIndex() {
-        CommonUser user = new CommonUser();
-        user.setCVindex(1);
-        assertEquals(1, user.getCVindex());
-    }
-
-    @Test
-    public void testAddSuggestionAndGetNumSuggestion() {
-        CommonUser user = new CommonUser();
-        user.addsuggestion("Suggestion 1");
-        user.addsuggestion("Suggestion 2");
-        assertEquals(2, user.getnumsuggestion());
-    }
-
-    @Test
-    public void testGetResume() {
-        CommonUser user = new CommonUser();
-        user.addResume("Resume Content 1");
-        user.addResume("Resume Content 2");
-        List<String> expectedResumes = Arrays.asList("Resume Content 1", "Resume Content 2");
-        assertEquals(expectedResumes, user.getResume());
-    }
 }
