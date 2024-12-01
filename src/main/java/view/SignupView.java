@@ -9,7 +9,7 @@ import java.util.Arrays;
 
 import interface_adapter.signup.*;
 
-public class SignupView extends JPanel implements ActionListener, PropertyChangeListener {
+public class SignupView extends JPanel implements ActionListener {
     private ViewManager viewManager;
     private SignupController controller;
     private SignupViewModel signupViewModel;
@@ -21,11 +21,10 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
     private JButton backButton;
     private JLabel messageLabel;
 
-    public SignupView(ViewManager viewManager, SignupViewModel viewModel) {
+    public SignupView(ViewManager viewManager, SignupViewModel signupViewModel) {
         this.viewManager = viewManager;
         this.controller = controller;
-        this.signupViewModel = viewModel;
-        signupViewModel.addPropertyChangeListener(this);
+        this.signupViewModel = signupViewModel;
 
         usernameField = new JTextField(20);
         passwordField = new JPasswordField(20);
@@ -51,8 +50,8 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
                 if (e.getSource() == signupButton) {
                     updateCurrentState();
                     controller.signup(usernameField.getText(), new String(passwordField.getPassword()), emailField.getText());
-                    messageLabel.setText(viewModel.getMessage());
-                    if (viewModel.isSuccess()) {
+                    messageLabel.setText(signupViewModel.getMessage());
+                    if (signupViewModel.isSuccess()) {
                         viewManager.showLoginView();
                     }
                 }
@@ -77,11 +76,6 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
 
     public void setSignupController(SignupController controller) {
         this.controller = controller;
-    }
-
-    @Override
-    public void propertyChange(PropertyChangeEvent evt) {
-        final SignupState state = (SignupState) evt.getNewValue();
     }
 
     @Override

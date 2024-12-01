@@ -87,13 +87,13 @@ public class AppBuilder {
                 resumeHistoryController, // Added
                 loginViewModel,
                 signupViewModel,
-                userInputPresenter,
+                userInputViewModel,
                 buildResumeViewModel,
-                buildCVPresenter,
-                giveSuggestionsPresenter,
-                historyPresenter,
-                cvhistoryPresenter,
-                resumeHistoryPresenter // Added
+                buildCVViewModel,
+                giveSuggestionsViewModel,
+                historyViewModel,
+                cvhistoryViewModel,
+                resumeHistoryViewModel // Added
         );
 
         viewManager.showLoginView();

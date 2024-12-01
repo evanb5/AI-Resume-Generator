@@ -2,6 +2,7 @@ package view;
 
 import interface_adapter.CVhistory.CVhistoryController;
 import interface_adapter.CVhistory.CVhistoryPresenter;
+import interface_adapter.CVhistory.CVhistoryViewModel;
 import use_case.CVhistory.CVhistoryInputData;
 
 import javax.swing.*;
@@ -13,17 +14,17 @@ import java.util.List;
 public class CVHistoryView  extends JPanel {
     private ViewManager viewmanager;
     private CVhistoryController controller;
-    private CVhistoryPresenter presenter;
+    private CVhistoryViewModel cvhistoryViewModel;
 
     private JButton backButton;
     private JTextArea DisplayArea;
     private JButton NextButton;
     private JButton PreviousButton;
 
-    public CVHistoryView(ViewManager viewManager, CVhistoryController controller, CVhistoryPresenter presenter) {
+    public CVHistoryView(ViewManager viewManager, CVhistoryController controller,  CVhistoryViewModel cvhistoryViewModel) {
         this.viewmanager = viewmanager;
         this.controller = controller;
-        this.presenter = presenter;
+        this.cvhistoryViewModel = cvhistoryViewModel;
 
         backButton = new JButton("Back");
         NextButton = new JButton("Next");
@@ -44,7 +45,7 @@ public class CVHistoryView  extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 controller.CVhistory(new CVhistoryInputData(-3));
-                DisplayArea.setText(presenter.getViewModel().getHistoryCV());
+                DisplayArea.setText(cvhistoryViewModel.getHistoryCV());
             }
         });
 
@@ -52,7 +53,7 @@ public class CVHistoryView  extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 controller.CVhistory(new CVhistoryInputData(-2));
-                DisplayArea.setText(presenter.getViewModel().getHistoryCV());
+                DisplayArea.setText(cvhistoryViewModel.getHistoryCV());
             }
         });
     }
@@ -60,7 +61,7 @@ public class CVHistoryView  extends JPanel {
     public void refreshcv() {
         removeAll();
         controller.CVhistory(new CVhistoryInputData(-4));
-        List<String> keys = new ArrayList<>(presenter.getViewModel().getTitles());
+        List<String> keys = new ArrayList<>(cvhistoryViewModel.getTitles());
         if (keys.isEmpty()) {
             setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
             add(DisplayArea);
@@ -70,14 +71,14 @@ public class CVHistoryView  extends JPanel {
         }else {
             JPanel titlrPanel = new JPanel();
             titlrPanel.setLayout(new BoxLayout(titlrPanel, BoxLayout.X_AXIS));
-            for (int i = 0; i < presenter.getViewModel().getTitles().size(); i++) {
+            for (int i = 0; i < cvhistoryViewModel.getTitles().size(); i++) {
                 JButton button = new JButton(keys.get(i));
                 int I = i;
                 button.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         controller.CVhistory(new CVhistoryInputData(I));
-                        DisplayArea.setText(presenter.getViewModel().getHistoryCV());
+                        DisplayArea.setText(cvhistoryViewModel.getHistoryCV());
                     }
                 });
                 titlrPanel.add(button);
