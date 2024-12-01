@@ -2,16 +2,19 @@ package view;
 
 import interface_adapter.CVhistory.CVhistoryController;
 import interface_adapter.CVhistory.CVhistoryPresenter;
+import interface_adapter.CVhistory.CVhistoryState;
 import interface_adapter.CVhistory.CVhistoryViewModel;
 import use_case.CVhistory.CVhistoryInputData;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CVHistoryView  extends JPanel {
+public class CVHistoryView  extends JPanel implements PropertyChangeListener {
     private ViewManager viewmanager;
     private CVhistoryController controller;
     private CVhistoryViewModel cvhistoryViewModel;
@@ -27,6 +30,7 @@ public class CVHistoryView  extends JPanel {
         this.viewmanager = viewmanager;
         this.controller = controller;
         this.cvhistoryViewModel = cvhistoryViewModel;
+        this.cvhistoryViewModel.addPropertyChangeListener(this);
         this.index_pointer = -1;
         this.CV_num = 0;
 
@@ -95,7 +99,7 @@ public class CVHistoryView  extends JPanel {
             add(DisplayArea);
             add(backButton);
 
-            DisplayArea.setText("You havent produce any CV yet");
+            DisplayArea.setText("You havent produced any CV yet");
         }else {
             JPanel titlrPanel = new JPanel();
             titlrPanel.setLayout(new BoxLayout(titlrPanel, BoxLayout.X_AXIS));
@@ -124,5 +128,11 @@ public class CVHistoryView  extends JPanel {
             DisplayArea.setText("");
         }
 
+    }
+
+    @Override
+    public void propertyChange(PropertyChangeEvent evt) {
+        CVhistoryState state = (CVhistoryState) evt.getNewValue();
+        cvhistoryViewModel.setState(state);
     }
 }

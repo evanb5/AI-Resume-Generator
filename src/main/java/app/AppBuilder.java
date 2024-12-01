@@ -54,7 +54,7 @@ public class AppBuilder {
         BuildCVPresenter buildCVPresenter = new BuildCVPresenter(buildCVViewModel);
         GiveSuggestionsPresenter giveSuggestionsPresenter = new GiveSuggestionsPresenter(giveSuggestionsViewModel);
         HistoryPresenter historyPresenter = new HistoryPresenter(historyViewModel);
-        CVhistoryPresenter cvhistoryPresenter = new CVhistoryPresenter();
+        CVhistoryPresenter cvhistoryPresenter = new CVhistoryPresenter(cvhistoryViewModel);
         ResumeHistoryPresenter resumeHistoryPresenter = new ResumeHistoryPresenter(resumeHistoryViewModel);
 
         // Interactors

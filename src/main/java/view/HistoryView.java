@@ -70,8 +70,8 @@ public class HistoryView extends JPanel implements PropertyChangeListener {
     }
     public void refreshnow() {
         controller.historyinput();
-        CVnumbver.setText("the number of CV created is" + historyViewModel.getCv());
-        resumenumber.setText("the number of resume created is" + historyViewModel.getResume());
+        CVnumbver.setText("the number of CV created is: " + historyViewModel.getCv());
+        resumenumber.setText("the number of resume created is: " + historyViewModel.getResume());
     }
 
     @Override
