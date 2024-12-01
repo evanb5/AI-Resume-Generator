@@ -49,7 +49,7 @@ public class AppBuilder {
         SignupPresenter signupPresenter = new SignupPresenter(loginViewModel, signupViewModel);
         UserInputPresenter userInputPresenter = new UserInputPresenter();
         BuildResumePresenter buildResumePresenter = new BuildResumePresenter(buildResumeViewModel);
-        BuildCVPresenter buildCVPresenter = new BuildCVPresenter();
+        BuildCVPresenter buildCVPresenter = new BuildCVPresenter(buildCVViewModel);
         GiveSuggestionsPresenter giveSuggestionsPresenter = new GiveSuggestionsPresenter();
         HistoryPresenter historyPresenter = new HistoryPresenter();
         CVhistoryPresenter cvhistoryPresenter = new CVhistoryPresenter();
