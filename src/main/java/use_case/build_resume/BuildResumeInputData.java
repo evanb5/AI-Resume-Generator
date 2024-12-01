@@ -4,7 +4,6 @@ package use_case.build_resume;
 import entity.User;
 
 public class BuildResumeInputData {
-    private User user;
     private String jobDescription;
     private int templateNumber;
 

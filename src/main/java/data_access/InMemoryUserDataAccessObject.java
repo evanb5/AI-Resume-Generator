@@ -1,11 +1,14 @@
 package data_access;
 
-import entity.User;
+import entity.*;
+
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 public class InMemoryUserDataAccessObject implements UserDataAccessInterface {
     private Map<String, User> users;
+    private Map<String, ArrayList<Resume>> resumes;
     private User currentUser;
 
     public InMemoryUserDataAccessObject() {
@@ -42,30 +45,30 @@ public class InMemoryUserDataAccessObject implements UserDataAccessInterface {
         users.remove(username);
     }
 
+
+    ////TODO: RESUMES - use these to implement
+    @Override
+    public void addResume(Resume resume, String username) {
+        resumes.get(username).add(resume);
+    }
+
+    @Override
+    public ArrayList<Resume> getResumes(String username) {
+        return resumes.get(username);
+    }
+
     // New methods for resumes
     @Override
-    public String getResumeContent(User user, int index) {
-        if (index >= 0 && index < user.getResume().size()) {
-            return user.getResume().get(index);
+    public Resume getResumeContent(String username, int index) {
+        if (index >= 0 && index < resumes.get(username).size()) {
+            return resumes.get(username).get(index);
         }
         return null;
     }
 
     @Override
-    public int getResumeCount(User user) {
-        return user.getResume().size();
+    public int getResumeCount(String username) {
+        return resumes.get(username).size();
     }
 
-    @Override
-    public void addResume(User user, String resumeContent, String title) {
-        user.addResume(resumeContent);
-    }
-
-    @Override
-    public String getResumeTitle(User user, int index) {
-        if (index >= 0 && index < user.getResume().size()) {
-            return "Resume " + (index + 1);
-        }
-        return null;
-    }
 }

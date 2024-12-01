@@ -46,7 +46,7 @@ public class ChatGPTService {
     }
 
     public String generateCV(String userInfo, String jobDescription) {
-        String userInput = "Generate a detailed CV for the following user:\n" + userInfo + "\nJob Description:\n" + jobDescription;
+        String userInput = "Generate a detailed cover letter for the following user:\n" + userInfo + "\nJob Description:\n" + jobDescription;
         return generateDocument(userInput);
     }
 

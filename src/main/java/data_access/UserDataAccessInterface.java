@@ -1,6 +1,10 @@
 package data_access;
 
+import entity.Resume;
 import entity.User;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public interface UserDataAccessInterface {
     void saveUser(User user);
@@ -10,9 +14,11 @@ public interface UserDataAccessInterface {
     User getCurrentUser();
     void setCurrentUser(User user);
 
+    void addResume(Resume resume, String username);
+    ArrayList<Resume> getResumes(String username);
     // New methods for resumes
-    String getResumeContent(User user, int index);
-    int getResumeCount(User user);
-    void addResume(User user, String resumeContent, String title);
-    String getResumeTitle(User user, int index);
+    Resume getResumeContent(String username, int index);
+    int getResumeCount(String username);
+
+
 }
