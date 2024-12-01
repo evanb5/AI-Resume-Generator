@@ -13,7 +13,7 @@ import session.UserSession;
 public class LoginView extends JPanel implements ActionListener, PropertyChangeListener {
     private ViewManager viewManager;
     private LoginController controller;
-    private LoginViewModel viewModel;
+    private LoginViewModel loginViewModel;
 
     private JTextField usernameField;
     private JPasswordField passwordField;
@@ -21,10 +21,10 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
     private JButton signupButton;
     private JLabel messageLabel;
 
-    public LoginView(ViewManager viewManager, LoginViewModel viewModel) {
+    public LoginView(ViewManager viewManager, LoginViewModel loginViewModel) {
         this.viewManager = viewManager;
-        this.viewModel = viewModel;
-        viewModel.addPropertyChangeListener(this);
+        this.loginViewModel = loginViewModel;
+        loginViewModel.addPropertyChangeListener(this);
 
         usernameField = new JTextField(20);
         passwordField = new JPasswordField(20);
@@ -46,10 +46,10 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
             public void actionPerformed(ActionEvent e) {
                 updateCurrentState();
                 controller.login(usernameField.getText(), new String(passwordField.getPassword()));
-                messageLabel.setText(viewModel.getMessage());
+                messageLabel.setText(loginViewModel.getMessage());
                 passwordField.setText("");
-                if (viewModel.isSuccess()) {
-                    UserSession.getInstance().setCurrentUser(viewModel.getUser());
+                if (loginViewModel.isSuccess()) {
+                    UserSession.getInstance().setCurrentUser(loginViewModel.getUser());
                     viewManager.showUserInputView();
                 }
             }
@@ -64,10 +64,10 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
     }
 
     private void updateCurrentState() {
-        final LoginState currentState = viewModel.getState();
+        final LoginState currentState = loginViewModel.getState();
         currentState.setPassword(Arrays.toString(passwordField.getPassword()));
         currentState.setusername(usernameField.getText());
-        viewModel.setState(currentState);
+        loginViewModel.setState(currentState);
     }
 
     @Override

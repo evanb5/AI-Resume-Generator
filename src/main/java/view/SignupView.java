@@ -7,13 +7,12 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.Arrays;
 
-import interface_adapter.login.LoginState;
 import interface_adapter.signup.*;
 
-public class SignupView extends JPanel implements ActionListener, PropertyChangeListener {
+public class SignupView extends JPanel implements ActionListener {
     private ViewManager viewManager;
     private SignupController controller;
-    private SignupViewModel viewModel;
+    private SignupViewModel signupViewModel;
 
     private JTextField usernameField;
     private JPasswordField passwordField;
@@ -24,9 +23,8 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
 
     public SignupView(ViewManager viewManager, SignupViewModel viewModel) {
         this.viewManager = viewManager;
-        this.controller = controller;
-        this.viewModel = viewModel;
-        viewModel.addPropertyChangeListener(this);
+        this.signupViewModel = viewModel;
+        signupViewModel.addPropertyChangeListener(this);
 
         usernameField = new JTextField(20);
         passwordField = new JPasswordField(20);
@@ -69,20 +67,15 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
 
     }
     private void updateCurrentState() {
-        final SignupState currentState = viewModel.getState();
+        final SignupState currentState = signupViewModel.getState();
         currentState.setEmail(emailField.getText());
         currentState.setPassword(Arrays.toString(passwordField.getPassword()));
         currentState.setUserName(usernameField.getText());
-        viewModel.setState(currentState);
+        signupViewModel.setState(currentState);
     }
 
     public void setSignupController(SignupController controller) {
         this.controller = controller;
-    }
-
-    @Override
-    public void propertyChange(PropertyChangeEvent evt) {
-        final SignupState state = (SignupState) evt.getNewValue();
     }
 
     @Override
