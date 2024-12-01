@@ -14,12 +14,14 @@ public interface UserDataAccessInterface {
     void deleteUser(String username);
     User getCurrentUser();
     void setCurrentUser(User user);
+    String getCurrentUserName();
 
-    void addResume(String username, Resume resume);
+    void addResume(Resume resume, String username);
     ArrayList<Resume> getResumes(String username);
     // New methods for resumes
     Resume getResumeContent(String username, int index);
     int getResumeCount(String username);
+
 
 
     //methods for cvs
