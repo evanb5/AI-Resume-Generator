@@ -60,9 +60,12 @@ public class BuildResumeView extends JPanel implements PropertyChangeListener {
                 String jobDescription = jobDescriptionArea.getText();
                 String templateChoice = (String) templateComboBox.getSelectedItem();
 
+                String username = UserSession.getInstance().getCurrentUser().getUsername();
+                String userInfo = generateUserInfo();
+
                 int templateNumber = mapTemplateChoiceToNumber(templateChoice);
 
-                BuildResumeInputData inputData = new BuildResumeInputData(jobDescription, templateNumber);
+                BuildResumeInputData inputData = new BuildResumeInputData(username, userInfo, jobDescription, templateNumber);
                 controller.buildResume(inputData);
             }
 
@@ -74,6 +77,15 @@ public class BuildResumeView extends JPanel implements PropertyChangeListener {
                     case "Creative Resume prioritizing Design/Layout" -> 3;
                     default -> 1; // Default to Template 1 if unrecognized
                 };
+            }
+
+            // Helper method to generate user info
+            private String generateUserInfo() {
+                return "Name: " + UserSession.getInstance().getCurrentUser().getFullName() + "\n" +
+                        "Email: " + UserSession.getInstance().getCurrentUser().getEmail() + "\n" +
+                        "Work Experience: " + String.join(", ", UserSession.getInstance().getCurrentUser().getWorkExperience()) + "\n" +
+                        "Education: " + String.join(", ", UserSession.getInstance().getCurrentUser().getEducation()) + "\n" +
+                        "Skills: " + String.join(", ", UserSession.getInstance().getCurrentUser().getSkills());
             }
         });
 

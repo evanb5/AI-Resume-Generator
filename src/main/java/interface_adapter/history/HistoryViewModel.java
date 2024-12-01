@@ -5,7 +5,6 @@ import entity.User;
 public class HistoryViewModel {
     private int cv;
     private int resume;
-    private int suggestion;
 
     public void setCv(int cv) {this.cv = cv;}
 
@@ -15,7 +14,4 @@ public class HistoryViewModel {
 
     public int getResume() {return this.resume;}
 
-    public void setSuggestion(int suggestion) {this.suggestion = suggestion;}
-
-    public int getSuggestion() {return this.suggestion;}
 }

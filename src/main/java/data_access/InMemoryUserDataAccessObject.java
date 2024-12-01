@@ -9,11 +9,13 @@ import java.util.Map;
 public class InMemoryUserDataAccessObject implements UserDataAccessInterface {
     private Map<String, User> users;
     private Map<String, ArrayList<Resume>> resumes;
-    private Map<String, ArrayList<CV>> cvs;
+    private Map<String, HashMap<String,String>> cvs;
     private User currentUser;
 
     public InMemoryUserDataAccessObject() {
         this.users = new HashMap<>();
+        this.resumes = new HashMap<>();
+        this.cvs = new HashMap<>();
     }
 
     @Override
@@ -24,6 +26,11 @@ public class InMemoryUserDataAccessObject implements UserDataAccessInterface {
     @Override
     public User getCurrentUser() {
         return this.currentUser;
+    }
+
+    @Override
+    public String getCurrentUserName() {
+        return this.currentUser.getUsername();
     }
 
     @Override
@@ -44,18 +51,19 @@ public class InMemoryUserDataAccessObject implements UserDataAccessInterface {
     @Override
     public void deleteUser(String username) {
         users.remove(username);
+        resumes.remove(username);
     }
 
 
     ////TODO: RESUMES - use these to implement
     @Override
     public void addResume(String username, Resume resume) {
-        resumes.get(username).add(resume);
+        resumes.computeIfAbsent(username, k -> new ArrayList<>()).add(resume);
     }
 
     @Override
     public ArrayList<Resume> getResumes(String username) {
-        return resumes.get(username);
+        return resumes.getOrDefault(username, new ArrayList<>());
     }
 
     // New methods for resumes
@@ -69,18 +77,18 @@ public class InMemoryUserDataAccessObject implements UserDataAccessInterface {
 
     @Override
     public int getResumeCount(String username) {
-        return resumes.get(username).size();
+        return resumes.getOrDefault(username, new ArrayList<>()).size();
     }
 
 
     ////TODO: CVs - use these methods to implement CVs
     @Override
     public void addCv(String username, CV cv) {
-        cvs.get(username).add(cv);
+        cvs.get(username).put(cv.getName(), cv.getCv());
     }
 
     @Override
-    public ArrayList<CV> getCvs(String username) {
+    public HashMap<String, String> getCvs(String username) {
         return cvs.get(username);
     }
 
@@ -91,22 +99,7 @@ public class InMemoryUserDataAccessObject implements UserDataAccessInterface {
 
     //Two different ways to use getCvContent - use whichever is easier
     @Override
-    public CV getCvContent(String username, String cvName) {
-        for (CV cv : cvs.get(username)) {
-            if (cv.getName().equals(cvName)) {
-                return cv;
-            }
-        }
-        return null;
+    public String getCvContent(String username, String cvName) {
+        return cvs.get(username).get(cvName);
     }
-
-    //Two different ways to use getCvContent - use whichever is easier
-    @Override
-    public CV getCvContent(String username, int index) {
-        if (index >= 0 && index < cvs.get(username).size()) {
-            return cvs.get(username).get(index);
-        }
-        return null;
-    }
-
 }

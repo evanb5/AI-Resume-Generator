@@ -32,9 +32,9 @@ import view.*;
 public class AppBuilder {
     public void build() {
         UserDataAccessInterface userDataAccess = new InMemoryUserDataAccessObject();
-
         UserFactory userFactory = new CommonUserFactory();
 
+        // View Models
         SignupViewModel signupViewModel = new SignupViewModel();
         LoginViewModel loginViewModel = new LoginViewModel();
         UserInputViewModel userInputViewModel = new UserInputViewModel();
@@ -43,8 +43,9 @@ public class AppBuilder {
         GiveSuggestionsViewModel giveSuggestionsViewModel = new GiveSuggestionsViewModel();
         HistoryViewModel historyViewModel = new HistoryViewModel();
         CVhistoryViewModel cvhistoryViewModel = new CVhistoryViewModel();
-        ResumeHistoryViewModel resumeHistoryViewModel = new ResumeHistoryViewModel(); // Added
+        ResumeHistoryViewModel resumeHistoryViewModel = new ResumeHistoryViewModel();
 
+        // Presenters
         LoginPresenter loginPresenter = new LoginPresenter(loginViewModel);
         SignupPresenter signupPresenter = new SignupPresenter(loginViewModel, signupViewModel);
         UserInputPresenter userInputPresenter = new UserInputPresenter();
@@ -53,8 +54,9 @@ public class AppBuilder {
         GiveSuggestionsPresenter giveSuggestionsPresenter = new GiveSuggestionsPresenter();
         HistoryPresenter historyPresenter = new HistoryPresenter();
         CVhistoryPresenter cvhistoryPresenter = new CVhistoryPresenter();
-        ResumeHistoryPresenter resumeHistoryPresenter = new ResumeHistoryPresenter(resumeHistoryViewModel); // Added
+        ResumeHistoryPresenter resumeHistoryPresenter = new ResumeHistoryPresenter(resumeHistoryViewModel);
 
+        // Interactors
         LoginInputBoundary loginInteractor = new LoginInteractor(userDataAccess, loginPresenter);
         SignupInputBoundary signupInteractor = new SignupInteractor(userDataAccess, userFactory, signupPresenter);
         UserInputInputBoundary userInputInteractor = new UserInputInteractor(userDataAccess, userInputPresenter);
@@ -63,8 +65,9 @@ public class AppBuilder {
         GiveSuggestionsInputBoundary giveSuggestionsInteractor = new GiveSuggestionsInteractor(userDataAccess, giveSuggestionsPresenter);
         HistoryInteractor historyInteractor = new HistoryInteractor(userDataAccess, historyPresenter);
         CVhistoryInteractor cvhistoryInteractor = new CVhistoryInteractor(userDataAccess, cvhistoryPresenter);
-        ResumeHistoryInteractor resumeHistoryInteractor = new ResumeHistoryInteractor(userDataAccess, resumeHistoryPresenter); // Added
+        ResumeHistoryInteractor resumeHistoryInteractor = new ResumeHistoryInteractor(userDataAccess, resumeHistoryPresenter);
 
+        // Controllers
         LoginController loginController = new LoginController(loginInteractor);
         SignupController signupController = new SignupController(signupInteractor);
         UserInputController userInputController = new UserInputController(userInputInteractor);
@@ -73,8 +76,9 @@ public class AppBuilder {
         GiveSuggestionsController giveSuggestionsController = new GiveSuggestionsController(giveSuggestionsInteractor);
         HistoryController historyController = new HistoryController(historyInteractor);
         CVhistoryController CVhistorycontroller = new CVhistoryController(cvhistoryInteractor);
-        ResumeHistoryController resumeHistoryController = new ResumeHistoryController(resumeHistoryInteractor); // Added
+        ResumeHistoryController resumeHistoryController = new ResumeHistoryController(resumeHistoryInteractor);
 
+        // View Manager
         ViewManager viewManager = new ViewManager(
                 loginController,
                 signupController,
@@ -84,7 +88,7 @@ public class AppBuilder {
                 giveSuggestionsController,
                 historyController,
                 CVhistorycontroller,
-                resumeHistoryController, // Added
+                resumeHistoryController,
                 loginViewModel,
                 signupViewModel,
                 userInputViewModel,
@@ -93,10 +97,10 @@ public class AppBuilder {
                 giveSuggestionsViewModel,
                 historyViewModel,
                 cvhistoryViewModel,
-                resumeHistoryViewModel // Added
+                resumeHistoryViewModel
         );
+
 
         viewManager.showLoginView();
     }
 }
-

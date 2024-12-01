@@ -2,7 +2,7 @@
 package use_case.build_resume;
 
 import data_access.UserDataAccessInterface;
-import entity.User;
+import entity.CommonResume;
 import services.ChatGPTService;
 
 public class BuildResumeInteractor implements BuildResumeInputBoundary {
@@ -22,7 +22,6 @@ public class BuildResumeInteractor implements BuildResumeInputBoundary {
 
     @Override
     public void buildResume(BuildResumeInputData inputData) {
-        User user = userDataAccess.getCurrentUser();
         String jobDescription = inputData.getJobDescription();
         int templateNumber = inputData.getTemplateNumber();
 
@@ -33,21 +32,19 @@ public class BuildResumeInteractor implements BuildResumeInputBoundary {
             return;
         }
 
-        // Proceed with generating the resume if the job description is valid
-        String userInfo = extractUserInfo(user);
-        String resumeContent = chatGPTService.generateResume(userInfo, jobDescription, templateNumber);
+        String resumeContent = chatGPTService.generateResume(
+                inputData.getUserInfo(),
+                jobDescription,
+                templateNumber
+        );
+
+        CommonResume resume = new CommonResume();
+        resume.setResumeName("Generated using Template " + templateNumber);
+        resume.setResumeContent(resumeContent);
+
+        userDataAccess.addResume(resume, inputData.getUsername());
 
         BuildResumeOutputData outputData = new BuildResumeOutputData(resumeContent, "Resume generated successfully");
-
-        user.addResume(resumeContent);
         presenter.present(outputData);
-    }
-
-    private String extractUserInfo(User user) {
-        return "Name: " + user.getFullName() + "\n" +
-                "Mail: " + user.getEmail() + "\n" +
-                "Working Experience: " + String.join(", ", user.getWorkExperience()) + "\n" +
-                "Educational background: " + String.join(", ", user.getEducation()) + "\n" +
-                "Skills: " + String.join(", ", user.getSkills());
     }
 }
