@@ -16,7 +16,6 @@ public class HistoryView extends JPanel{
     private JButton back;
     private JTextArea CVnumbver;
     private JTextArea resumenumber;
-    private JTextArea suggestionnumber;
 
     public HistoryView(ViewManager viewManager, HistoryViewModel historyViewModel, HistoryController controller) {
         this.viewManager = viewManager;
@@ -28,9 +27,6 @@ public class HistoryView extends JPanel{
         CVnumbver.setEditable(false);
         resumenumber = new JTextArea(10, 2);
         resumenumber.setEditable(false);
-        suggestionnumber = new JTextArea(10, 2);
-        suggestionnumber.setEditable(false);
-        suggestionnumber.setText("the number of suggestion created is" + historyViewModel.getSuggestion());
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         CVhistorybutton = new JButton("CVHistory");
         resumehistorybutton = new JButton("ResumeHistory");
@@ -43,20 +39,8 @@ public class HistoryView extends JPanel{
         add(CVhistorybutton);
         add(resumenumber);
         add(resumehistorybutton);
-        add(suggestionnumber);
         add(refresh);
         add(back);
-
-        refresh.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                controller.historyinput();
-                CVnumbver.setText("the number of CV created is" + historyViewModel.getCv());
-                resumenumber.setText("the number of resume created is" + historyViewModel.getResume());
-                suggestionnumber.setText("the number of suggestion created is" + historyViewModel.getSuggestion());
-
-            }
-        });
 
         //Add action listeners
         CVhistorybutton.addActionListener(new ActionListener() {
@@ -82,7 +66,6 @@ public class HistoryView extends JPanel{
         controller.historyinput();
         CVnumbver.setText("the number of CV created is" + historyViewModel.getCv());
         resumenumber.setText("the number of resume created is" + historyViewModel.getResume());
-        suggestionnumber.setText("the number of suggestion created is" + historyViewModel.getSuggestion());
     }
 
 }

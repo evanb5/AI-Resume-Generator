@@ -25,22 +25,4 @@ public interface User {
 
     List<String> getSkills();
     void setSkills(List<String> skills);
-
-    List<String> getResume();
-    void addResume(String resume);
-    int getnumresume();
-  
-    Map<String, String> getCvs();
-    void addCv(String cvName, String cv);
-    int getnumCV();
-    void setCVindex(int index);
-    int getCVindex();
-
-    void addsuggestion(String suggestion);
-    int getnumsuggestion();
-
-
-    List<String> getResumes();
-
-
 }

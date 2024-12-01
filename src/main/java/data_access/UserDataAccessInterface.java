@@ -5,6 +5,7 @@ import entity.Resume;
 import entity.User;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public interface UserDataAccessInterface {
@@ -24,8 +25,7 @@ public interface UserDataAccessInterface {
 
     //methods for cvs
     void addCv(String username, CV cv);
-    ArrayList<CV> getCvs(String username);
+    HashMap<String, String> getCvs(java.lang.String username);
     int getCvCount(String username);
-    CV getCvContent(String username, String cvName);
-    CV getCvContent(String username, int index);
+    String getCvContent(String username, String cvName);
 }
