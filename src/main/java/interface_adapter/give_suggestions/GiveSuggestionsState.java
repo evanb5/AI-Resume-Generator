@@ -1,17 +1,8 @@
-// interface_adapter/give_suggestions/GiveSuggestionsViewModel.java
 package interface_adapter.give_suggestions;
 
-import interface_adapter.ViewModel;
-
-public class GiveSuggestionsViewModel extends ViewModel<GiveSuggestionsState> {
+public class GiveSuggestionsState {
     private String suggestions;
     private String message;
-
-    public GiveSuggestionsViewModel() {
-        setState( new GiveSuggestionsState());
-        suggestions = "";
-        message = "";
-    }
 
     public String getSuggestions() {
         return suggestions;

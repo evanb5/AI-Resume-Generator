@@ -3,11 +3,14 @@ package view;
 
 import javax.swing.*;
 import java.awt.event.*;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+
 import interface_adapter.give_suggestions.*;
 import session.UserSession;
 import use_case.give_suggestions.GiveSuggestionsInputData;
 
-public class GiveSuggestionsView extends JPanel {
+public class GiveSuggestionsView extends JPanel implements PropertyChangeListener {
     private ViewManager viewManager;
     private GiveSuggestionsController controller;
     private GiveSuggestionsViewModel giveSuggestionsViewModel;
@@ -24,6 +27,7 @@ public class GiveSuggestionsView extends JPanel {
         this.viewManager = viewManager;
         this.controller = controller;
         this.giveSuggestionsViewModel = giveSuggestionsViewModel;
+        this.giveSuggestionsViewModel.addPropertyChangeListener(this);
 
         // Initialize components
         insertedResumeArea = new JTextArea(20, 50);
@@ -68,5 +72,11 @@ public class GiveSuggestionsView extends JPanel {
                 viewManager.showUserInputView();
             }
         });
+    }
+
+    @Override
+    public void propertyChange(PropertyChangeEvent evt) {
+        GiveSuggestionsState state = (GiveSuggestionsState) evt.getNewValue();
+        giveSuggestionsViewModel.setState(state);
     }
 }
