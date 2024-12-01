@@ -2,8 +2,8 @@ package view;
 import javax.swing.*;
 import java.awt.event.*;
 import interface_adapter.history.HistoryController;
-import interface_adapter.history.HistoryPresenter;
 import interface_adapter.history.HistoryViewModel;
+
 
 public class HistoryView extends JPanel{
     private ViewManager viewManager;
@@ -31,6 +31,7 @@ public class HistoryView extends JPanel{
         suggestionnumber = new JTextArea(10, 2);
         suggestionnumber.setEditable(false);
         suggestionnumber.setText("the number of suggestion created is" + historyViewModel.getSuggestion());
+
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         CVhistorybutton = new JButton("CVHistory");
         resumehistorybutton = new JButton("ResumeHistory");
@@ -83,6 +84,7 @@ public class HistoryView extends JPanel{
         CVnumbver.setText("the number of CV created is" + historyViewModel.getCv());
         resumenumber.setText("the number of resume created is" + historyViewModel.getResume());
         suggestionnumber.setText("the number of suggestion created is" + historyViewModel.getSuggestion());
+
     }
 
 }

@@ -16,6 +16,7 @@ public class PastResumesView extends JPanel {
     private ResumeHistoryController controller;
     private ResumeHistoryViewModel resumeHistoryViewModel;
 
+
     private int resumes;
 
     private JButton backButton;
@@ -27,6 +28,7 @@ public class PastResumesView extends JPanel {
         this.controller = controller;
         this.resumeHistoryViewModel = resumeHistoryViewModel;
 
+
         // Initialize UI Components
         backButton = new JButton("Back");
         displayArea = new JTextArea(20, 50);
@@ -35,6 +37,7 @@ public class PastResumesView extends JPanel {
         // Fetch initial resume data
         controller.fetchResumeHistory(new ResumeHistoryInputData(-4));
         resumes = resumeHistoryViewModel.getResumes();
+
         // Layout and display logic
         if (resumes == 0) {
             setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
@@ -54,6 +57,7 @@ public class PastResumesView extends JPanel {
                     public void actionPerformed(ActionEvent e) {
                         controller.fetchResumeHistory(new ResumeHistoryInputData(index));
                         displayArea.setText(resumeHistoryViewModel.getResumeContent());
+
                     }
                 });
                 buttonPanel.add(resumeButton);
@@ -78,6 +82,7 @@ public class PastResumesView extends JPanel {
         controller.fetchResumeHistory(new ResumeHistoryInputData(-4));
         resumes = resumeHistoryViewModel.getResumes();
 
+
         if (resumes==0) {
             setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
             displayArea.setText("No resumes found.");
@@ -96,6 +101,7 @@ public class PastResumesView extends JPanel {
                     public void actionPerformed(ActionEvent e) {
                         controller.fetchResumeHistory(new ResumeHistoryInputData(index));
                         displayArea.setText(resumeHistoryViewModel.getResumeContent());
+
                     }
                 });
                 buttonPanel.add(resumeButton);

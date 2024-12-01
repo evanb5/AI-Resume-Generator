@@ -50,6 +50,7 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
                 passwordField.setText("");
                 if (loginViewModel.isSuccess()) {
                     UserSession.getInstance().setCurrentUser(loginViewModel.getUser());
+
                     viewManager.showUserInputView();
                 }
             }

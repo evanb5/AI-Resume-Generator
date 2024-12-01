@@ -76,6 +76,7 @@ public class UserInputView extends JPanel {
                 controller.updateUserData(inputData);
                 // Update view
                 if (userInputViewModel.isSuccess()){
+
                     messageLabel.setText("User information updated successfully");
                 }else{
                     messageLabel.setText("User information update failed");
@@ -136,6 +137,7 @@ public class UserInputView extends JPanel {
         }
         if (userInputViewModel.getSkills()!=null) {
             skillsArea.setText(String.join("\n", userInputViewModel.getSkills()));
+
         }else {
             skillsArea.setText("");
         }

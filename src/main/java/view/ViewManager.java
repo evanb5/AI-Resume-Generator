@@ -5,6 +5,7 @@ import java.awt.*;
 
 import interface_adapter.CVhistory.CVhistoryController;
 import interface_adapter.CVhistory.CVhistoryViewModel;
+
 import interface_adapter.history.HistoryController;
 import interface_adapter.history.HistoryViewModel;
 import interface_adapter.login.*;
@@ -40,6 +41,7 @@ public class ViewManager {
             GiveSuggestionsController giveSuggestionsController,
             HistoryController historyController,
             CVhistoryController cvhistorycontroller,
+
             ResumeHistoryController resumeHistoryController, // New controller for Resume History
             LoginViewModel loginViewModel,
             SignupViewModel signupViewModel,
@@ -50,6 +52,7 @@ public class ViewManager {
             HistoryViewModel historyViewModel,
             CVhistoryViewModel cvhistoryViewModel,
             ResumeHistoryViewModel resumeHistoryViewModel// New view model for Resume History
+
     ) {
         frame = new JFrame("AI Resume Generator");
         cardLayout = new CardLayout();
@@ -66,6 +69,7 @@ public class ViewManager {
         historyView = new HistoryView(this, historyViewModel, historyController);
         cvHistoryView = new CVHistoryView(this, cvhistorycontroller, cvhistoryViewModel);
         pastResumesView = new PastResumesView(this, resumeHistoryController, resumeHistoryViewModel); // Initialize PastResumesView
+
 
         mainPanel.add(loginView, "LoginView");
         mainPanel.add(signupView, "SignupView");
