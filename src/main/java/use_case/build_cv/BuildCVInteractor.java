@@ -33,9 +33,6 @@ public class BuildCVInteractor implements BuildCVInputBoundary {
      */
     @Override
     public void buildCV(BuildCVInputData inputData) {
-        String username = userDataAccess.getCurrentUserName();
-        User user = userDataAccess.getUser(username);
-        String userInformation = generateUserInfo(user);
         String jobDescription = inputData.getJobDescription();
         String cvTitle = inputData.getCvTitle();
 
@@ -46,6 +43,16 @@ public class BuildCVInteractor implements BuildCVInputBoundary {
             return;
         }
 
+        String username = userDataAccess.getCurrentUserName();
+        User user = userDataAccess.getUser(username);
+
+        if (user == null) {
+            BuildCVOutputData outputData = new BuildCVOutputData("", "User not found");
+            presenter.present(outputData);
+            return;
+        }
+
+        String userInformation = generateUserInfo(user);
         String cvContent = chatGPTService.generateCV(userInformation, jobDescription);
 
         CV newCV = new CommonCV();

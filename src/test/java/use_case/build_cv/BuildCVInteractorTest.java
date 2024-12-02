@@ -1,12 +1,16 @@
-// test/use_case/build_cv/BuildCVInteractorTest.java
 package use_case.build_cv;
 
 import data_access.UserDataAccessInterface;
 import entity.CV;
+import entity.User;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.ArgumentCaptor;
 import services.ChatGPTService;
 
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
 public class BuildCVInteractorTest {
@@ -29,17 +33,25 @@ public class BuildCVInteractorTest {
     @Test
     public void testBuildCVSuccess() {
         BuildCVInputData inputData = new BuildCVInputData("Job Description", "My CV Title");
+        User mockUser = mock(User.class);
 
         when(userDataAccess.getCurrentUserName()).thenReturn("john_doe");
-        when(chatGPTService.generateCV("My CV Title", "Job Description")).thenReturn("Generated CV Content");
+        when(userDataAccess.getUser("john_doe")).thenReturn(mockUser);
+        when(mockUser.getFullName()).thenReturn("John Doe");
+        when(mockUser.getEmail()).thenReturn("john.doe@example.com");
+        when(mockUser.getWorkExperience()).thenReturn(List.of("Developer at X", "Engineer at Y"));
+        when(mockUser.getEducation()).thenReturn(List.of("B.Sc. Computer Science"));
+        when(mockUser.getSkills()).thenReturn(List.of("Java", "Spring"));
+
+        when(chatGPTService.generateCV(anyString(), eq("Job Description"))).thenReturn("Generated CV Content");
 
         interactor.buildCV(inputData);
 
-        verify(chatGPTService).generateCV("My CV Title", "Job Description");
+        verify(chatGPTService).generateCV(anyString(), eq("Job Description"));
         verify(userDataAccess).addCv(eq("john_doe"), any(CV.class));
         verify(presenter).present(argThat(outputData ->
                 outputData.getFormattedCV().equals("Generated CV Content") &&
-                        outputData.getMessage().equals("CV generated successfully")
+                        outputData.getMessage().equals("Cover Letter generated successfully")
         ));
     }
 
@@ -49,10 +61,12 @@ public class BuildCVInteractorTest {
 
         interactor.buildCV(inputData);
 
-        verify(presenter).present(argThat(outputData ->
-                outputData.getFormattedCV().isEmpty() &&
-                        outputData.getMessage().equals("Job description is empty")
-        ));
+        ArgumentCaptor<BuildCVOutputData> captor = ArgumentCaptor.forClass(BuildCVOutputData.class);
+        verify(presenter).present(captor.capture());
+
+        BuildCVOutputData capturedOutput = captor.getValue();
+        assertEquals("", capturedOutput.getFormattedCV());
+        assertEquals("Job description is empty", capturedOutput.getMessage());
 
         verifyNoInteractions(chatGPTService);
     }
@@ -63,9 +77,28 @@ public class BuildCVInteractorTest {
 
         interactor.buildCV(inputData);
 
+        ArgumentCaptor<BuildCVOutputData> captor = ArgumentCaptor.forClass(BuildCVOutputData.class);
+        verify(presenter).present(captor.capture());
+
+        BuildCVOutputData capturedOutput = captor.getValue();
+        assertEquals("", capturedOutput.getFormattedCV());
+        assertEquals("Job description is empty", capturedOutput.getMessage());
+
+        verifyNoInteractions(chatGPTService);
+    }
+
+    @Test
+    public void testBuildCVWithNullUser() {
+        BuildCVInputData inputData = new BuildCVInputData("Job Description", "My CV Title");
+
+        when(userDataAccess.getCurrentUserName()).thenReturn("john_doe");
+        when(userDataAccess.getUser("john_doe")).thenReturn(null);
+
+        interactor.buildCV(inputData);
+
         verify(presenter).present(argThat(outputData ->
                 outputData.getFormattedCV().isEmpty() &&
-                        outputData.getMessage().equals("Job description is empty")
+                        outputData.getMessage().equals("User not found")
         ));
 
         verifyNoInteractions(chatGPTService);

@@ -9,6 +9,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import services.ChatGPTService;
 
+import java.util.List;
+
 import static org.mockito.Mockito.*;
 
 public class BuildResumeInteractorTest {
@@ -38,15 +40,33 @@ public class BuildResumeInteractorTest {
     public void testBuildResumeSuccess() {
         BuildResumeInputData inputData = new BuildResumeInputData("Job Description", 1);
 
-        when(chatGPTService.generateResume("User Info", "Job Description", 1))
+        // Mock user data
+        when(user.getFullName()).thenReturn("John Doe");
+        when(user.getEmail()).thenReturn("john.doe@example.com");
+        when(user.getWorkExperience()).thenReturn(List.of("Developer at X", "Engineer at Y"));
+        when(user.getEducation()).thenReturn(List.of("B.Sc. in Computer Science"));
+        when(user.getSkills()).thenReturn(List.of("Java", "Spring"));
+
+        // Mock other dependencies
+        when(chatGPTService.generateResume(anyString(), eq("Job Description"), eq(1)))
                 .thenReturn("Generated Resume Content");
         Resume resume = mock(Resume.class);
         when(resumeFactory.createResume()).thenReturn(resume);
         when(user.getUsername()).thenReturn("john_doe");
 
+        // Call the method
         interactor.buildResume(inputData);
 
-        verify(chatGPTService).generateResume("User Info", "Job Description", 1);
+        // Verify interactions
+        verify(chatGPTService).generateResume(
+                argThat(userInfo -> userInfo.contains("John Doe") &&
+                        userInfo.contains("john.doe@example.com") &&
+                        userInfo.contains("Developer at X, Engineer at Y") &&
+                        userInfo.contains("B.Sc. in Computer Science") &&
+                        userInfo.contains("Java, Spring")),
+                eq("Job Description"),
+                eq(1)
+        );
         verify(resume).setResumeName("Generated using Template 1");
         verify(resume).setResumeContent("Generated Resume Content");
         verify(userDataAccess).addResume(resume, "john_doe");
@@ -55,6 +75,7 @@ public class BuildResumeInteractorTest {
                         outputData.getMessage().equals("Resume generated successfully")
         ));
     }
+
 
     @Test
     public void testBuildResumeWithEmptyJobDescription() {
