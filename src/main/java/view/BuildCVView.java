@@ -30,7 +30,7 @@ public class BuildCVView extends JPanel implements PropertyChangeListener {
 
         // Initialize components
         jobDescriptionArea = new JTextArea(5, 20);
-        cvTitleArea = new JTextArea(5,20);
+        cvTitleArea = new JTextArea(5,10);
         generateButton = new JButton("Generate Cover Letter");
         backButton = new JButton("Back");
         cvDisplayArea = new JTextArea(20, 50);
@@ -43,7 +43,7 @@ public class BuildCVView extends JPanel implements PropertyChangeListener {
         add(new JLabel("Job Description:"));
         add(new JScrollPane(jobDescriptionArea));
         add(new JLabel("Cover Letter Title:"));
-        add(cvTitleArea);
+        add(new JScrollPane(cvTitleArea));
         add(generateButton);
         add(backButton);
         add(new JLabel("Generated Cover Letter:"));
