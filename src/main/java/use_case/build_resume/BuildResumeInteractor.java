@@ -4,7 +4,6 @@ package use_case.build_resume;
 import data_access.UserDataAccessInterface;
 import entity.*;
 import services.ChatGPTService;
-import session.UserSession;
 
 public class BuildResumeInteractor implements BuildResumeInputBoundary {
     private UserDataAccessInterface userDataAccess;
@@ -30,7 +29,8 @@ public class BuildResumeInteractor implements BuildResumeInputBoundary {
         User user = userDataAccess.getCurrentUser();
 
         if (user == null) {
-            BuildResumeOutputData outputData = new BuildResumeOutputData("", "No user is currently logged in.");
+            BuildResumeOutputData outputData = new BuildResumeOutputData("",
+                    "No user is currently logged in.");
             presenter.present(outputData);
             return;
         }
@@ -41,7 +41,8 @@ public class BuildResumeInteractor implements BuildResumeInputBoundary {
 
         // Check if the job description is null or empty
         if (jobDescription == null || jobDescription.trim().isEmpty()) {
-            BuildResumeOutputData outputData = new BuildResumeOutputData("", "Job description is empty");
+            BuildResumeOutputData outputData = new BuildResumeOutputData("",
+                    "Job description is empty");
             presenter.present(outputData);
             return;
         }
@@ -59,7 +60,8 @@ public class BuildResumeInteractor implements BuildResumeInputBoundary {
 
         userDataAccess.addResume(resume, username);
 
-        BuildResumeOutputData outputData = new BuildResumeOutputData(resumeContent, "Resume generated successfully");
+        BuildResumeOutputData outputData = new BuildResumeOutputData(resumeContent,
+                "Resume generated successfully");
         presenter.present(outputData);
     }
 
