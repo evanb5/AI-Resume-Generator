@@ -1,0 +1,581 @@
+@startuml
+skinparam packageStyle rectangle
+
+' Enclose services, view, and data_access in "Frameworks & Drivers" frame
+frame "Frameworks & Drivers" {
+    ' Define package data_access
+    package "data_access" {
+        class InMemoryUserDataAccessObject {
+            - users : Map<String, User>
+            - resumes : Map<String, ArrayList<Resume>>
+            - cvs : Map<String, HashMap<String,String>>
+            - currentUser : User
+            + setCurrentUser(User)
+            + getCurrentUser() : User
+            + getCurrentUserName() : String
+            + saveUser(User)
+            + getUser(String) : User
+            + updateUser(User)
+            + deleteUser(String)
+            + addResume(Resume, String)
+            + getResumes(String) : ArrayList<Resume>
+            + getResumeContent(String, int) : Resume
+            + getResumeCount(String) : int
+            + addCv(String, CV)
+            + getCvs(String) : HashMap<String, String>
+            + getCvCount(String) : int
+            + getCvContent(String, String) : String
+        }
+        interface UserDataAccessInterface {
+            + saveUser(User)
+            + getUser(String) : User
+            + updateUser(User)
+            + deleteUser(String)
+            + getCurrentUser() : User
+            + setCurrentUser(User)
+            + getCurrentUserName() : String
+            + addResume(Resume, String)
+            + getResumes(String) : ArrayList<Resume>
+            + getResumeContent(String, int) : Resume
+            + getResumeCount(String) : int
+            + addCv(String, CV)
+            + getCvs(String) : HashMap<String, String>
+            + getCvCount(String) : int
+            + getCvContent(String, String) : String
+        }
+        InMemoryUserDataAccessObject ..|> UserDataAccessInterface
+    }
+
+    ' Define package services
+    package "services" {
+        class ChatGPTService {
+            - apiKey : String
+            - endpoint : String
+            - deploymentName : String
+            - client : ChatCompletionsClient
+            - chatMessages : List<ChatRequestMessage>
+            + generateResume(String, String, int) : String
+            + generateCV(String, String) : String
+            + generateSuggestions(String, String, String) : String
+        }
+    }
+
+    ' Define package view
+    package "view" {
+        class BuildCVView {
+            - viewManager : ViewManager
+            - controller : BuildCVController
+            - buildCVViewModel : BuildCVViewModel
+            + clearView()
+        }
+        class BuildResumeView {
+            - viewManager : ViewManager
+            - controller : BuildResumeController
+            - buildResumeViewModel : BuildResumeViewModel
+            + clearView()
+        }
+        class CVHistoryView {
+            - viewManager : ViewManager
+            - controller : CVhistoryController
+            - cvhistoryViewModel : CVhistoryViewModel
+            + refreshcv()
+        }
+        class GiveSuggestionsView {
+            - viewManager : ViewManager
+            - controller : GiveSuggestionsController
+            - giveSuggestionsViewModel : GiveSuggestionsViewModel
+            + clearView()
+        }
+        class HistoryView {
+            - viewManager : ViewManager
+            - controller : HistoryController
+            - historyViewModel : HistoryViewModel
+            + refreshnow()
+        }
+        class LoginView {
+            - viewManager : ViewManager
+            - loginViewModel : LoginViewModel
+            + clearprevioususerinformation()
+            + setLoginController(LoginController)
+        }
+        class PastResumesView {
+            - viewManager : ViewManager
+            - controller : ResumeHistoryController
+            - resumeHistoryViewModel : ResumeHistoryViewModel
+            + refreshResumes()
+        }
+        class SignupView {
+            - viewManager : ViewManager
+            - signupViewModel : SignupViewModel
+            + clearall()
+            + setSignupController(SignupController)
+        }
+        class UserInputView {
+            - viewManager : ViewManager
+            - controller : UserInputController
+            - userInputViewModel : UserInputViewModel
+            + refreshUserData()
+        }
+        class ViewManager {
+            - frame : JFrame
+            - cardLayout : CardLayout
+            - mainPanel : JPanel
+            + showLoginView()
+            + showSignupView()
+            + showUserInputView()
+            + showBuildResumeView()
+            + showBuildCVView()
+            + showGiveSuggestionsView()
+            + showHistoryView()
+            + showHistoryCVView()
+            + showPastResumesView()
+        }
+    }
+}
+
+' Define package entity
+package "entity" {
+    class CommonCV {
+        - cv : String
+        - name : String
+        + getCv() : String
+        + setCv(String)
+        + getName() : String
+        + setName(String)
+    }
+    class CommonCVFactory {
+        + createCV() : CV
+    }
+    class CommonResume {
+        - resumeName : String
+        - resumeContent : String
+        + getResumeName() : String
+        + setResumeName(String)
+        + getResumeContent() : String
+        + setResumeContent(String)
+    }
+    class CommonResumeFactory {
+        + createResume() : Resume
+    }
+    class CommonUser {
+        - username : String
+        - password : String
+        - email : String
+        - fullName : String
+        - workExperience : List<String>
+        - education : List<String>
+        - skills : List<String>
+        + getUsername() : String
+        + setUsername(String)
+        + getPassword() : String
+        + setPassword(String)
+        + getEmail() : String
+        + setEmail(String)
+        + getFullName() : String
+        + setFullName(String)
+        + getWorkExperience() : List<String>
+        + setWorkExperience(List<String>)
+        + getEducation() : List<String>
+        + setEducation(List<String>)
+        + getSkills() : List<String>
+        + setSkills(List<String>)
+    }
+    class CommonUserFactory {
+        + createUser() : User
+    }
+    interface CV {
+        + getName() : String
+        + setName(String)
+        + getCv() : String
+        + setCv(String)
+    }
+    interface CVFactory {
+        + createCV() : CV
+    }
+    interface Resume {
+        + getResumeName() : String
+        + setResumeName(String)
+        + getResumeContent() : String
+        + setResumeContent(String)
+    }
+    interface ResumeFactory {
+        + createResume() : Resume
+    }
+    interface User {
+        + getUsername() : String
+        + setUsername(String)
+        + getPassword() : String
+        + setPassword(String)
+        + getEmail() : String
+        + setEmail(String)
+        + getFullName() : String
+        + setFullName(String)
+        + getWorkExperience() : List<String>
+        + setWorkExperience(List<String>)
+        + getEducation() : List<String>
+        + setEducation(List<String>)
+        + getSkills() : List<String>
+        + setSkills(List<String>)
+    }
+    interface UserFactory {
+        + createUser() : User
+    }
+
+    CommonCV ..|> CV
+    CommonCVFactory ..|> CVFactory
+    CommonResume ..|> Resume
+    CommonResumeFactory ..|> ResumeFactory
+    CommonUser ..|> User
+    CommonUserFactory ..|> UserFactory
+}
+
+' Define package interface_adapter
+package "interface_adapter" {
+    class ViewModel {
+        - support : PropertyChangeSupport
+        - state : T
+        + getState() : T
+        + setState(T)
+        + firePropertyChanged()
+        + addPropertyChangeListener(PropertyChangeListener)
+    }
+}
+
+' Define package use_case.build_cv
+package "use_case.build_cv" {
+    interface BuildCVInputBoundary {
+        + buildCV(BuildCVInputData)
+    }
+    class BuildCVInputData {
+        - jobDescription : String
+        - cvTitle : String
+    }
+    class BuildCVInteractor {
+        - userDataAccess : UserDataAccessInterface
+        - presenter : BuildCVOutputBoundary
+        - chatGPTService : ChatGPTService
+        + buildCV(BuildCVInputData)
+    }
+    interface BuildCVOutputBoundary {
+        + present(BuildCVOutputData)
+    }
+    class BuildCVOutputData {
+        - formattedCV : String
+        - message : String
+    }
+    BuildCVInteractor ..|> BuildCVInputBoundary
+}
+
+' Define package interface_adapter.build_cv
+package "interface_adapter.build_cv" {
+    class BuildCVController {
+        - interactor : BuildCVInputBoundary
+        + buildCV(BuildCVInputData)
+    }
+    class BuildCVPresenter {
+        - viewModel : BuildCVViewModel
+        + present(BuildCVOutputData)
+    }
+    class BuildCVViewModel {
+        - formattedCV : String
+        - message : String
+        + getFormattedCV() : String
+        + setFormattedCV(String)
+        + getMessage() : String
+        + setMessage(String)
+    }
+    class BuildCVState {
+        - formattedCV : String
+        - message : String
+    }
+    BuildCVPresenter ..|> BuildCVOutputBoundary
+    BuildCVViewModel --> BuildCVState
+    BuildCVViewModel --|> ViewModel : extends
+}
+
+' Define package use_case.build_resume
+package "use_case.build_resume" {
+    interface BuildResumeInputBoundary {
+        + buildResume(BuildResumeInputData)
+    }
+    class BuildResumeInputData {
+        - username : String
+        - userInfo : String
+        - jobDescription : String
+        - templateNumber : int
+    }
+    class BuildResumeInteractor {
+        - userDataAccess : UserDataAccessInterface
+        - presenter : BuildResumeOutputBoundary
+        - chatGPTService : ChatGPTService
+        - resumeFactory : ResumeFactory
+        + buildResume(BuildResumeInputData)
+    }
+    interface BuildResumeOutputBoundary {
+        + present(BuildResumeOutputData)
+    }
+    class BuildResumeOutputData {
+        - formattedResume : String
+        - message : String
+    }
+    BuildResumeInteractor ..|> BuildResumeInputBoundary
+}
+
+' Define package interface_adapter.build_resume
+package "interface_adapter.build_resume" {
+    class BuildResumeController {
+        - interactor : BuildResumeInputBoundary
+        + buildResume(BuildResumeInputData)
+    }
+    class BuildResumePresenter {
+        - buildResumeViewModel : BuildResumeViewModel
+        + present(BuildResumeOutputData)
+    }
+    class BuildResumeViewModel {
+        - formattedResume : String
+        - message : String
+        + getFormattedResume() : String
+        + setFormattedResume(String)
+        + getMessage() : String
+        + setMessage(String)
+    }
+    class BuildResumeState {
+        - formattedResume : String
+        - message : String
+    }
+    BuildResumePresenter ..|> BuildResumeOutputBoundary
+    BuildResumeViewModel --> BuildResumeState
+    BuildResumeViewModel --|> ViewModel : extends
+}
+
+' Define package use_case.login
+package "use_case.login" {
+    interface LoginInputBoundary {
+        + login(LoginInputData)
+    }
+    class LoginInputData {
+        - username : String
+        - password : String
+    }
+    class LoginInteractor {
+        - userDataAccess : UserDataAccessInterface
+        - presenter : LoginOutputBoundary
+        + login(LoginInputData)
+    }
+    interface LoginOutputBoundary {
+        + present(LoginOutputData)
+    }
+    class LoginOutputData {
+        - success : boolean
+        - message : String
+    }
+    LoginInteractor ..|> LoginInputBoundary
+}
+
+' Define package interface_adapter.login
+package "interface_adapter.login" {
+    class LoginController {
+        - interactor : LoginInputBoundary
+        + login(String, String)
+    }
+    class LoginPresenter {
+        - viewModel : LoginViewModel
+        + present(LoginOutputData)
+    }
+    class LoginViewModel {
+        - success : boolean
+        - message : String
+        - user : User
+        + isSuccess() : boolean
+        + setSuccess(boolean)
+        + getMessage() : String
+        + setMessage(String)
+        + getUser() : User
+        + setUser(User)
+    }
+    class LoginState {
+        - userName : String
+        - password : String
+        - message : String
+    }
+    LoginPresenter ..|> LoginOutputBoundary
+    LoginViewModel --> LoginState
+    LoginViewModel --|> ViewModel : extends
+}
+
+' Define package use_case.signup
+package "use_case.signup" {
+    interface SignupInputBoundary {
+        + signup(SignupInputData)
+    }
+    class SignupInputData {
+        - username : String
+        - password : String
+        - email : String
+    }
+    class SignupInteractor {
+        - userDataAccess : UserDataAccessInterface
+        - userFactory : UserFactory
+        - presenter : SignupOutputBoundary
+        + signup(SignupInputData)
+    }
+    interface SignupOutputBoundary {
+        + present(SignupOutputData)
+    }
+    class SignupOutputData {
+        - success : boolean
+        - message : String
+        - username : String
+    }
+    SignupInteractor ..|> SignupInputBoundary
+}
+
+' Define package interface_adapter.signup
+package "interface_adapter.signup" {
+    class SignupController {
+        - interactor : SignupInputBoundary
+        + signup(String, String, String)
+    }
+    class SignupPresenter {
+        - viewModel : SignupViewModel
+        - loginViewModel : LoginViewModel
+        + present(SignupOutputData)
+    }
+    class SignupViewModel {
+        - success : boolean
+        - message : String
+        + isSuccess() : boolean
+        + setSuccess(boolean)
+        + getMessage() : String
+        + setMessage(String)
+    }
+    class SignupState {
+        - userName : String
+        - email : String
+        - password : String
+    }
+    SignupPresenter ..|> SignupOutputBoundary
+    SignupViewModel --> SignupState
+    SignupViewModel --|> ViewModel : extends
+}
+
+' Define package use_case.user_input
+package "use_case.user_input" {
+    interface UserInputInputBoundary {
+        + updateUserData(UserInputData)
+        + getUserData()
+    }
+    class UserInputData {
+        - fullname : String
+        - email : String
+        - workexperience : String[]
+        - education : String[]
+        - skills : String[]
+    }
+    class UserInputInteractor {
+        - userDataAccess : UserDataAccessInterface
+        - presenter : UserInputOutputBoundary
+        + updateUserData(UserInputData)
+        + getUserData()
+    }
+    interface UserInputOutputBoundary {
+        + present(UserInputOutputData)
+        + refresh(UserInputOutputDataforrefresh)
+    }
+    class UserInputOutputData {
+        - success : boolean
+    }
+    class UserInputOutputDataforrefresh {
+        - fullname : String
+        - email : String
+        - workexperience : List<String>
+        - education : List<String>
+        - skills : List<String>
+    }
+    UserInputInteractor ..|> UserInputInputBoundary
+}
+
+' Define package interface_adapter.user_input
+package "interface_adapter.user_input" {
+    class UserInputController {
+        - interactor : UserInputInputBoundary
+        + updateUserData(UserInputData)
+        + refreshUserData()
+    }
+    class UserInputPresenter {
+        - viewModel : UserInputViewModel
+        + present(UserInputOutputData)
+        + refresh(UserInputOutputDataforrefresh)
+    }
+    class UserInputViewModel {
+        - success : boolean
+        - fullname : String
+        - email : String
+        - workexperience : List<String>
+        - education : List<String>
+        - skills : List<String>
+        + isSuccess() : boolean
+        + setSuccess(boolean)
+        + getFullname() : String
+        + setFullname(String)
+        + getEmail() : String
+        + setEmail(String)
+        + getWorkexperience() : List<String>
+        + setWorkexperience(List<String>)
+        + getEducation() : List<String>
+        + setEducation(List<String>)
+        + getSkills() : List<String>
+        + setSkills(List<String>)
+    }
+    class InputUserState {
+        - success : boolean
+        - fullname : String
+        - email : String
+        - workexperience : List<String>
+        - education : List<String>
+        - skills : List<String>
+    }
+    UserInputPresenter ..|> UserInputOutputBoundary
+    UserInputViewModel --> InputUserState
+    UserInputViewModel --|> ViewModel : extends
+}
+
+' Define relationships between classes
+InMemoryUserDataAccessObject --> User
+InMemoryUserDataAccessObject --> Resume
+InMemoryUserDataAccessObject --> CV
+
+BuildCVController --> BuildCVInputBoundary
+BuildCVPresenter ..|> BuildCVOutputBoundary
+BuildCVInteractor --> BuildCVOutputBoundary
+BuildCVInteractor --> UserDataAccessInterface
+BuildCVInteractor --> ChatGPTService
+BuildCVViewModel --|> ViewModel : extends
+
+BuildResumeController --> BuildResumeInputBoundary
+BuildResumePresenter ..|> BuildResumeOutputBoundary
+BuildResumeInteractor --> BuildResumeOutputBoundary
+BuildResumeInteractor --> UserDataAccessInterface
+BuildResumeInteractor --> ChatGPTService
+BuildResumeViewModel --|> ViewModel : extends
+
+LoginController --> LoginInputBoundary
+LoginPresenter ..|> LoginOutputBoundary
+LoginInteractor --> LoginOutputBoundary
+LoginInteractor --> UserDataAccessInterface
+LoginViewModel --|> ViewModel : extends
+
+SignupController --> SignupInputBoundary
+SignupPresenter ..|> SignupOutputBoundary
+SignupInteractor --> SignupOutputBoundary
+SignupInteractor --> UserDataAccessInterface
+SignupInteractor --> UserFactory
+SignupViewModel --|> ViewModel : extends
+
+UserInputController --> UserInputInputBoundary
+UserInputPresenter ..|> UserInputOutputBoundary
+UserInputInteractor --> UserInputOutputBoundary
+UserInputInteractor --> UserDataAccessInterface
+UserInputViewModel --|> ViewModel : extends
+
+@enduml
