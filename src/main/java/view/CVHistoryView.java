@@ -99,7 +99,7 @@ public class CVHistoryView  extends JPanel implements PropertyChangeListener {
             add(DisplayArea);
             add(backButton);
 
-            DisplayArea.setText("You havent produced any CV yet");
+            DisplayArea.setText("You havent generated any Cover Letters yet");
         }else {
             JPanel titlrPanel = new JPanel();
             titlrPanel.setLayout(new BoxLayout(titlrPanel, BoxLayout.X_AXIS));

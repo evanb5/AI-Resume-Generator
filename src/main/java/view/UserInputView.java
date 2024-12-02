@@ -43,7 +43,7 @@ public class UserInputView extends JPanel implements PropertyChangeListener {
         skillsArea = new JTextArea(5, 20);
         saveButton = new JButton("Save");
         buildResumeButton = new JButton("Build Resume");
-        buildCVButton = new JButton("Build CV");
+        buildCVButton = new JButton("Build Cover Letter");
         giveSuggestionsButton = new JButton("Give Suggestions");
         logoutButton = new JButton("Logout");
         historyButton = new JButton("History");
