@@ -71,10 +71,10 @@ public class ViewManager {
         mainPanel.add(signupView, "SignupView");
         mainPanel.add(userInputView, "UserInputView");
         mainPanel.add(buildResumeView, "BuildResumeView");
-        mainPanel.add(buildCVView, "BuildCVView");
+        mainPanel.add(buildCVView, "BuildCoverLetterView");
         mainPanel.add(giveSuggestionsView, "GiveSuggestionsView");
         mainPanel.add(historyView, "HistoryView");
-        mainPanel.add(cvHistoryView, "HistoryCVView");
+        mainPanel.add(cvHistoryView, "HistoryCoverLetterView");
         mainPanel.add(pastResumesView, "PastResumesView"); // Add PastResumesView to mainPanel
 
         frame.add(mainPanel);
@@ -105,7 +105,7 @@ public class ViewManager {
 
     public void showBuildCVView() {
         buildCVView.clearView();
-        cardLayout.show(mainPanel, "BuildCVView");
+        cardLayout.show(mainPanel, "BuildCoverLetterView");
     }
 
     public void showGiveSuggestionsView() {
@@ -120,7 +120,7 @@ public class ViewManager {
 
     public void showHistoryCVView() {
         cvHistoryView.refreshcv();
-        cardLayout.show(mainPanel, "HistoryCVView");
+        cardLayout.show(mainPanel, "HistoryCoverLetterView");
     }
 
     public void showPastResumesView() { // New method to show PastResumesView

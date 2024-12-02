@@ -36,7 +36,7 @@ public class BuildResumeInteractorTest {
 
     @Test
     public void testBuildResumeSuccess() {
-        BuildResumeInputData inputData = new BuildResumeInputData("john_doe", "User Info", "Job Description", 1);
+        BuildResumeInputData inputData = new BuildResumeInputData("Job Description", 1);
 
         when(chatGPTService.generateResume("User Info", "Job Description", 1))
                 .thenReturn("Generated Resume Content");
@@ -58,7 +58,7 @@ public class BuildResumeInteractorTest {
 
     @Test
     public void testBuildResumeWithEmptyJobDescription() {
-        BuildResumeInputData inputData = new BuildResumeInputData("john_doe", "User Info", "", 1);
+        BuildResumeInputData inputData = new BuildResumeInputData("", 1);
 
         interactor.buildResume(inputData);
 
@@ -72,7 +72,7 @@ public class BuildResumeInteractorTest {
 
     @Test
     public void testBuildResumeWithNullJobDescription() {
-        BuildResumeInputData inputData = new BuildResumeInputData("john_doe", "User Info", null, 1);
+        BuildResumeInputData inputData = new BuildResumeInputData(null, 1);
 
         interactor.buildResume(inputData);
 
@@ -86,7 +86,7 @@ public class BuildResumeInteractorTest {
 
     @Test
     public void testBuildResumeWithWhitespaceJobDescription() {
-        BuildResumeInputData inputData = new BuildResumeInputData("john_doe", "User Info", "   ", 1);
+        BuildResumeInputData inputData = new BuildResumeInputData("   ", 1);
 
         interactor.buildResume(inputData);
 
