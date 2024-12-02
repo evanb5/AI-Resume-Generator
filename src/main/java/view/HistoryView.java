@@ -34,8 +34,8 @@ public class HistoryView extends JPanel implements PropertyChangeListener {
         resumenumber = new JTextArea(10, 2);
         resumenumber.setEditable(false);
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-        CVhistorybutton = new JButton("CVHistory");
-        resumehistorybutton = new JButton("ResumeHistory");
+        CVhistorybutton = new JButton("Cover Letter History");
+        resumehistorybutton = new JButton("Resume History");
         refresh = new JButton("Refresh");
         back = new JButton("Back");
 
@@ -70,7 +70,7 @@ public class HistoryView extends JPanel implements PropertyChangeListener {
     }
     public void refreshnow() {
         controller.historyinput();
-        CVnumbver.setText("the number of CV created is: " + historyViewModel.getCv());
+        CVnumbver.setText("the number of Cover Letters created is: " + historyViewModel.getCv());
         resumenumber.setText("the number of resume created is: " + historyViewModel.getResume());
     }
 
