@@ -4,7 +4,6 @@ package use_case.build_resume;
 import data_access.UserDataAccessInterface;
 import entity.*;
 import services.ChatGPTService;
-import session.UserSession;
 
 public class BuildResumeInteractor implements BuildResumeInputBoundary {
     private UserDataAccessInterface userDataAccess;
