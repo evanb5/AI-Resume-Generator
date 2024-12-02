@@ -54,7 +54,7 @@ public class BuildCVInteractor implements BuildCVInputBoundary {
 
         userDataAccess.addCv(username, newCV);
 
-        BuildCVOutputData outputData = new BuildCVOutputData(cvContent, "CV generated successfully");
+        BuildCVOutputData outputData = new BuildCVOutputData(cvContent, "Cover Letter generated successfully");
         presenter.present(outputData);
     }
 
