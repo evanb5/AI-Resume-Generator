@@ -34,7 +34,7 @@ The AI Resume Generator is a cutting-edge tool that leverages Azure OpenAI GPT-4
 ### Screenshots and Examples
 
 #### Login and Signup
-![Signup Page Screenshot](https://github.com/user-attachments/assets/ec342033-9e8a-488e-8b31-94280b22b27d)
+![Signup Page Screenshot](https://github.com/user-attachments/assets/dba2329d-41d8-4cc3-83dc-361a3d4674d4)
 _Signup Page_
 
 
