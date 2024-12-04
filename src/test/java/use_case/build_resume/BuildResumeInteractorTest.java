@@ -76,7 +76,6 @@ public class BuildResumeInteractorTest {
         ));
     }
 
-
     @Test
     public void testBuildResumeWithEmptyJobDescription() {
         BuildResumeInputData inputData = new BuildResumeInputData("", 1);
@@ -90,6 +89,23 @@ public class BuildResumeInteractorTest {
 
         verifyNoInteractions(chatGPTService);
     }
+
+    @Test
+    public void testBuildResumeWhenNoUserLoggedIn() {
+        when(userDataAccess.getCurrentUser()).thenReturn(null);
+
+        BuildResumeInputData inputData = new BuildResumeInputData("Valid Job Description", 1);
+
+        interactor.buildResume(inputData);
+
+        verify(presenter).present(argThat(outputData ->
+                outputData.getFormattedResume().isEmpty() &&
+                        outputData.getMessage().equals("No user is currently logged in.")
+        ));
+
+        verifyNoInteractions(chatGPTService);
+    }
+
 
     @Test
     public void testBuildResumeWithNullJobDescription() {
